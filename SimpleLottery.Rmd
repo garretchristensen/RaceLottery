@@ -1,0 +1,28 @@
+---
+title: "Weighted Race Lottery"
+author: "Garret Christensen"
+date: "September 17, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 2020 Race Lottery Background
+
+Thanks to all who entered. The selection was conducted randomly using a computer program written by Garret Christensen. The script is available on GitHub [here](http://www.github.com/garretchristensen/RaceLottery).
+
+```{r seed}
+set.seed(1492)
+```
+The seed for the pseudo-random number generator was set using 4 rolls of a 10-sided die, held in public at Law's Whiskey Bar in Salida, CO on Nover 15, 2019.
+
+## 2020 Race Lottery Winners
+The data file of entrants in the lottery, including the characteristics used in the lottery (previous finishes, previous starts, previous applications) can also be found in the GitHub repository [here](http://www.github.com/garretchristensen/RaceLottery). 
+```{r results, echo=FALSE}
+df<-read.csv("./fakedata.csv")
+head(df)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
