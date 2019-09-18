@@ -1,2 +1,2 @@
 # RaceLottery
-An interactice design for an ultramarathon lottery
+An interactive design for an ultramarathon lottery
