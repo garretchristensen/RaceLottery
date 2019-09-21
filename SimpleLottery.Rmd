@@ -2,27 +2,145 @@
 title: "Weighted Race Lottery"
 author: "Garret Christensen"
 date: "September 17, 2019"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(tibble)
+temp<-read.csv("./fakedata.csv", stringsAsFactors = FALSE) #LOAD THE DATA
+df<-as_data_frame(temp)
 ```
 
 ## 2020 Race Lottery Background
 
-Thanks to all who entered. The selection was conducted randomly using a computer program written by Garret Christensen. The script is available on GitHub [here](http://www.github.com/garretchristensen/RaceLottery).
+Thanks to all `r nrow(df)` who entered. The selection was conducted randomly using a computer program written by Garret Christensen. The script is available on GitHub [here](http://www.github.com/garretchristensen/RaceLottery).
 
-```{r seed}
-set.seed(1492)
+```{r seed, echo=FALSE, results=FALSE}
+set.seed(1494) #SET THE SEED WITH DICE!
+n<-125 #SET THE TOTAL NUMBER TO PICK
+
+#NUMBER OF MEN AND WOMEN APPLICANTS
+n_men_app=nrow(men<-df[which(df$female==0),])
+n_women_app=nrow(women<-df[which(df$female==1),])
+
+#WHO HAS MORE APPLICANTS AND WOULD GET THE ODD SLOT, IF APPLICABLE?
+ if (n_men_app > n_women_app) {
+   largest<-"men"
+ } else {
+     largest<-"women"
+ }
+
+#FIRST, DO WE EVEN HAVE TO BOTHER RUNNING A LOTTERY?
+if (n_men_app+n_women_app<n) {
+  print ("THERE IS NO REASON TO RUN A LOTTERY! Everyone gets in! The code still runs, but you can ignore a lot of what is below.")
+  n_women_pick<-n_women_app
+  n_men_pick<-n_men_app
+} else {
+
+#IS THE ENTRY CAP EVEN?
+#IF SO, WHICH SEX HAS MORE APPLICANTS?
+#AND DO WOMEN HAVE ENOUGH APPLICANTS?
+if((n %% 2) == 0) {
+  print("Entry cap is even.")
+    #CAP IS EVEN
+    #DO WOMEN HAVE ENOUGH APPLICANTS?
+    if (n_women_app>=n/2) {
+        print("Women have enough applicants to fill their race.")
+        #YES THEY DO
+        n_women_pick<-n/2
+        n_men_pick<-n/2
+    }   else {
+         print("Women don't have enough applicants to fill their race.")
+        #NO THEY DON'T, GIVE EXTRA SLOTS TO MEN
+        n_women_pick<-n_women_app
+        n_men_pick=n-n_women_pick
+    }
+} 
+
+#IS THE ENTRY CAP ODD?
+#IF SO, WHICH SEX HAS MORE APPLICANTS?
+#AND DO WOMEN HAVE ENOUGH APPLICANTS?
+if ((n %% 2) == 1) {
+  print("Entry cap is odd.")
+  if (n_women_app>n/2) {
+  print("Women have enough applicants to fill their race.")
+    
+  if (n_men_app>n_women_app) {  
+    print("Men have more applicants and get the rounding slot.")
+    n_men_pick<-round((n/2+.00001), digits = 0)
+    n_women_pick<-round((n/2)-1, digits = 0)
+  } else {
+    print("Women have at least equal applicants and get the rounding slot.")
+    n_women_pick<-round((n/2+.00001), digits = 0)
+    n_men_pick<-round((n/2)-1, digits = 0)
+  } #END WOMEN HAVE ENOUGH
+  } else {
+    print("Women don't have enough applicants to fill their race.")
+    n_women_pick<-n_women_app
+    n_men_pick=n-n_women_pick
+  }  
+}
+
+} # END OVERALL NEED TO RUN LOTTERY
 ```
 The seed for the pseudo-random number generator was set using 4 rolls of a 10-sided die, held in public at Law's Whiskey Bar in Salida, CO on Nover 15, 2019.
 
-## 2020 Race Lottery Winners
-The data file of entrants in the lottery, including the characteristics used in the lottery (previous finishes, previous starts, previous applications) can also be found in the GitHub repository [here](http://www.github.com/garretchristensen/RaceLottery). 
-```{r results, echo=FALSE}
-df<-read.csv("./fakedata.csv")
+The number of slots available through the lottery is: `r n`. Half the slots go to men and half to women. (If there are an odd number of slots, whichever sex has more entrants gets the extra slot, ties going to women. In our case, that's `r largest`. `r n_women_app` women applied and `r n_men_app` men applied, so we'll be picking `r n_women_pick` women and `r n_men_pick` men.)
+
+## 2020 Race Lottery Entrants
+The data file of all `r nrow(df)` entrants in the lottery, including the characteristics used in the lottery (previous finishes, previous starts, previous applications) can also be found in the GitHub repository [here](http://www.github.com/garretchristensen/RaceLottery). 
+
+Just to give you an idea, the dataset looks like this:
+```{r entrants, echo=FALSE}
+df<-df[,c(1,2,4,5,7,8,9,3)] #rearrange. 6 was temporary/made-up
 head(df)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+And summary characteristics of entrants are as follows:
+
+`r mean(df$female)*100`% Female.
+
+Average Age: `r round(mean(df$age), digits=2)`
+
+Average Finishes: `r round(mean(df$finishes), digits=2)`
+
+Average Starts: `r round(mean(df$starts), digits=2)`
+
+Average Applications: `r round(mean(df$applications), digits=2)`
+
+
+## 2020 Race Lottery Entrants
+Entrants were given one ticket for each year of the following: starting, finishing, and applying for the race. The winners are listed below, and their names have been saved to CSV files, ./women_winners.csv and ./men_winners.csv. 
+
+The mens and womens lotteries were conducted separately, with equal number of men and women chosen, except in the (unlikely, we hope!) event of fewer women entering than slots available. In that case, we reassigned extra slots to men.
+
+The female lottery winners are:
+```{r winners, echo=FALSE}
+#stupid example formula for a persons tickets
+#dplyr function sample_n will work with weights, normalize automatically
+#syntax:sample_n(tbl, size, replace = FALSE, weight = NULL, .env = NULL, ...)
+df$tickets<-df$finishes+df$starts+df$applications+1
+
+#make the mens and womens pools (separate tibbles)
+#newdata <- mydata[ which(mydata$gender=='F' 
+women<-df[which(df$female==1),]
+men<-df[which(df$female==0),]
+
+#Run the separate lotteries
+women_winners<-sample_n(women, n_women_pick, replace = FALSE, weight=women$tickets)
+men_winners<-sample_n(men, n_men_pick, replace = FALSE, weight=men$tickets)
+
+#Print the winners' names
+write.csv(women_winners$fullname)
+```
+The male lottery winners are:
+```{r men}
+write.csv(men_winners$fullname)
+```
+
+```
+
