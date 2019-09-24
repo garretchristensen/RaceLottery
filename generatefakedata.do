@@ -1,5 +1,6 @@
 cd C:/Users/garret/Documents/RaceLottery
 clear all
+tempfile temp
 set seed 1492
 set obs 26
 gen firstname=""
@@ -29,8 +30,8 @@ replace firstname="Wendy" in 23
 replace firstname="Xavier" in 24
 replace firstname="Yolonda" in 25
 replace firstname="Zebluon" in 26
-
-expand 10
+save `temp'
+append using `temp' `temp' `temp' `temp' `temp' `temp' `temp' `temp' `temp'
 gen lastname=int(_n/26)+1
 tostring lastname, replace
 gen fullname=firstname+" "+lastname
