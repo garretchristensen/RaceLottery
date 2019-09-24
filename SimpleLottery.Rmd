@@ -19,9 +19,9 @@ df<-as_data_frame(temp)
 
 Thanks to all `r nrow(df)` who entered. The selection was conducted randomly using a computer program written by Garret Christensen. The script is available on GitHub [here](http://www.github.com/garretchristensen/RaceLottery).
 
-```{r seed, echo=FALSE, results=FALSE}
+```{r seed, echo=FALSE, results=TRUE}
 set.seed(1494) #SET THE SEED WITH DICE!
-n<-125 #SET THE TOTAL NUMBER TO PICK
+n<-900 #SET THE TOTAL NUMBER TO PICK
 
 #NUMBER OF MEN AND WOMEN APPLICANTS
 n_men_app=nrow(men<-df[which(df$female==0),])
@@ -36,25 +36,26 @@ n_women_app=nrow(women<-df[which(df$female==1),])
 
 #FIRST, DO WE EVEN HAVE TO BOTHER RUNNING A LOTTERY?
 if (n_men_app+n_women_app<n) {
-  print ("THERE IS NO REASON TO RUN A LOTTERY! Everyone gets in! The code still runs, but you can ignore a lot of what is below.")
+  print ("THERE IS NO REASON TO RUN A LOTTERY! Everyone gets in!")
   n_women_pick<-n_women_app
   n_men_pick<-n_men_app
+  knitr::knit_exit()
 } else {
 
 #IS THE ENTRY CAP EVEN?
 #IF SO, WHICH SEX HAS MORE APPLICANTS?
 #AND DO WOMEN HAVE ENOUGH APPLICANTS?
 if((n %% 2) == 0) {
-  print("Entry cap is even.")
+  #print("Entry cap is even.")
     #CAP IS EVEN
     #DO WOMEN HAVE ENOUGH APPLICANTS?
     if (n_women_app>=n/2) {
-        print("Women have enough applicants to fill their race.")
+        #print("Women have enough applicants to fill their race.")
         #YES THEY DO
         n_women_pick<-n/2
         n_men_pick<-n/2
     }   else {
-         print("Women don't have enough applicants to fill their race.")
+         #print("Women don't have enough applicants to fill their race.")
         #NO THEY DON'T, GIVE EXTRA SLOTS TO MEN
         n_women_pick<-n_women_app
         n_men_pick=n-n_women_pick
@@ -63,23 +64,24 @@ if((n %% 2) == 0) {
 
 #IS THE ENTRY CAP ODD?
 #IF SO, WHICH SEX HAS MORE APPLICANTS?
-#AND DO WOMEN HAVE ENOUGH APPLICANTS?
+#AND DO WOMEN HAVE ENOUGH APPLICANTS? 
+#NOTE WE DON'T CHECK IF MEN HAVE ENOUGH--IT'S ASSUMED.
 if ((n %% 2) == 1) {
-  print("Entry cap is odd.")
+  #print("Entry cap is odd.")
   if (n_women_app>n/2) {
-  print("Women have enough applicants to fill their race.")
+  #print("Women have enough applicants to fill their race.")
     
   if (n_men_app>n_women_app) {  
-    print("Men have more applicants and get the rounding slot.")
+    #print("Men have more applicants and get the rounding slot.")
     n_men_pick<-round((n/2+.00001), digits = 0)
     n_women_pick<-round((n/2)-1, digits = 0)
   } else {
-    print("Women have at least equal applicants and get the rounding slot.")
+    #print("Women have at least equal applicants and get the rounding slot.")
     n_women_pick<-round((n/2+.00001), digits = 0)
     n_men_pick<-round((n/2)-1, digits = 0)
   } #END WOMEN HAVE ENOUGH
   } else {
-    print("Women don't have enough applicants to fill their race.")
+    #print("Women don't have enough applicants to fill their race.")
     n_women_pick<-n_women_app
     n_men_pick=n-n_women_pick
   }  
@@ -138,7 +140,7 @@ men_winners<-sample_n(men, n_men_pick, replace = FALSE, weight=men$tickets)
 write.csv(women_winners$fullname)
 ```
 The male lottery winners are:
-```{r men}
+```{r men, echo=FALSE}
 write.csv(men_winners$fullname)
 ```
 
