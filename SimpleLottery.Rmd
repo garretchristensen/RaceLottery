@@ -1,7 +1,7 @@
 ---
 title: "Weighted Race Lottery"
 author: "Garret Christensen"
-date: "September 17, 2019"
+date: "October 1, 2019"
 output:
   html_document: default
   pdf_document: default
@@ -11,17 +11,66 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 library(dplyr)
 library(tibble)
+library(readxl)
+
+hl2019<-read_excel("./HiLo Entrants by year.xlsx")
+hl2018<-read_excel("./HiLo Entrants by year.xlsx", sheet = "2018")
+hl2017<-read_excel("./HiLo Entrants by year.xlsx", sheet = "2017")
+
+ccc<-read_excel("./2019 CCC Lottery data scraped for High Lonesome lottery testing.xlsx")
+
 temp<-read.csv("./fakedata.csv", stringsAsFactors = FALSE) #LOAD THE DATA
 df<-as_data_frame(temp)
 ```
+# Testing Different Lottery Setups
+We have High Lonesome and Cascade Crest data to work with. We'll make an educated guess about how many HL applicants we'll have, and run a handful of versions of the lottery based on that. We'll also use the CCC data and see what mix of entrants we'd get with their data.
 
+```{r HLdata, echo=FALSE}
+men2017=nrow(men<-hl2017[which(hl2017$gender=="M"),])
+men2018=nrow(men<-hl2018[which(hl2018$gender=="M"),])
+men2019=nrow(men<-hl2019[which(hl2019$gender=="M"),])
+women2017=nrow(women<-hl2017[which(hl2017$gender=="F"),])
+women2018=nrow(women<-hl2018[which(hl2018$gender=="F"),])
+women2019=nrow(women<-hl2019[which(hl2019$gender=="F"),])
+
+```
+## Predicting the Future
+Is impossible, but let's guess how many HL applicants there will be for 2020:
+
+Male entrants: `r men2017` in 2017, `r men2018` in 2018, and `r men2019` in 2019.
+
+Female entrants: `r women2017` in 2017, `r women2018` in 2018, and `r women2019` in 2019.
+
+Male applicant growth rate was `r round(((men2019/men2018)-1)*100, digits=1)`% in 2019 and `r ((men2018/men2017)-1)*100`% in 2018, so let's assume that stays basically constant at `r round(((men2019/men2018)-1)*100, digits=1)`% and assume `r round(men2019/men2018*men2019, digits=0)` male entrants for 2020. Female applicant growth rate was was `r round(((women2019/women2018)-1)*100, digits=1)`% in 2019 and `r round(((women2018/women2017)-1)*100, digits=1)`% in 2018. That's a big decline in the growth rate, but maybe the new lottery will get women excited to enter? Let's guess the growth rate will go back up a little, but not all the way (1/3 the first year's growth, 2/3 the second year's, or `r round(((1/3*women2018/women2017 + 2/3*women2019/women2018)-1)*100, digits=1)`%). That's `r round(women2019*(1/3*women2018/women2017 + 2/3*women2019/women2018), digits=0)` female applicants.
+
+Since this is more applicants than we have previously observed, I'll randomly re-sample the existing 2019 applicants to make up the difference.
+
+## Lottery Design Choices
+There's no perfect design, but we have a few values we'd like to try and implement.
+
+* We want equal numbers of men and women (statiscally this is easy)
+* We'd like to get a mix of new and veteran runners, without guaranteeing entry for either
+* Previous unsuccessful applications should be nearly as valuable as running
+* We value volunteering and trail work
+* We'd like new entrants to have a decent chance to run within a couple-few years
+
+There's an infinite number of ways to design this, but here are some basic choices:
+
+* Linear--just add up points
+* Exponential--weight certain items by 2^N (or really, anthing greater than 1)
+* Caps--limit the number of tickets from a certain column (e.g. if you've run it 5+ times, you can let somebody else get a turn)
+
+
+
+# Running the Lottery
+The remainder of this document implements a single version of the lottery, formatting the output as you might want to for the actual event.
 ## 2020 Race Lottery Background
 
 Thanks to all `r nrow(df)` who entered. The selection was conducted randomly using a computer program written by Garret Christensen. The script is available on GitHub [here](http://www.github.com/garretchristensen/RaceLottery).
 
 ```{r seed, echo=FALSE, results=TRUE}
 set.seed(1494) #SET THE SEED WITH DICE!
-n<-900 #SET THE TOTAL NUMBER TO PICK
+n<-125 #SET THE TOTAL NUMBER TO PICK
 
 #NUMBER OF MEN AND WOMEN APPLICANTS
 n_men_app=nrow(men<-df[which(df$female==0),])
