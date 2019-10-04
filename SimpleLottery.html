@@ -12,7 +12,7 @@
 
 <meta name="author" content="Garret Christensen" />
 
-<meta name="date" content="2019-09-17" />
+<meta name="date" content="2019-10-01" />
 
 <title>Weighted Race Lottery</title>
 
@@ -365,15 +365,259 @@ summary {
 
 <h1 class="title toc-ignore">Weighted Race Lottery</h1>
 <h4 class="author">Garret Christensen</h4>
-<h4 class="date">September 17, 2019</h4>
+<h4 class="date">October 1, 2019</h4>
 
 </div>
 
 
-<div id="race-lottery-background" class="section level2">
-<h2>2020 Race Lottery Background</h2>
+<div id="testing-different-lottery-setups" class="section level1">
+<h1>Testing Different Lottery Setups</h1>
+<p>We have High Lonesome and Cascade Crest data to work with. We’ll make an educated guess about how many HL applicants we’ll have, and run a handful of versions of the lottery based on that. We’ll also use the CCC data and see what mix of entrants we’d get with their data.</p>
+<div id="predicting-the-future" class="section level3">
+<h3>Predicting the Future</h3>
+<p>Is impossible, but let’s guess how many HL applicants there will be for 2020:</p>
+<p>Male entrants: 75 in 2017, 135 in 2018, and 240 in 2019.</p>
+<p>Female entrants: 18 in 2017, 51 in 2018, and 65 in 2019.</p>
+<p>Male applicant growth rate was 77.8% in 2019 and 80% in 2018, so let’s assume that stays basically constant at 77.8% and assume 427 male entrants for 2020. Female applicant growth rate was was 27.5% in 2019 and 183.3% in 2018. That’s a big decline in the growth rate, but maybe the new lottery will get women excited to enter? Let’s guess the growth rate will go back up a little, but not all the way (1/4 the first year’s growth, 3/4 the second year’s, or 66.4%). That’s 108 female applicants.</p>
+<p>Since this is more applicants than we have previously observed, I’ll randomly re-sample the existing 2019 applicants to make up the difference.</p>
+</div>
+<div id="summary-of-entrants" class="section level3">
+<h3>Summary of Entrants</h3>
+<p>Here is a summary of the observed CCC entrants and observed (but oversampled) HL entrants</p>
+<p>HL men: 427 total, average age 41.1, previous finishes 0.1, 97% USA, volunteer shifts 0.1, extra trailwork 0</p>
+<p>HL women: 130 total, average age 40.1, previous finishes 0, 100% USA, volunteer shifts 0.1, extra trailwork 0</p>
+<p>CCC men: 385 total, average age 41.3, previous finishes 0.5, 93% USA, volunteer shifts 0.3, extra trailwork 0.1</p>
+<p>CCC women: 116 total, average age 40, previous finishes 0.6, 85% USA, volunteer shifts 0.2, extra trailwork 0.1</p>
+</div>
+<div id="lottery-design-choices" class="section level3">
+<h3>Lottery Design Choices</h3>
+<p>There’s no perfect design, but we have a few values we’d like to try and implement.</p>
+<ul>
+<li>We want equal numbers of men and women (statiscally this is easy)</li>
+<li>We’d like to get a mix of new and veteran runners, without guaranteeing entry for either</li>
+<li>Previous unsuccessful applications should be nearly as valuable as running</li>
+<li>We value volunteering and trail work</li>
+<li>We’d like new entrants to have a decent chance to run within a couple-few years</li>
+</ul>
+<p>There’s an infinite number of ways to design this, but here are some basic scaling choices:</p>
+<ul>
+<li>Linear–just add up points</li>
+<li>Exponential–weight certain items by 2^N (or really, anthing greater than 1)</li>
+<li>Caps–limit the number of tickets from a certain column (e.g. if you’ve run it 5+ times, you can let somebody else get a turn)</li>
+</ul>
+<p>Then there’s the activities for which we could award points:</p>
+<ul>
+<li>Volunteer shifts <em>at</em> High Lonesome</li>
+<li>Trailwork is required of everyone, but extra hours could be rewarded.</li>
+<li>Previous applications for the race</li>
+<li>Previous finishes of the race</li>
+</ul>
+<p>Obviously, all these add complications. There’s some value in a person being able to calculate their chances on their own, and we’ll have to verify all the info that Ultrasignup collects. (If we didn’t, someone could enter bogus info to improve their odds.) Aside: since weighting is complicated and selection is obviously done without replacement, a single person’s likelihood of selection is <em>not</em> equal to just their number of tickets divided by the total tickets. Regardless, simpler has benefits.</p>
+<div id="linear" class="section level4">
+<h4>Linear</h4>
+<p>The simplest method is just to decide which activities we value, award one ticket per instance of each of those activities, and draw. If we equally reward applying to the race, finishing the race, and volunteering an 8-hour shift at the race, then we could expect the following:</p>
+<p>Pros: Simplicity</p>
+<p>Cons: Runners get a small bonus <em>forever</em> for getting picked in prior years’ lotteries, assuming they finish the race. It’s linear, so it may not matter that much.</p>
+<p><strong>Winners</strong></p>
+<p>HL 2020 men: 63 total, average age 40, previous finishes 0.2, 100% USA, volunteer shifts 0.1, extra trailwork 0</p>
+<p>HL 2020 women: 62 total, average age 39.5, previous finishes 0.1, 100% USA, volunteer shifts 0.2, extra trailwork 0</p>
+<p>HL 2019 men: 63 total, average age 41.3, previous finishes 0.2, 98% USA, volunteer shifts 0.3, extra trailwork 0</p>
+<p>HL 2019 women: 62 total, average age 40.5, previous finishes 0, 100% USA, volunteer shifts 0.1, extra trailwork 0</p>
+<p>CCC men: 63 total, average age 42.1, previous finishes 1.5, 90% USA, volunteer shifts 0.8, extra trailwork 0.2</p>
+<p>CCC women: 62 total, average age 40.2, previous finishes 1, 87% USA, volunteer shifts 0.4, extra trailwork 0.1</p>
+</div>
+<div id="exponential" class="section level4">
+<h4>Exponential</h4>
+<p>A common method is to reward previous runners/applicants exponentially. This can improve odds for repeated applicants, but when the bulk of applicants become repeated entrants, the advantage can decline and first-time applicants have essentially no shot.</p>
+<p>Pros: People understand it because other races do it. Loyalty is rewarded.</p>
+<p>Cons: A veteran could esentially guarantee themselves entry.</p>
+<p><strong>Winners</strong></p>
+<p>HL 2020 men: 63 total, average age 40.1, previous finishes 0.1, 94% USA, volunteer shifts 0.3, extra trailwork 0</p>
+<p>HL 2020 women: 62 total, average age 41.4, previous finishes 0, 100% USA, volunteer shifts 0.1, extra trailwork 0</p>
+<p>HL 2019 men: 63 total, average age 40.4, previous finishes 0.2, 97% USA, volunteer shifts 0.2, extra trailwork 0</p>
+<p>HL 2019 women: 62 total, average age 40.4, previous finishes 0, 100% USA, volunteer shifts 0.1, extra trailwork 0</p>
+<p>CCC men: 63 total, average age 43, previous finishes 1.6, 90% USA, volunteer shifts 1, extra trailwork 0.1</p>
+<p>CCC women: 62 total, average age 39.5, previous finishes 0.9, 89% USA, volunteer shifts 0.4, extra trailwork 0.1</p>
+</div>
+<div id="exponential-with-decreasing-marginal-returns" class="section level4">
+<h4>Exponential with Decreasing Marginal Returns</h4>
+<p>Sorry, I’m an economist. Nothing gets better each time you do it ad infinitum. Perhaps if we reward certain activities up to a point, and then either level off or <em>decrease</em> the rewards for that activity, no one can guarantee themselves entry, and most people would feel like they had a shot of getting in within a few years. Of course, with enough applicants, everyone’s chances just suck (see Powerball/MegaMillions).</p>
+<p>Pros: Loyalty is rewarded but there’s no way to guarantee yourself entry year after year.</p>
+<p>Cons: Most complicated. Difficult (but should be possible) to avoid the situation where entrant’s chances increase to a point, then flatline or decrease without them ever having run.</p>
+<p><strong>Winners</strong></p>
+<p>HL 2020 men: 63 total, average age 41.1, previous finishes 0.1, 94% USA, volunteer shifts 0.3, extra trailwork 0</p>
+<p>HL 2020 women: 62 total, average age 40.1, previous finishes 0.1, 100% USA, volunteer shifts 0.2, extra trailwork 0</p>
+<p>HL 2019 men: 63 total, average age 41.7, previous finishes 0.2, 95% USA, volunteer shifts 0.2, extra trailwork 0</p>
+<p>HL 2019 women: 62 total, average age 40.4, previous finishes 0, 100% USA, volunteer shifts 0.1, extra trailwork 0</p>
+<p>CCC men: 63 total, average age 42.8, previous finishes 1.4, 92% USA, volunteer shifts 0.7, extra trailwork 0.1</p>
+<p>CCC women: 62 total, average age 40.6, previous finishes 1, 89% USA, volunteer shifts 0.4, extra trailwork 0.1</p>
+</div>
+</div>
+</div>
+<div id="running-the-lottery" class="section level1">
+<h1>Running the Lottery</h1>
+<p>The remainder of this document implements a single version of the lottery, formatting the output as you might want to for the actual event.</p>
+<div id="race-lottery-background" class="section level3">
+<h3>2020 Race Lottery Background</h3>
 <p>Thanks to all 260 who entered. The selection was conducted randomly using a computer program written by Garret Christensen. The script is available on GitHub <a href="http://www.github.com/garretchristensen/RaceLottery">here</a>.</p>
-<pre><code>## [1] &quot;THERE IS NO REASON TO RUN A LOTTERY! Everyone gets in!&quot;</code></pre>
+<p>The seed for the pseudo-random number generator was set using 4 rolls of a 10-sided die, held in public at Law’s Whiskey Bar in Salida, CO on Nover 15, 2019.</p>
+<p>The number of slots available through the lottery is: 125. Half the slots go to men and half to women. (If there are an odd number of slots, whichever sex has more entrants gets the extra slot, ties going to women. In our case, that’s women. 130 women applied and 130 men applied, so we’ll be picking 63 women and 62 men.)</p>
+</div>
+<div id="race-lottery-entrants" class="section level3">
+<h3>2020 Race Lottery Entrants</h3>
+<p>The data file of all 260 entrants in the lottery, including the characteristics used in the lottery (previous finishes, previous starts, previous applications) can also be found in the GitHub repository <a href="http://www.github.com/garretchristensen/RaceLottery">here</a>.</p>
+<p>Just to give you an idea, the dataset looks like this:</p>
+<pre><code>## # A tibble: 6 x 8
+##   firstname lastname female   age finishes starts applications fullname
+##   &lt;chr&gt;        &lt;int&gt;  &lt;int&gt; &lt;int&gt;    &lt;int&gt;  &lt;int&gt;        &lt;int&gt; &lt;chr&gt;   
+## 1 April            1      1    23        0      0            2 April 1 
+## 2 Bob              1      0    55        0      1            0 Bob 1   
+## 3 Cathy            1      1    39        0      0            1 Cathy 1 
+## 4 Doug             1      0    49        1      1            2 Doug 1  
+## 5 Elise            1      1    57        0      0            1 Elise 1 
+## 6 Fred             1      0    59        0      0            0 Fred 1</code></pre>
+<p>And summary characteristics of entrants are as follows:</p>
+<p>50% Female.</p>
+<p>Average Age: 43.75</p>
+<p>Average Finishes: 0.35</p>
+<p>Average Starts: 0.69</p>
+<p>Average Applications: 0.94</p>
+</div>
+<div id="race-lottery-winners" class="section level3">
+<h3>2020 Race Lottery Winners</h3>
+<p>Entrants were given one ticket for each year of the following: starting, finishing, and applying for the race. The winners are listed below, and their names have been saved to CSV files, ./women_winners.csv and ./men_winners.csv.</p>
+<p>The mens and womens lotteries were conducted separately, with equal number of men and women chosen, except in the (unlikely, we hope!) event of fewer women entering than slots available. In that case, we reassigned extra slots to men.</p>
+<p>The female lottery winners are:</p>
+<pre><code>## &quot;&quot;,&quot;x&quot;
+## &quot;1&quot;,&quot;Cathy 1&quot;
+## &quot;2&quot;,&quot;Yolonda 4&quot;
+## &quot;3&quot;,&quot;Ursula 8&quot;
+## &quot;4&quot;,&quot;Wendy 1&quot;
+## &quot;5&quot;,&quot;Geraldine 8&quot;
+## &quot;6&quot;,&quot;Elise 9&quot;
+## &quot;7&quot;,&quot;Elise 6&quot;
+## &quot;8&quot;,&quot;Ursula 2&quot;
+## &quot;9&quot;,&quot;Yolonda 3&quot;
+## &quot;10&quot;,&quot;April 10&quot;
+## &quot;11&quot;,&quot;Katelyn 1&quot;
+## &quot;12&quot;,&quot;Cathy 5&quot;
+## &quot;13&quot;,&quot;Ming 7&quot;
+## &quot;14&quot;,&quot;Suzy 5&quot;
+## &quot;15&quot;,&quot;Geraldine 5&quot;
+## &quot;16&quot;,&quot;Cathy 10&quot;
+## &quot;17&quot;,&quot;Ismarelda 8&quot;
+## &quot;18&quot;,&quot;Yolonda 8&quot;
+## &quot;19&quot;,&quot;Octavia 8&quot;
+## &quot;20&quot;,&quot;Elise 7&quot;
+## &quot;21&quot;,&quot;Quinn 7&quot;
+## &quot;22&quot;,&quot;Elise 8&quot;
+## &quot;23&quot;,&quot;Wendy 2&quot;
+## &quot;24&quot;,&quot;Elise 4&quot;
+## &quot;25&quot;,&quot;Octavia 7&quot;
+## &quot;26&quot;,&quot;April 5&quot;
+## &quot;27&quot;,&quot;Yolonda 10&quot;
+## &quot;28&quot;,&quot;Ursula 3&quot;
+## &quot;29&quot;,&quot;Ursula 7&quot;
+## &quot;30&quot;,&quot;Elise 3&quot;
+## &quot;31&quot;,&quot;Elise 10&quot;
+## &quot;32&quot;,&quot;Ismarelda 6&quot;
+## &quot;33&quot;,&quot;Quinn 9&quot;
+## &quot;34&quot;,&quot;Ming 10&quot;
+## &quot;35&quot;,&quot;Suzy 8&quot;
+## &quot;36&quot;,&quot;Octavia 3&quot;
+## &quot;37&quot;,&quot;Cathy 2&quot;
+## &quot;38&quot;,&quot;Ming 6&quot;
+## &quot;39&quot;,&quot;Octavia 6&quot;
+## &quot;40&quot;,&quot;Quinn 6&quot;
+## &quot;41&quot;,&quot;Katelyn 10&quot;
+## &quot;42&quot;,&quot;Wendy 6&quot;
+## &quot;43&quot;,&quot;Geraldine 10&quot;
+## &quot;44&quot;,&quot;Quinn 1&quot;
+## &quot;45&quot;,&quot;Katelyn 3&quot;
+## &quot;46&quot;,&quot;Ismarelda 1&quot;
+## &quot;47&quot;,&quot;Yolonda 7&quot;
+## &quot;48&quot;,&quot;Wendy 8&quot;
+## &quot;49&quot;,&quot;Geraldine 7&quot;
+## &quot;50&quot;,&quot;Katelyn 4&quot;
+## &quot;51&quot;,&quot;Katelyn 7&quot;
+## &quot;52&quot;,&quot;April 2&quot;
+## &quot;53&quot;,&quot;Octavia 2&quot;
+## &quot;54&quot;,&quot;Elise 5&quot;
+## &quot;55&quot;,&quot;Ismarelda 4&quot;
+## &quot;56&quot;,&quot;Ursula 5&quot;
+## &quot;57&quot;,&quot;Ming 1&quot;
+## &quot;58&quot;,&quot;Ursula 4&quot;
+## &quot;59&quot;,&quot;Ursula 10&quot;
+## &quot;60&quot;,&quot;Quinn 4&quot;
+## &quot;61&quot;,&quot;Yolonda 9&quot;
+## &quot;62&quot;,&quot;Ismarelda 3&quot;
+## &quot;63&quot;,&quot;Wendy 3&quot;</code></pre>
+<p>The male lottery winners are:</p>
+<pre><code>## &quot;&quot;,&quot;x&quot;
+## &quot;1&quot;,&quot;Von 4&quot;
+## &quot;2&quot;,&quot;Doug 1&quot;
+## &quot;3&quot;,&quot;Bob 4&quot;
+## &quot;4&quot;,&quot;Lance 10&quot;
+## &quot;5&quot;,&quot;Trayvon 4&quot;
+## &quot;6&quot;,&quot;Xavier 4&quot;
+## &quot;7&quot;,&quot;Bob 8&quot;
+## &quot;8&quot;,&quot;Lance 1&quot;
+## &quot;9&quot;,&quot;Prince 4&quot;
+## &quot;10&quot;,&quot;Joe 8&quot;
+## &quot;11&quot;,&quot;Bob 2&quot;
+## &quot;12&quot;,&quot;Von 2&quot;
+## &quot;13&quot;,&quot;Hidalgo 5&quot;
+## &quot;14&quot;,&quot;Fred 10&quot;
+## &quot;15&quot;,&quot;Von 7&quot;
+## &quot;16&quot;,&quot;Hidalgo 2&quot;
+## &quot;17&quot;,&quot;Doug 3&quot;
+## &quot;18&quot;,&quot;Lance 5&quot;
+## &quot;19&quot;,&quot;Nate 6&quot;
+## &quot;20&quot;,&quot;Fred 4&quot;
+## &quot;21&quot;,&quot;Zebluon 3&quot;
+## &quot;22&quot;,&quot;Lance 3&quot;
+## &quot;23&quot;,&quot;Rob 6&quot;
+## &quot;24&quot;,&quot;Trayvon 7&quot;
+## &quot;25&quot;,&quot;Zebluon 9&quot;
+## &quot;26&quot;,&quot;Fred 2&quot;
+## &quot;27&quot;,&quot;Bob 5&quot;
+## &quot;28&quot;,&quot;Zebluon 5&quot;
+## &quot;29&quot;,&quot;Joe 2&quot;
+## &quot;30&quot;,&quot;Fred 8&quot;
+## &quot;31&quot;,&quot;Joe 10&quot;
+## &quot;32&quot;,&quot;Prince 10&quot;
+## &quot;33&quot;,&quot;Hidalgo 3&quot;
+## &quot;34&quot;,&quot;Doug 4&quot;
+## &quot;35&quot;,&quot;Xavier 8&quot;
+## &quot;36&quot;,&quot;Bob 1&quot;
+## &quot;37&quot;,&quot;Trayvon 3&quot;
+## &quot;38&quot;,&quot;Hidalgo 1&quot;
+## &quot;39&quot;,&quot;Nate 9&quot;
+## &quot;40&quot;,&quot;Nate 10&quot;
+## &quot;41&quot;,&quot;Xavier 7&quot;
+## &quot;42&quot;,&quot;Trayvon 2&quot;
+## &quot;43&quot;,&quot;Doug 9&quot;
+## &quot;44&quot;,&quot;Xavier 6&quot;
+## &quot;45&quot;,&quot;Zebluon 11&quot;
+## &quot;46&quot;,&quot;Lance 9&quot;
+## &quot;47&quot;,&quot;Rob 8&quot;
+## &quot;48&quot;,&quot;Zebluon 8&quot;
+## &quot;49&quot;,&quot;Rob 9&quot;
+## &quot;50&quot;,&quot;Trayvon 10&quot;
+## &quot;51&quot;,&quot;Nate 3&quot;
+## &quot;52&quot;,&quot;Bob 9&quot;
+## &quot;53&quot;,&quot;Lance 7&quot;
+## &quot;54&quot;,&quot;Prince 7&quot;
+## &quot;55&quot;,&quot;Trayvon 5&quot;
+## &quot;56&quot;,&quot;Rob 7&quot;
+## &quot;57&quot;,&quot;Fred 5&quot;
+## &quot;58&quot;,&quot;Von 6&quot;
+## &quot;59&quot;,&quot;Zebluon 7&quot;
+## &quot;60&quot;,&quot;Xavier 1&quot;
+## &quot;61&quot;,&quot;Bob 3&quot;
+## &quot;62&quot;,&quot;Hidalgo 4&quot;</code></pre>
+<p>```</p>
+</div>
 </div>
 
 

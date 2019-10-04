@@ -17,10 +17,31 @@ hl2019<-read_excel("./HiLo Entrants by year.xlsx")
 hl2018<-read_excel("./HiLo Entrants by year.xlsx", sheet = "2018")
 hl2017<-read_excel("./HiLo Entrants by year.xlsx", sheet = "2017")
 
+#basic cleaning of HL data
+hl2019$USA <-ifelse(hl2019$Country=="USA", 1, 0)
+
+
 ccc<-read_excel("./2019 CCC Lottery data scraped for High Lonesome lottery testing.xlsx")
+#fill in blanks and rename var
+ccc$Volunteer_Tickets[is.na(ccc$Volunteer_Tickets)] <-0
+ccc$Extra_Trailwork[is.na(ccc$Extra_Trailwork)] <-0
+ccc <- rename(ccc, Volunteer_Shifts = Volunteer_Tickets)
+ccc$USA <-ifelse(ccc$Country=="USA", 1, 0)
+
+#split by sex
+cccmen<-ccc[which(ccc$gender=="M"),]
+cccwomen<-ccc[which(ccc$gender=="F"),]
+#country
+
 
 temp<-read.csv("./fakedata.csv", stringsAsFactors = FALSE) #LOAD THE DATA
 df<-as_data_frame(temp)
+
+#TEMPORARY ASSUMPTION
+n_women_pick<-62
+n_men_pick<-63
+
+
 ```
 # Testing Different Lottery Setups
 We have High Lonesome and Cascade Crest data to work with. We'll make an educated guess about how many HL applicants we'll have, and run a handful of versions of the lottery based on that. We'll also use the CCC data and see what mix of entrants we'd get with their data.
@@ -33,19 +54,65 @@ women2017=nrow(women<-hl2017[which(hl2017$gender=="F"),])
 women2018=nrow(women<-hl2018[which(hl2018$gender=="F"),])
 women2019=nrow(women<-hl2019[which(hl2019$gender=="F"),])
 
+HL2020men_num <-round(men2019/men2018*men2019, digits=0)
+HL2020women_num <-round(women2019*(1/4*women2018/women2017 + 3/4*women2019/women2018), digits=0)
 ```
-## Predicting the Future
+### Predicting the Future
 Is impossible, but let's guess how many HL applicants there will be for 2020:
 
 Male entrants: `r men2017` in 2017, `r men2018` in 2018, and `r men2019` in 2019.
 
 Female entrants: `r women2017` in 2017, `r women2018` in 2018, and `r women2019` in 2019.
 
-Male applicant growth rate was `r round(((men2019/men2018)-1)*100, digits=1)`% in 2019 and `r ((men2018/men2017)-1)*100`% in 2018, so let's assume that stays basically constant at `r round(((men2019/men2018)-1)*100, digits=1)`% and assume `r round(men2019/men2018*men2019, digits=0)` male entrants for 2020. Female applicant growth rate was was `r round(((women2019/women2018)-1)*100, digits=1)`% in 2019 and `r round(((women2018/women2017)-1)*100, digits=1)`% in 2018. That's a big decline in the growth rate, but maybe the new lottery will get women excited to enter? Let's guess the growth rate will go back up a little, but not all the way (1/3 the first year's growth, 2/3 the second year's, or `r round(((1/3*women2018/women2017 + 2/3*women2019/women2018)-1)*100, digits=1)`%). That's `r round(women2019*(1/3*women2018/women2017 + 2/3*women2019/women2018), digits=0)` female applicants.
+Male applicant growth rate was `r round(((men2019/men2018)-1)*100, digits=1)`% in 2019 and `r ((men2018/men2017)-1)*100`% in 2018, so let's assume that stays basically constant at `r round(((men2019/men2018)-1)*100, digits=1)`% and assume `r round(men2019/men2018*men2019, digits=0)` male entrants for 2020. Female applicant growth rate was was `r round(((women2019/women2018)-1)*100, digits=1)`% in 2019 and `r round(((women2018/women2017)-1)*100, digits=1)`% in 2018. That's a big decline in the growth rate, but maybe the new lottery will get women excited to enter? Let's guess the growth rate will go back up a little, but not all the way (1/4 the first year's growth, 3/4 the second year's, or `r round(((1/4*women2018/women2017 + 3/4*women2019/women2018)-1)*100, digits=1)`%). That's `r round(women2019*(1/4*women2018/women2017 + 3/4*women2019/women2018), digits=0)` female applicants.
 
 Since this is more applicants than we have previously observed, I'll randomly re-sample the existing 2019 applicants to make up the difference.
 
-## Lottery Design Choices
+### Summary of Entrants
+```{r Summary, echo=FALSE}
+#split up men and women
+hl2019men<-hl2019[which(hl2019$gender=="M"),]
+hl2019women<-hl2019[which(hl2019$gender=="F"),]
+
+
+#oversample HL2019 for men
+#how many rows do we need to add
+mentoadd<-HL2020men_num-men2019
+#add a random column for sorting
+hl2019men$uniform<-runif(nrow(hl2019men))
+#sort
+oversampled<-arrange(hl2019men, uniform)
+#take the first N rows
+oversampled<-oversampled %>% slice(1:mentoadd)
+#append together
+hl2020men<-bind_rows(hl2019men, oversampled)
+
+
+#oversample HL2019 for women
+#how many rows do we need to add
+womentoadd<-HL2020women_num-women2019
+#add a random column for sorting
+hl2019women$uniform<-runif(nrow(hl2019women))
+#sort
+oversampled<-arrange(hl2019women, uniform)
+#take the first N rows
+oversampled<-oversampled %>% slice(1:mentoadd)
+#append together
+hl2020women<-bind_rows(hl2019women, oversampled)
+
+```
+Here is a summary of the observed CCC entrants and observed (but oversampled) HL entrants
+
+HL men: `r nrow(hl2020men)` total, average age `r round(mean(hl2020men$Age, na.rm=TRUE), digits=1)`, previous finishes `r round(mean(hl2020men$Previous_Finishes, na.rm=TRUE), digits=1)`, `r round(mean(hl2020men$USA)*100, digits=0)`% USA, volunteer shifts `r round(mean(hl2020men$Volunteer_Shifts, na.rm=TRUE), digits=1)`, extra trailwork `r round(mean(hl2020men$Extra_Trailwork, na.rm=TRUE), digits=1)`    
+
+HL women: `r nrow(hl2020women)` total, average age `r round(mean(hl2020women$Age, na.rm=TRUE), digits=1)`, previous finishes `r round(mean(hl2020women$Previous_Finishes, na.rm=TRUE), digits=1)`, `r round(mean(hl2020women$USA)*100, digits=0)`% USA, volunteer shifts `r round(mean(hl2020women$Volunteer_Shifts, na.rm=TRUE), digits=1)`, extra trailwork `r round(mean(hl2020women$Extra_Trailwork, na.rm=TRUE), digits=1)` 
+
+CCC men: `r nrow(cccmen)` total, average age `r round(mean(cccmen$Age, na.rm=TRUE), digits=1)`, previous finishes `r round(mean(cccmen$Previous_Finishes, na.rm=TRUE), digits=1)`, `r round(mean(cccmen$USA)*100, digits=0)`% USA, volunteer shifts `r round(mean(cccmen$Volunteer_Shifts, na.rm=TRUE), digits=1)`, extra trailwork `r round(mean(cccmen$Extra_Trailwork, na.rm=TRUE), digits=1)`    
+
+CCC women: `r nrow(cccwomen)` total, average age `r round(mean(cccwomen$Age, na.rm=TRUE), digits=1)`, previous finishes `r round(mean(cccwomen$Previous_Finishes, na.rm=TRUE), digits=1)`, `r round(mean(cccwomen$USA)*100, digits=0)`% USA, volunteer shifts `r round(mean(cccwomen$Volunteer_Shifts, na.rm=TRUE), digits=1)`, extra trailwork `r round(mean(cccwomen$Extra_Trailwork, na.rm=TRUE), digits=1)` 
+
+
+### Lottery Design Choices
 There's no perfect design, but we have a few values we'd like to try and implement.
 
 * We want equal numbers of men and women (statiscally this is easy)
@@ -54,17 +121,167 @@ There's no perfect design, but we have a few values we'd like to try and impleme
 * We value volunteering and trail work
 * We'd like new entrants to have a decent chance to run within a couple-few years
 
-There's an infinite number of ways to design this, but here are some basic choices:
+There's an infinite number of ways to design this, but here are some basic scaling choices:
 
 * Linear--just add up points
 * Exponential--weight certain items by 2^N (or really, anthing greater than 1)
 * Caps--limit the number of tickets from a certain column (e.g. if you've run it 5+ times, you can let somebody else get a turn)
 
+Then there's the activities for which we could award points:
+
+* Volunteer shifts *at* High Lonesome
+* Trailwork is required of everyone, but extra hours could be rewarded.
+* Previous applications for the race
+* Previous finishes of the race
+
+
+Obviously, all these add complications. There's some value in a person being able to calculate their chances on their own, and we'll have to verify all the info that Ultrasignup collects. (If we didn't, someone could enter bogus info to improve their odds.) Aside: since weighting is complicated and selection is obviously done without replacement, a single person's likelihood of selection is *not* equal to just their number of tickets divided by the total tickets. Regardless, simpler has benefits.
+
+
+#### Linear
+
+The simplest method is just to decide which activities we value, award one ticket per instance of each of those activities, and draw. If we equally reward applying to the race, finishing the race, and volunteering an 8-hour shift at the race, then we could expect the following:
+
+Pros: Simplicity
+
+Cons: Runners get a small bonus *forever* for getting picked in prior years' lotteries, assuming they finish the race. It's linear, so it may not matter that much.
+```{r linear, echo=FALSE}
+
+add<-function(df){
+  df$tickets <-df$Previous_Finishes + df$Volunteer_Shifts + df$Extra_Trailwork+1
+  return(df)
+}
+
+hl2019men<-add(hl2019men)
+hl2019women<-add(hl2019women)
+hl2020men<-add(hl2020men)
+hl2020women<-add(hl2020women)
+cccmen<-add(cccmen)
+cccwomen<-add(cccwomen)
+
+hl2019womenwinners<-sample_n(hl2019women, n_women_pick, replace = FALSE, weight=hl2019women$tickets)
+hl2019menwinners<-sample_n(hl2019men, n_men_pick, replace = FALSE, weight=hl2019men$tickets)
+hl2020womenwinners<-sample_n(hl2020women, n_women_pick, replace = FALSE, weight=hl2020women$tickets)
+hl2020menwinners<-sample_n(hl2020men, n_men_pick, replace = FALSE, weight=hl2020men$tickets)
+cccwomenwinners<-sample_n(cccwomen, n_women_pick, replace = FALSE, weight=cccwomen$tickets)
+cccmenwinners<-sample_n(cccmen, n_men_pick, replace = FALSE, weight=cccmen$tickets)
+
+```
+
+**Winners** 
+
+HL 2020 men: `r nrow(hl2020menwinners)` total, average age `r round(mean(hl2020menwinners$Age, na.rm=TRUE), digits=1)`, previous finishes `r round(mean(hl2020menwinners$Previous_Finishes, na.rm=TRUE), digits=1)`, `r round(mean(hl2020menwinners$USA)*100, digits=0)`% USA, volunteer shifts `r round(mean(hl2020menwinners$Volunteer_Shifts, na.rm=TRUE), digits=1)`, extra trailwork `r round(mean(hl2020menwinners$Extra_Trailwork, na.rm=TRUE), digits=1)`    
+
+HL 2020 women: `r nrow(hl2020womenwinners)` total, average age `r round(mean(hl2020womenwinners$Age, na.rm=TRUE), digits=1)`, previous finishes `r round(mean(hl2020womenwinners$Previous_Finishes, na.rm=TRUE), digits=1)`, `r round(mean(hl2020womenwinners$USA)*100, digits=0)`% USA, volunteer shifts `r round(mean(hl2020womenwinners$Volunteer_Shifts, na.rm=TRUE), digits=1)`, extra trailwork `r round(mean(hl2020womenwinners$Extra_Trailwork, na.rm=TRUE), digits=1)` 
+
+HL 2019 men: `r nrow(hl2019menwinners)` total, average age `r round(mean(hl2019menwinners$Age, na.rm=TRUE), digits=1)`, previous finishes `r round(mean(hl2019menwinners$Previous_Finishes, na.rm=TRUE), digits=1)`, `r round(mean(hl2019menwinners$USA)*100, digits=0)`% USA, volunteer shifts `r round(mean(hl2019menwinners$Volunteer_Shifts, na.rm=TRUE), digits=1)`, extra trailwork `r round(mean(hl2019menwinners$Extra_Trailwork, na.rm=TRUE), digits=1)`    
+
+HL 2019 women: `r nrow(hl2019womenwinners)` total, average age `r round(mean(hl2019womenwinners$Age, na.rm=TRUE), digits=1)`, previous finishes `r round(mean(hl2019womenwinners$Previous_Finishes, na.rm=TRUE), digits=1)`, `r round(mean(hl2019womenwinners$USA)*100, digits=0)`% USA, volunteer shifts `r round(mean(hl2019womenwinners$Volunteer_Shifts, na.rm=TRUE), digits=1)`, extra trailwork `r round(mean(hl2019womenwinners$Extra_Trailwork, na.rm=TRUE), digits=1)`  
+
+CCC men: `r nrow(cccmenwinners)` total, average age `r round(mean(cccmenwinners$Age, na.rm=TRUE), digits=1)`, previous finishes `r round(mean(cccmenwinners$Previous_Finishes, na.rm=TRUE), digits=1)`, `r round(mean(cccmenwinners$USA)*100, digits=0)`% USA, volunteer shifts `r round(mean(cccmenwinners$Volunteer_Shifts, na.rm=TRUE), digits=1)`, extra trailwork `r round(mean(cccmenwinners$Extra_Trailwork, na.rm=TRUE), digits=1)`    
+
+CCC women: `r nrow(cccwomenwinners)` total, average age `r round(mean(cccwomenwinners$Age, na.rm=TRUE), digits=1)`, previous finishes `r round(mean(cccwomenwinners$Previous_Finishes, na.rm=TRUE), digits=1)`, `r round(mean(cccwomenwinners$USA)*100, digits=0)`% USA, volunteer shifts `r round(mean(cccwomenwinners$Volunteer_Shifts, na.rm=TRUE), digits=1)`, extra trailwork `r round(mean(cccwomenwinners$Extra_Trailwork, na.rm=TRUE), digits=1)` 
+
+
+#### Exponential
+
+A common method is to reward previous runners/applicants exponentially. This can improve odds for repeated applicants, but when the bulk of applicants become repeated entrants, the advantage can decline and first-time applicants have essentially no shot.
+
+Pros: People understand it because other races do it. Loyalty is rewarded.
+
+Cons: A veteran could esentially guarantee themselves entry.
+
+```{r exponential, echo=FALSE}
+
+add<-function(df){
+  df$tickets <-2^(df$Previous_Finishes) + 2^(df$Volunteer_Shifts) + 2^(df$Extra_Trailwork)+1
+  return(df)
+}
+
+hl2019men<-add(hl2019men)
+hl2019women<-add(hl2019women)
+hl2020men<-add(hl2020men)
+hl2020women<-add(hl2020women)
+cccmen<-add(cccmen)
+cccwomen<-add(cccwomen)
+
+hl2019womenwinners<-sample_n(hl2019women, n_women_pick, replace = FALSE, weight=hl2019women$tickets)
+hl2019menwinners<-sample_n(hl2019men, n_men_pick, replace = FALSE, weight=hl2019men$tickets)
+hl2020womenwinners<-sample_n(hl2020women, n_women_pick, replace = FALSE, weight=hl2020women$tickets)
+hl2020menwinners<-sample_n(hl2020men, n_men_pick, replace = FALSE, weight=hl2020men$tickets)
+cccwomenwinners<-sample_n(cccwomen, n_women_pick, replace = FALSE, weight=cccwomen$tickets)
+cccmenwinners<-sample_n(cccmen, n_men_pick, replace = FALSE, weight=cccmen$tickets)
+
+```
+
+**Winners** 
+
+HL 2020 men: `r nrow(hl2020menwinners)` total, average age `r round(mean(hl2020menwinners$Age, na.rm=TRUE), digits=1)`, previous finishes `r round(mean(hl2020menwinners$Previous_Finishes, na.rm=TRUE), digits=1)`, `r round(mean(hl2020menwinners$USA)*100, digits=0)`% USA, volunteer shifts `r round(mean(hl2020menwinners$Volunteer_Shifts, na.rm=TRUE), digits=1)`, extra trailwork `r round(mean(hl2020menwinners$Extra_Trailwork, na.rm=TRUE), digits=1)`    
+
+HL 2020 women: `r nrow(hl2020womenwinners)` total, average age `r round(mean(hl2020womenwinners$Age, na.rm=TRUE), digits=1)`, previous finishes `r round(mean(hl2020womenwinners$Previous_Finishes, na.rm=TRUE), digits=1)`, `r round(mean(hl2020womenwinners$USA)*100, digits=0)`% USA, volunteer shifts `r round(mean(hl2020womenwinners$Volunteer_Shifts, na.rm=TRUE), digits=1)`, extra trailwork `r round(mean(hl2020womenwinners$Extra_Trailwork, na.rm=TRUE), digits=1)` 
+
+HL 2019 men: `r nrow(hl2019menwinners)` total, average age `r round(mean(hl2019menwinners$Age, na.rm=TRUE), digits=1)`, previous finishes `r round(mean(hl2019menwinners$Previous_Finishes, na.rm=TRUE), digits=1)`, `r round(mean(hl2019menwinners$USA)*100, digits=0)`% USA, volunteer shifts `r round(mean(hl2019menwinners$Volunteer_Shifts, na.rm=TRUE), digits=1)`, extra trailwork `r round(mean(hl2019menwinners$Extra_Trailwork, na.rm=TRUE), digits=1)`    
+
+HL 2019 women: `r nrow(hl2019womenwinners)` total, average age `r round(mean(hl2019womenwinners$Age, na.rm=TRUE), digits=1)`, previous finishes `r round(mean(hl2019womenwinners$Previous_Finishes, na.rm=TRUE), digits=1)`, `r round(mean(hl2019womenwinners$USA)*100, digits=0)`% USA, volunteer shifts `r round(mean(hl2019womenwinners$Volunteer_Shifts, na.rm=TRUE), digits=1)`, extra trailwork `r round(mean(hl2019womenwinners$Extra_Trailwork, na.rm=TRUE), digits=1)`  
+
+CCC men: `r nrow(cccmenwinners)` total, average age `r round(mean(cccmenwinners$Age, na.rm=TRUE), digits=1)`, previous finishes `r round(mean(cccmenwinners$Previous_Finishes, na.rm=TRUE), digits=1)`, `r round(mean(cccmenwinners$USA)*100, digits=0)`% USA, volunteer shifts `r round(mean(cccmenwinners$Volunteer_Shifts, na.rm=TRUE), digits=1)`, extra trailwork `r round(mean(cccmenwinners$Extra_Trailwork, na.rm=TRUE), digits=1)`    
+
+CCC women: `r nrow(cccwomenwinners)` total, average age `r round(mean(cccwomenwinners$Age, na.rm=TRUE), digits=1)`, previous finishes `r round(mean(cccwomenwinners$Previous_Finishes, na.rm=TRUE), digits=1)`, `r round(mean(cccwomenwinners$USA)*100, digits=0)`% USA, volunteer shifts `r round(mean(cccwomenwinners$Volunteer_Shifts, na.rm=TRUE), digits=1)`, extra trailwork `r round(mean(cccwomenwinners$Extra_Trailwork, na.rm=TRUE), digits=1)` 
+
+
+
+
+#### Exponential with Decreasing Marginal Returns
+
+Sorry, I'm an economist. Nothing gets better each time you do it ad infinitum. Perhaps if we reward certain activities up to a point, and then either level off or *decrease* the rewards for that activity, no one can guarantee themselves entry, and most people would feel like they had a shot of getting in within a few years. Of course, with enough applicants, everyone's chances just suck (see Powerball/MegaMillions). 
+
+Pros: Loyalty is rewarded but there's no way to guarantee yourself entry year after year. 
+
+Cons: Most complicated. Difficult (but should be possible) to avoid the situation where entrant's chances increase to a point, then flatline or decrease without them ever having run.
+
+```{r exponential_limit, echo=FALSE}
+
+add<-function(df){
+  df$tickets <-2^(df$Previous_Finishes) + 2^(df$Volunteer_Shifts) + 2^(df$Extra_Trailwork)+1
+  return(df)
+}
+
+hl2019men<-add(hl2019men)
+hl2019women<-add(hl2019women)
+hl2020men<-add(hl2020men)
+hl2020women<-add(hl2020women)
+cccmen<-add(cccmen)
+cccwomen<-add(cccwomen)
+
+hl2019womenwinners<-sample_n(hl2019women, n_women_pick, replace = FALSE, weight=hl2019women$tickets)
+hl2019menwinners<-sample_n(hl2019men, n_men_pick, replace = FALSE, weight=hl2019men$tickets)
+hl2020womenwinners<-sample_n(hl2020women, n_women_pick, replace = FALSE, weight=hl2020women$tickets)
+hl2020menwinners<-sample_n(hl2020men, n_men_pick, replace = FALSE, weight=hl2020men$tickets)
+cccwomenwinners<-sample_n(cccwomen, n_women_pick, replace = FALSE, weight=cccwomen$tickets)
+cccmenwinners<-sample_n(cccmen, n_men_pick, replace = FALSE, weight=cccmen$tickets)
+
+```
+
+**Winners** 
+
+HL 2020 men: `r nrow(hl2020menwinners)` total, average age `r round(mean(hl2020menwinners$Age, na.rm=TRUE), digits=1)`, previous finishes `r round(mean(hl2020menwinners$Previous_Finishes, na.rm=TRUE), digits=1)`, `r round(mean(hl2020menwinners$USA)*100, digits=0)`% USA, volunteer shifts `r round(mean(hl2020menwinners$Volunteer_Shifts, na.rm=TRUE), digits=1)`, extra trailwork `r round(mean(hl2020menwinners$Extra_Trailwork, na.rm=TRUE), digits=1)`    
+
+HL 2020 women: `r nrow(hl2020womenwinners)` total, average age `r round(mean(hl2020womenwinners$Age, na.rm=TRUE), digits=1)`, previous finishes `r round(mean(hl2020womenwinners$Previous_Finishes, na.rm=TRUE), digits=1)`, `r round(mean(hl2020womenwinners$USA)*100, digits=0)`% USA, volunteer shifts `r round(mean(hl2020womenwinners$Volunteer_Shifts, na.rm=TRUE), digits=1)`, extra trailwork `r round(mean(hl2020womenwinners$Extra_Trailwork, na.rm=TRUE), digits=1)` 
+
+HL 2019 men: `r nrow(hl2019menwinners)` total, average age `r round(mean(hl2019menwinners$Age, na.rm=TRUE), digits=1)`, previous finishes `r round(mean(hl2019menwinners$Previous_Finishes, na.rm=TRUE), digits=1)`, `r round(mean(hl2019menwinners$USA)*100, digits=0)`% USA, volunteer shifts `r round(mean(hl2019menwinners$Volunteer_Shifts, na.rm=TRUE), digits=1)`, extra trailwork `r round(mean(hl2019menwinners$Extra_Trailwork, na.rm=TRUE), digits=1)`    
+
+HL 2019 women: `r nrow(hl2019womenwinners)` total, average age `r round(mean(hl2019womenwinners$Age, na.rm=TRUE), digits=1)`, previous finishes `r round(mean(hl2019womenwinners$Previous_Finishes, na.rm=TRUE), digits=1)`, `r round(mean(hl2019womenwinners$USA)*100, digits=0)`% USA, volunteer shifts `r round(mean(hl2019womenwinners$Volunteer_Shifts, na.rm=TRUE), digits=1)`, extra trailwork `r round(mean(hl2019womenwinners$Extra_Trailwork, na.rm=TRUE), digits=1)`  
+
+CCC men: `r nrow(cccmenwinners)` total, average age `r round(mean(cccmenwinners$Age, na.rm=TRUE), digits=1)`, previous finishes `r round(mean(cccmenwinners$Previous_Finishes, na.rm=TRUE), digits=1)`, `r round(mean(cccmenwinners$USA)*100, digits=0)`% USA, volunteer shifts `r round(mean(cccmenwinners$Volunteer_Shifts, na.rm=TRUE), digits=1)`, extra trailwork `r round(mean(cccmenwinners$Extra_Trailwork, na.rm=TRUE), digits=1)`    
+
+CCC women: `r nrow(cccwomenwinners)` total, average age `r round(mean(cccwomenwinners$Age, na.rm=TRUE), digits=1)`, previous finishes `r round(mean(cccwomenwinners$Previous_Finishes, na.rm=TRUE), digits=1)`, `r round(mean(cccwomenwinners$USA)*100, digits=0)`% USA, volunteer shifts `r round(mean(cccwomenwinners$Volunteer_Shifts, na.rm=TRUE), digits=1)`, extra trailwork `r round(mean(cccwomenwinners$Extra_Trailwork, na.rm=TRUE), digits=1)` 
+
 
 
 # Running the Lottery
 The remainder of this document implements a single version of the lottery, formatting the output as you might want to for the actual event.
-## 2020 Race Lottery Background
+
+### 2020 Race Lottery Background
 
 Thanks to all `r nrow(df)` who entered. The selection was conducted randomly using a computer program written by Garret Christensen. The script is available on GitHub [here](http://www.github.com/garretchristensen/RaceLottery).
 
@@ -142,7 +359,7 @@ The seed for the pseudo-random number generator was set using 4 rolls of a 10-si
 
 The number of slots available through the lottery is: `r n`. Half the slots go to men and half to women. (If there are an odd number of slots, whichever sex has more entrants gets the extra slot, ties going to women. In our case, that's `r largest`. `r n_women_app` women applied and `r n_men_app` men applied, so we'll be picking `r n_women_pick` women and `r n_men_pick` men.)
 
-## 2020 Race Lottery Entrants
+### 2020 Race Lottery Entrants
 The data file of all `r nrow(df)` entrants in the lottery, including the characteristics used in the lottery (previous finishes, previous starts, previous applications) can also be found in the GitHub repository [here](http://www.github.com/garretchristensen/RaceLottery). 
 
 Just to give you an idea, the dataset looks like this:
@@ -164,7 +381,7 @@ Average Starts: `r round(mean(df$starts), digits=2)`
 Average Applications: `r round(mean(df$applications), digits=2)`
 
 
-## 2020 Race Lottery Entrants
+### 2020 Race Lottery Winners
 Entrants were given one ticket for each year of the following: starting, finishing, and applying for the race. The winners are listed below, and their names have been saved to CSV files, ./women_winners.csv and ./men_winners.csv. 
 
 The mens and womens lotteries were conducted separately, with equal number of men and women chosen, except in the (unlikely, we hope!) event of fewer women entering than slots available. In that case, we reassigned extra slots to men.
