@@ -1,0 +1,314 @@
+---
+title: "High Lonesome 2020 Lottery"
+author: "Garret Christensen"
+date: "November 2019"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(dplyr)
+library(tibble)
+library(readxl)
+library(checkpoint)
+#library(fansi)
+#library(utf8)
+#checkpoint("2019-10-15")
+
+hl2019<-read_excel("./HiLo Entrants by year.xlsx")
+hl2018<-read_excel("./HiLo Entrants by year.xlsx", sheet = "2018")
+hl2017<-read_excel("./HiLo Entrants by year.xlsx", sheet = "2017")
+
+#basic cleaning of HL data
+hl2019$USA <-ifelse(hl2019$Country=="USA", 1, 0)
+
+
+temp<-read.csv("./fakedata.csv", stringsAsFactors = FALSE) #LOAD THE DATA
+df<-as_data_frame(temp)
+
+#TEMPORARY ASSUMPTION
+n_women_pick<-62
+n_men_pick<-63
+
+
+```
+# Testing the Lottery Setup
+To test the code for the lottery I'll just use the 2019 High Lonesome data, but oversampled to get it to be about our prediced size for 2020. 
+
+```{r HLdata, echo=FALSE}
+men2017=nrow(men<-hl2017[which(hl2017$gender=="M"),])
+men2018=nrow(men<-hl2018[which(hl2018$gender=="M"),])
+men2019=nrow(men<-hl2019[which(hl2019$gender=="M"),])
+women2017=nrow(women<-hl2017[which(hl2017$gender=="F"),])
+women2018=nrow(women<-hl2018[which(hl2018$gender=="F"),])
+women2019=nrow(women<-hl2019[which(hl2019$gender=="F"),])
+
+HL2020men_num <-round(men2019/men2018*men2019, digits=0)
+HL2020women_num <-round(women2019*(1/4*women2018/women2017 + 3/4*women2019/women2018), digits=0)
+```
+### Predicting the Future
+Is impossible, but let's guess how many HL applicants there will be for 2020:
+
+Male entrants: `r men2017` in 2017, `r men2018` in 2018, and `r men2019` in 2019.
+
+Female entrants: `r women2017` in 2017, `r women2018` in 2018, and `r women2019` in 2019.
+
+Male applicant growth rate was `r round(((men2019/men2018)-1)*100, digits=1)`% in 2019 and `r ((men2018/men2017)-1)*100`% in 2018, so let's assume that stays basically constant at `r round(((men2019/men2018)-1)*100, digits=1)`% and assume `r round(men2019/men2018*men2019, digits=0)` male entrants for 2020. Female applicant growth rate was was `r round(((women2019/women2018)-1)*100, digits=1)`% in 2019 and `r round(((women2018/women2017)-1)*100, digits=1)`% in 2018. That's a big decline in the growth rate, but maybe the new lottery will get women excited to enter? Let's guess the growth rate will go back up a little, but not all the way (1/4 the first year's growth, 3/4 the second year's, or `r round(((1/4*women2018/women2017 + 3/4*women2019/women2018)-1)*100, digits=1)`%). That's `r round(women2019*(1/4*women2018/women2017 + 3/4*women2019/women2018), digits=0)` female applicants.
+
+Since this is more applicants than we have previously observed, I'll randomly re-sample the existing 2019 applicants to make up the difference.
+
+### Summary of Entrants
+```{r Summary, echo=FALSE}
+#split up men and women
+hl2019men<-hl2019[which(hl2019$gender=="M"),]
+hl2019women<-hl2019[which(hl2019$gender=="F"),]
+
+
+#oversample HL2019 for men
+#how many rows do we need to add
+mentoadd<-HL2020men_num-men2019
+#add a random column for sorting
+hl2019men$uniform<-runif(nrow(hl2019men))
+#sort
+oversampled<-arrange(hl2019men, uniform)
+#take the first N rows
+oversampled<-oversampled %>% slice(1:mentoadd)
+#append together
+hl2020men<-bind_rows(hl2019men, oversampled)
+
+
+#oversample HL2019 for women
+#how many rows do we need to add
+womentoadd<-HL2020women_num-women2019
+#add a random column for sorting
+hl2019women$uniform<-runif(nrow(hl2019women))
+#sort
+oversampled<-arrange(hl2019women, uniform)
+#take the first N rows
+oversampled<-oversampled %>% slice(1:mentoadd)
+#append together
+hl2020women<-bind_rows(hl2019women, oversampled)
+
+```
+Here is a summary of the predicted HL 2020 entrants
+
+HL men: `r nrow(hl2020men)` total, average age `r round(mean(hl2020men$Age, na.rm=TRUE), digits=1)`, previous finishes `r round(mean(hl2020men$Previous_Finishes, na.rm=TRUE), digits=1)`, `r round(mean(hl2020men$USA)*100, digits=0)`% USA, volunteer shifts `r round(mean(hl2020men$Volunteer_Shifts, na.rm=TRUE), digits=1)`, extra trailwork `r round(mean(hl2020men$Extra_Trailwork, na.rm=TRUE), digits=1)`    
+
+HL women: `r nrow(hl2020women)` total, average age `r round(mean(hl2020women$Age, na.rm=TRUE), digits=1)`, previous finishes `r round(mean(hl2020women$Previous_Finishes, na.rm=TRUE), digits=1)`, `r round(mean(hl2020women$USA)*100, digits=0)`% USA, volunteer shifts `r round(mean(hl2020women$Volunteer_Shifts, na.rm=TRUE), digits=1)`, extra trailwork `r round(mean(hl2020women$Extra_Trailwork, na.rm=TRUE), digits=1)` 
+
+
+### Lottery Design Choices
+There's no perfect design, but we have a few values we'd like to try and implement.
+
+* We want equal numbers of men and women (statiscally this is easy)
+* We'd like to get a mix of new and veteran runners, without guaranteeing entry for either
+* Previous unsuccessful applications should be the major determinant of selection
+* We value volunteering and trail work
+* We'd like new entrants to have a decent chance to run within a couple-few years
+
+There's an infinite number of ways to design this, but here are some basic scaling choices:
+
+So here are the activities for which we will award points:
+
+* Volunteer shifts *at* High Lonesome
+* Extra trailwork beyond the eight hours required
+* Previous applications for the race
+* Previous finishes of the race
+
+
+
+#### Chosen Model
+
+We've chosen the following weighting method:
+
+Tickets=2^(n+k+1)+min(v/2, 1) + min(t/2, 1) where n, k, v, and t are defined as follows:
+
+* Previous unsuccesful applications: Since you were last *picked* in the lottery, offered entry off the waitlist, or offered entry via the volunteer raffle, how many times have you entered the High Lonesome lottery, not including this year? Note that previous lottery entries need not be in successive years, but they reset to zero after you are picked in the lottery or are offered a slot via other means such as the waitlist or the volunteer raffle. n is equal to your previous unsuccesful applications, as defined above, with no maximum.
+
+
+* Previous finishes: How many times have you finished High Lonesome 100?
+We will award previous finishers a boost until they have finished High Lonesome three times but then decreases. (We love returning runners, but after a while, it's cool to give others a chance.) 
+k is defined according to the following piecewise function:
+k=0 if finishes==0 or finishes>=4
+k=0.5 if finishes==1
+k=1 if finishes==2
+k=1.5 if finishes==3
+
+* Volunter shifts: How many 8-hour shifts did you volunteer at the previous (current calendar year at the time of the lottery) running of High Lonesome?
+v is  the number of 8-hour shifts. Note that the formula only benefits you up to 2 shifts.
+
+* Trailwork: How many solid 8-hour shifts of physical volunteer trail work have you completed since November 15 of last year? Volunteering or pacing at a race doesn't count. These trailwork hours must be over and above the 8-hours required for High Lonesome itself, they must be done with an approved land management agency or partner organization, and they must not be used in order to qualify for any other race or ultra--or court-mandated community service requirement ;). We obviously don't have a great way to verify this, so you're on your honor. Please don't abuse this. 
+t is the number of 8-hour shifts. Not that the formula only benefits you up to 2 shifts.
+
+
+```{r exponential_limit, echo=FALSE}
+
+add<-function(df){
+  df$tickets <-2^(df$Previous_Finishes) + 2^(df$Volunteer_Shifts) + 2^(df$Extra_Trailwork)+1
+  return(df)
+}
+
+hl2019men<-add(hl2019men)
+hl2019women<-add(hl2019women)
+hl2020men<-add(hl2020men)
+hl2020women<-add(hl2020women)
+
+
+hl2019womenwinners<-sample_n(hl2019women, n_women_pick, replace = FALSE, weight=hl2019women$tickets)
+hl2019menwinners<-sample_n(hl2019men, n_men_pick, replace = FALSE, weight=hl2019men$tickets)
+hl2020womenwinners<-sample_n(hl2020women, n_women_pick, replace = FALSE, weight=hl2020women$tickets)
+hl2020menwinners<-sample_n(hl2020men, n_men_pick, replace = FALSE, weight=hl2020men$tickets)
+
+
+```
+
+**Winners** 
+
+HL 2020 men: `r nrow(hl2020menwinners)` total, average age `r round(mean(hl2020menwinners$Age, na.rm=TRUE), digits=1)`, previous finishes `r round(mean(hl2020menwinners$Previous_Finishes, na.rm=TRUE), digits=1)`, `r round(mean(hl2020menwinners$USA)*100, digits=0)`% USA, volunteer shifts `r round(mean(hl2020menwinners$Volunteer_Shifts, na.rm=TRUE), digits=1)`, extra trailwork `r round(mean(hl2020menwinners$Extra_Trailwork, na.rm=TRUE), digits=1)`    
+
+HL 2020 women: `r nrow(hl2020womenwinners)` total, average age `r round(mean(hl2020womenwinners$Age, na.rm=TRUE), digits=1)`, previous finishes `r round(mean(hl2020womenwinners$Previous_Finishes, na.rm=TRUE), digits=1)`, `r round(mean(hl2020womenwinners$USA)*100, digits=0)`% USA, volunteer shifts `r round(mean(hl2020womenwinners$Volunteer_Shifts, na.rm=TRUE), digits=1)`, extra trailwork `r round(mean(hl2020womenwinners$Extra_Trailwork, na.rm=TRUE), digits=1)` 
+
+HL 2019 men: `r nrow(hl2019menwinners)` total, average age `r round(mean(hl2019menwinners$Age, na.rm=TRUE), digits=1)`, previous finishes `r round(mean(hl2019menwinners$Previous_Finishes, na.rm=TRUE), digits=1)`, `r round(mean(hl2019menwinners$USA)*100, digits=0)`% USA, volunteer shifts `r round(mean(hl2019menwinners$Volunteer_Shifts, na.rm=TRUE), digits=1)`, extra trailwork `r round(mean(hl2019menwinners$Extra_Trailwork, na.rm=TRUE), digits=1)`    
+
+HL 2019 women: `r nrow(hl2019womenwinners)` total, average age `r round(mean(hl2019womenwinners$Age, na.rm=TRUE), digits=1)`, previous finishes `r round(mean(hl2019womenwinners$Previous_Finishes, na.rm=TRUE), digits=1)`, `r round(mean(hl2019womenwinners$USA)*100, digits=0)`% USA, volunteer shifts `r round(mean(hl2019womenwinners$Volunteer_Shifts, na.rm=TRUE), digits=1)`, extra trailwork `r round(mean(hl2019womenwinners$Extra_Trailwork, na.rm=TRUE), digits=1)`  
+
+
+
+
+# Running the Lottery
+The remainder of this document implements a single version of the lottery, formatting the output as you might want to for the actual event.
+
+### 2020 Race Lottery Background
+
+Thanks to all `r nrow(df)` who entered. The selection was conducted randomly using a computer program written by Garret Christensen. The script is available on GitHub [here](http://www.github.com/garretchristensen/RaceLottery).
+
+```{r seed, echo=FALSE, results=TRUE}
+set.seed(1494) #SET THE SEED WITH DICE!
+n<-125 #SET THE TOTAL NUMBER TO PICK
+
+#NUMBER OF MEN AND WOMEN APPLICANTS
+n_men_app=nrow(men<-df[which(df$female==0),])
+n_women_app=nrow(women<-df[which(df$female==1),])
+
+#WHO HAS MORE APPLICANTS AND WOULD GET THE ODD SLOT, IF APPLICABLE?
+ if (n_men_app > n_women_app) {
+   largest<-"men"
+ } else {
+     largest<-"women"
+ }
+
+#FIRST, DO WE EVEN HAVE TO BOTHER RUNNING A LOTTERY?
+if (n_men_app+n_women_app<n) {
+  print ("THERE IS NO REASON TO RUN A LOTTERY! Everyone gets in!")
+  n_women_pick<-n_women_app
+  n_men_pick<-n_men_app
+  knitr::knit_exit()
+} else {
+
+#IS THE ENTRY CAP EVEN?
+#IF SO, WHICH SEX HAS MORE APPLICANTS?
+#AND DO WOMEN HAVE ENOUGH APPLICANTS?
+if((n %% 2) == 0) {
+  #print("Entry cap is even.")
+    #CAP IS EVEN
+    #DO WOMEN HAVE ENOUGH APPLICANTS?
+    if (n_women_app>=n/2) {
+        #print("Women have enough applicants to fill their race.")
+        #YES THEY DO
+        n_women_pick<-n/2
+        n_men_pick<-n/2
+    }   else {
+         #print("Women don't have enough applicants to fill their race.")
+        #NO THEY DON'T, GIVE EXTRA SLOTS TO MEN
+        n_women_pick<-n_women_app
+        n_men_pick=n-n_women_pick
+    }
+} 
+
+#IS THE ENTRY CAP ODD?
+#IF SO, WHICH SEX HAS MORE APPLICANTS?
+#AND DO WOMEN HAVE ENOUGH APPLICANTS? 
+#NOTE WE DON'T CHECK IF MEN HAVE ENOUGH--IT'S ASSUMED.
+if ((n %% 2) == 1) {
+  #print("Entry cap is odd.")
+  if (n_women_app>n/2) {
+  #print("Women have enough applicants to fill their race.")
+    
+  if (n_men_app>n_women_app) {  
+    #print("Men have more applicants and get the rounding slot.")
+    n_men_pick<-round((n/2+.00001), digits = 0)
+    n_women_pick<-round((n/2)-1, digits = 0)
+  } else {
+    #print("Women have at least equal applicants and get the rounding slot.")
+    n_women_pick<-round((n/2+.00001), digits = 0)
+    n_men_pick<-round((n/2)-1, digits = 0)
+  } #END WOMEN HAVE ENOUGH
+  } else {
+    #print("Women don't have enough applicants to fill their race.")
+    n_women_pick<-n_women_app
+    n_men_pick=n-n_women_pick
+  }  
+}
+
+} # END OVERALL NEED TO RUN LOTTERY
+```
+The seed for the pseudo-random number generator was set using 6 rolls of a 10-sided die, held in public at Law's Whiskey Bar in Salida, CO on Nover 15, 2019.
+
+The number of slots available through the lottery is: `r n`. Half the slots go to men and half to women. (If there are an odd number of slots, whichever sex has more entrants gets the extra slot, ties going to women. In our case, that's `r largest`. `r n_women_app` women applied and `r n_men_app` men applied, so we'll be picking `r n_women_pick` women and `r n_men_pick` men.)
+
+### 2020 Race Lottery Entrants
+The data file of all `r nrow(df)` entrants in the lottery, including the characteristics used in the lottery (previous finishes, previous starts, previous applications) can also be found in the GitHub repository [here](http://www.github.com/garretchristensen/RaceLottery). 
+
+Just to give you an idea, the dataset looks like this:
+```{r entrants, echo=FALSE}
+df<-df[,c(1,2,4,5,7,8,9,3)] #rearrange. 6 was temporary/made-up
+head(df)
+```
+
+And summary characteristics of entrants are as follows:
+
+`r mean(df$female)*100`% Female.
+
+Average Age: `r round(mean(df$age), digits=2)`
+
+Average Finishes: `r round(mean(df$finishes), digits=2)`
+
+Average Starts: `r round(mean(df$starts), digits=2)`
+
+Average Applications: `r round(mean(df$applications), digits=2)`
+
+
+### 2020 Race Lottery Winners
+Entrants were given one ticket for each year of the following: starting, finishing, and applying for the race. The winners are listed below, and their names have been saved to CSV files, ./women_winners.csv and ./men_winners.csv. 
+
+The mens and womens lotteries were conducted separately, with equal number of men and women chosen, except in the (unlikely, we hope!) event of fewer women entering than slots available. In that case, we reassigned extra slots to men.
+
+The female lottery winners are:
+```{r winners, echo=FALSE}
+#stupid example formula for a persons tickets
+#dplyr function sample_n will work with weights, normalize automatically
+#syntax:sample_n(tbl, size, replace = FALSE, weight = NULL, .env = NULL, ...)
+df$tickets<-df$finishes+df$starts+df$applications+1
+
+#make the mens and womens pools (separate tibbles)
+#newdata <- mydata[ which(mydata$gender=='F' 
+women<-df[which(df$female==1),]
+men<-df[which(df$female==0),]
+
+#Run the separate lotteries
+women_winners<-sample_n(women, n_women_pick, replace = FALSE, weight=women$tickets)
+men_winners<-sample_n(men, n_men_pick, replace = FALSE, weight=men$tickets)
+
+#Print the winners' names
+write.csv(women_winners$fullname)
+```
+The male lottery winners are:
+```{r men, echo=FALSE}
+write.csv(men_winners$fullname)
+```
+
+```
+

@@ -12,6 +12,8 @@ knitr::opts_chunk$set(echo = TRUE)
 library(dplyr)
 library(tibble)
 library(readxl)
+library(checkpoint)
+#checkpoint("2019-10-08")
 
 hl2019<-read_excel("./HiLo Entrants by year.xlsx")
 hl2018<-read_excel("./HiLo Entrants by year.xlsx", sheet = "2018")
