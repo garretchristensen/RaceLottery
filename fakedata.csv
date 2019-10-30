@@ -1,261 +1,306 @@
-firstname,lastname,fullname,female,age,temp,finishes,starts,applications
-"April","1","April 1",1,23,.2199364,0,0,2
-"Bob","1","Bob 1",0,55,.7613997,0,1,0
-"Cathy","1","Cathy 1",1,39,.4659629,0,0,1
-"Doug","1","Doug 1",0,49,.5519171,1,1,2
-"Elise","1","Elise 1",1,57,.3674549,0,0,1
-"Fred","1","Fred 1",0,59,.5034481,0,0,0
-"Geraldine","1","Geraldine 1",1,59,.6449584,0,0,0
-"Hidalgo","1","Hidalgo 1",0,49,.5321387,1,1,2
-"Ismarelda","1","Ismarelda 1",1,39,.1744004,0,0,1
-"Joe","1","Joe 1",0,60,.3844422,0,0,1
-"Katelyn","1","Katelyn 1",1,22,.8835859,0,1,2
-"Lance","1","Lance 1",0,23,.8174671,1,2,0
-"Ming","1","Ming 1",1,53,.5772532,1,1,1
-"Nate","1","Nate 1",0,60,.1456762,0,0,0
-"Octavia","1","Octavia 1",1,66,.8458015,0,1,1
-"Prince","1","Prince 1",0,45,.8418395,0,1,0
-"Quinn","1","Quinn 1",1,40,.8109537,0,1,0
-"Rob","1","Rob 1",0,44,.542565,0,0,0
-"Suzy","1","Suzy 1",1,36,.219182,1,1,2
-"Trayvon","1","Trayvon 1",0,29,.606351,0,0,0
-"Ursula","1","Ursula 1",1,39,.689538,0,0,1
-"Von","1","Von 1",0,60,.3582779,0,0,1
-"Wendy","1","Wendy 1",1,26,.3042921,3,3,1
-"Xavier","1","Xavier 1",0,56,.9690654,0,2,1
-"Yolonda","1","Yolonda 1",1,26,.1278499,0,0,1
-"Zebluon","2","Zebluon 2",0,64,.0850576,0,0,2
-"April","2","April 2",1,21,.0977312,3,3,2
-"Bob","2","Bob 2",0,67,.7321085,0,0,1
-"Cathy","2","Cathy 2",1,30,.8377963,0,1,1
-"Doug","2","Doug 2",0,51,.277357,0,0,2
-"Elise","2","Elise 2",1,48,.4363791,0,0,1
-"Fred","2","Fred 2",0,26,.1669305,1,1,2
-"Geraldine","2","Geraldine 2",1,62,.1950815,3,3,1
-"Hidalgo","2","Hidalgo 2",0,21,.8011436,0,1,1
-"Ismarelda","2","Ismarelda 2",1,24,.5951136,0,0,2
-"Joe","2","Joe 2",0,51,.9354566,3,5,0
-"Katelyn","2","Katelyn 2",1,31,.1738332,0,0,0
-"Lance","2","Lance 2",0,45,.0785051,0,0,1
-"Ming","2","Ming 2",1,36,.7291083,0,0,1
-"Nate","2","Nate 2",0,31,.4857506,0,0,1
-"Octavia","2","Octavia 2",1,20,.2040572,0,0,1
-"Prince","2","Prince 2",0,30,.5588289,0,0,0
-"Quinn","2","Quinn 2",1,32,.9716251,1,3,1
-"Rob","2","Rob 2",0,46,.8052941,1,2,0
-"Suzy","2","Suzy 2",1,64,.1273718,0,0,0
-"Trayvon","2","Trayvon 2",0,46,.3622823,0,0,1
-"Ursula","2","Ursula 2",1,58,.3703212,0,0,2
-"Von","2","Von 2",0,31,.3678796,0,0,1
-"Wendy","2","Wendy 2",1,61,.600561,3,3,1
-"Xavier","2","Xavier 2",0,34,.302674,0,0,1
-"Yolonda","2","Yolonda 2",1,19,.3787238,0,0,1
-"Zebluon","3","Zebluon 3",0,22,.6970593,0,0,2
-"April","3","April 3",1,64,.4425785,0,0,0
-"Bob","3","Bob 3",0,21,.6706082,0,0,1
-"Cathy","3","Cathy 3",1,41,.5018779,0,0,0
-"Doug","3","Doug 3",0,47,.2922339,1,1,1
-"Elise","3","Elise 3",1,22,.5943419,2,2,0
-"Fred","3","Fred 3",0,21,.8773628,0,1,2
-"Geraldine","3","Geraldine 3",1,55,.8213661,0,1,0
-"Hidalgo","3","Hidalgo 3",0,48,.2784167,0,0,2
-"Ismarelda","3","Ismarelda 3",1,25,.7496964,0,0,2
-"Joe","3","Joe 3",0,30,.0882477,0,0,1
-"Katelyn","3","Katelyn 3",1,50,.2639065,0,0,0
-"Lance","3","Lance 3",0,43,.2531639,3,3,1
-"Ming","3","Ming 3",1,59,.5414287,1,1,1
-"Nate","3","Nate 3",0,37,.9573666,0,2,1
-"Octavia","3","Octavia 3",1,67,.0410996,1,1,2
-"Prince","3","Prince 3",0,58,.3416623,0,0,1
-"Quinn","3","Quinn 3",1,59,.0145335,0,0,0
-"Rob","3","Rob 3",0,21,.5308413,0,0,2
-"Suzy","3","Suzy 3",1,43,.050788,0,0,1
-"Trayvon","3","Trayvon 3",0,55,.7046411,0,0,1
-"Ursula","3","Ursula 3",1,47,.3020518,3,3,1
-"Von","3","Von 3",0,37,.0594965,1,1,0
-"Wendy","3","Wendy 3",1,25,.0896365,0,0,1
-"Xavier","3","Xavier 3",0,35,.02312,0,0,0
-"Yolonda","3","Yolonda 3",1,62,.9426962,0,2,1
-"Zebluon","4","Zebluon 4",0,19,.9622971,0,2,0
-"April","4","April 4",1,55,.681446,3,3,1
-"Bob","4","Bob 4",0,20,.1883101,2,2,1
-"Cathy","4","Cathy 4",1,68,.1584515,0,0,1
-"Doug","4","Doug 4",0,66,.6509103,1,1,1
-"Elise","4","Elise 4",1,22,.7524679,1,2,0
-"Fred","4","Fred 4",0,68,.2977402,0,0,1
-"Geraldine","4","Geraldine 4",1,50,.3978155,0,0,0
-"Hidalgo","4","Hidalgo 4",0,37,.0670334,1,1,1
-"Ismarelda","4","Ismarelda 4",1,27,.8488644,0,1,2
-"Joe","4","Joe 4",0,28,.0392586,0,0,1
-"Katelyn","4","Katelyn 4",1,57,.9239019,0,2,2
-"Lance","4","Lance 4",0,64,.6497018,0,0,1
-"Ming","4","Ming 4",1,33,.3512364,0,0,2
-"Nate","4","Nate 4",0,63,.6422811,0,0,2
-"Octavia","4","Octavia 4",1,23,.420285,0,0,0
-"Prince","4","Prince 4",0,27,.9227002,1,3,1
-"Quinn","4","Quinn 4",1,62,.6401011,0,0,2
-"Rob","4","Rob 4",0,50,.2297762,0,0,0
-"Suzy","4","Suzy 4",1,26,.980704,0,2,2
-"Trayvon","4","Trayvon 4",0,20,.8909714,0,1,0
-"Ursula","4","Ursula 4",1,48,.1996969,0,0,1
-"Von","4","Von 4",0,37,.3012191,0,0,2
-"Wendy","4","Wendy 4",1,57,.635332,0,0,1
-"Xavier","4","Xavier 4",0,30,.3831007,0,0,1
-"Yolonda","4","Yolonda 4",1,20,.09538,0,0,1
-"Zebluon","5","Zebluon 5",0,54,.6381103,0,0,2
-"April","5","April 5",1,65,.4155352,2,2,1
-"Bob","5","Bob 5",0,30,.2873339,0,0,1
-"Cathy","5","Cathy 5",1,63,.4536964,0,0,2
-"Doug","5","Doug 5",0,58,.7685924,0,1,1
-"Elise","5","Elise 5",1,24,.1717871,0,0,0
-"Fred","5","Fred 5",0,64,.250351,0,0,2
-"Geraldine","5","Geraldine 5",1,26,.8162605,0,1,0
-"Hidalgo","5","Hidalgo 5",0,65,.812105,0,1,0
-"Ismarelda","5","Ismarelda 5",1,49,.4684581,0,0,1
-"Joe","5","Joe 5",0,45,.727693,0,0,2
-"Katelyn","5","Katelyn 5",1,50,.7113185,0,0,1
-"Lance","5","Lance 5",0,52,.0947289,0,0,0
-"Ming","5","Ming 5",1,43,.2116088,0,0,1
-"Nate","5","Nate 5",0,25,.400452,0,0,1
-"Octavia","5","Octavia 5",1,22,.6022008,0,0,2
-"Prince","5","Prince 5",0,60,.9394276,0,2,1
-"Quinn","5","Quinn 5",1,64,.8508312,0,1,0
-"Rob","5","Rob 5",0,39,.524669,0,0,1
-"Suzy","5","Suzy 5",1,42,.087188,2,2,2
-"Trayvon","5","Trayvon 5",0,53,.3894288,3,3,0
-"Ursula","5","Ursula 5",1,62,.6835708,0,0,1
-"Von","5","Von 5",0,45,.5258223,0,0,2
-"Wendy","5","Wendy 5",1,39,.9582984,0,2,0
-"Xavier","5","Xavier 5",0,44,.2707038,0,0,0
-"Yolonda","5","Yolonda 5",1,48,.7639779,0,1,1
-"Zebluon","6","Zebluon 6",0,52,.7970256,0,1,0
-"April","6","April 6",1,52,.9447526,0,2,0
-"Bob","6","Bob 6",0,50,.2023831,0,0,1
-"Cathy","6","Cathy 6",1,43,.0765801,0,0,1
-"Doug","6","Doug 6",0,34,.300716,0,0,1
-"Elise","6","Elise 6",1,53,.2381104,2,2,2
-"Fred","6","Fred 6",0,61,.8971098,0,1,0
-"Geraldine","6","Geraldine 6",1,51,.4864101,0,0,0
-"Hidalgo","6","Hidalgo 6",0,23,.7015868,0,0,0
-"Ismarelda","6","Ismarelda 6",1,50,.8518471,1,2,1
-"Joe","6","Joe 6",0,51,.434501,0,0,1
-"Katelyn","6","Katelyn 6",1,47,.1335203,0,0,1
-"Lance","6","Lance 6",0,23,.9730368,0,2,1
-"Ming","6","Ming 6",1,57,.9145612,0,2,0
-"Nate","6","Nate 6",0,30,.5606689,0,0,2
-"Octavia","6","Octavia 6",1,59,.5377344,1,1,0
-"Prince","6","Prince 6",0,49,.1668454,0,0,0
-"Quinn","6","Quinn 6",1,63,.4587809,1,1,1
-"Rob","6","Rob 6",0,43,.1883945,1,1,0
-"Suzy","6","Suzy 6",1,31,.6191202,0,0,0
-"Trayvon","6","Trayvon 6",0,19,.1851183,0,0,0
-"Ursula","6","Ursula 6",1,50,.4279086,0,0,2
-"Von","6","Von 6",0,20,.3234104,0,0,2
-"Wendy","6","Wendy 6",1,65,.8890356,0,1,1
-"Xavier","6","Xavier 6",0,63,.0339518,0,0,1
-"Yolonda","6","Yolonda 6",1,64,.2993356,0,0,1
-"Zebluon","7","Zebluon 7",0,22,.3131319,0,0,2
-"April","7","April 7",1,48,.7056049,0,0,1
-"Bob","7","Bob 7",0,44,.2749066,0,0,2
-"Cathy","7","Cathy 7",1,66,.7547455,0,1,1
-"Doug","7","Doug 7",0,64,.8027459,0,1,1
-"Elise","7","Elise 7",1,53,.1062264,0,0,1
-"Fred","7","Fred 7",0,40,.5391198,0,0,1
-"Geraldine","7","Geraldine 7",1,23,.7037465,0,0,1
-"Hidalgo","7","Hidalgo 7",0,49,.0299323,0,0,1
-"Ismarelda","7","Ismarelda 7",1,47,.327924,0,0,1
-"Joe","7","Joe 7",0,23,.6285391,0,0,1
-"Katelyn","7","Katelyn 7",1,30,.557521,0,0,1
-"Lance","7","Lance 7",0,47,.9113266,0,2,1
-"Ming","7","Ming 7",1,27,.9381415,0,2,0
-"Nate","7","Nate 7",0,36,.1295464,0,0,1
-"Octavia","7","Octavia 7",1,33,.253973,0,0,0
-"Prince","7","Prince 7",0,47,.5049715,0,0,2
-"Quinn","7","Quinn 7",1,54,.5763736,0,0,0
-"Rob","7","Rob 7",0,32,.7744436,0,1,1
-"Suzy","7","Suzy 7",1,41,.7953305,0,1,1
-"Trayvon","7","Trayvon 7",0,20,.5719827,0,0,1
-"Ursula","7","Ursula 7",1,30,.7248694,0,0,1
-"Von","7","Von 7",0,56,.1022101,1,1,2
-"Wendy","7","Wendy 7",1,67,.0052318,0,0,1
-"Xavier","7","Xavier 7",0,58,.1283551,1,1,2
-"Yolonda","7","Yolonda 7",1,61,.3821969,1,1,1
-"Zebluon","8","Zebluon 8",0,38,.8349989,0,1,1
-"April","8","April 8",1,19,.6917445,0,0,2
-"Bob","8","Bob 8",0,53,.0000657,0,0,1
-"Cathy","8","Cathy 8",1,24,.9530115,0,2,1
-"Doug","8","Doug 8",0,31,.1841533,0,0,1
-"Elise","8","Elise 8",1,61,.2089604,0,0,2
-"Fred","8","Fred 8",0,51,.9462968,0,2,0
-"Geraldine","8","Geraldine 8",1,40,.7523049,0,1,2
-"Hidalgo","8","Hidalgo 8",0,30,.8609971,0,1,1
-"Ismarelda","8","Ismarelda 8",1,22,.7363314,1,1,1
-"Joe","8","Joe 8",0,60,.7937489,1,2,0
-"Katelyn","8","Katelyn 8",1,56,.7451365,0,0,1
-"Lance","8","Lance 8",0,66,.5488196,0,0,1
-"Ming","8","Ming 8",1,20,.828108,0,1,1
-"Nate","8","Nate 8",0,64,.0172347,2,2,1
-"Octavia","8","Octavia 8",1,65,.1197351,0,0,1
-"Prince","8","Prince 8",0,37,.4459856,0,0,1
-"Quinn","8","Quinn 8",1,40,.0316286,0,0,1
-"Rob","8","Rob 8",0,42,.6054703,0,0,1
-"Suzy","8","Suzy 8",1,43,.9224108,0,2,2
-"Trayvon","8","Trayvon 8",0,60,.8200352,0,1,1
-"Ursula","8","Ursula 8",1,66,.1648166,3,3,1
-"Von","8","Von 8",0,28,.5295972,0,0,1
-"Wendy","8","Wendy 8",1,33,.4975987,0,0,0
-"Xavier","8","Xavier 8",0,46,.1678921,1,1,1
-"Yolonda","8","Yolonda 8",1,51,.0268381,0,0,1
-"Zebluon","9","Zebluon 9",0,52,.5326025,0,0,2
-"April","9","April 9",1,30,.2769148,0,0,1
-"Bob","9","Bob 9",0,58,.673097,3,3,0
-"Cathy","9","Cathy 9",1,48,.4486393,0,0,1
-"Doug","9","Doug 9",0,60,.1649841,1,1,0
-"Elise","9","Elise 9",1,67,.1025201,2,2,1
-"Fred","9","Fred 9",0,24,.6565402,0,0,1
-"Geraldine","9","Geraldine 9",1,53,.4666642,0,0,1
-"Hidalgo","9","Hidalgo 9",0,54,.6531476,0,0,2
-"Ismarelda","9","Ismarelda 9",1,30,.457326,0,0,0
-"Joe","9","Joe 9",0,45,.5967844,0,0,0
-"Katelyn","9","Katelyn 9",1,41,.2446938,1,1,1
-"Lance","9","Lance 9",0,23,.918348,0,2,0
-"Ming","9","Ming 9",1,65,.0326407,0,0,1
-"Nate","9","Nate 9",0,57,.5954068,0,0,1
-"Octavia","9","Octavia 9",1,49,.1638851,0,0,1
-"Prince","9","Prince 9",0,51,.0005174,0,0,1
-"Quinn","9","Quinn 9",1,64,.8348706,0,1,2
-"Rob","9","Rob 9",0,34,.4323322,3,3,1
-"Suzy","9","Suzy 9",1,31,.6574557,2,2,1
-"Trayvon","9","Trayvon 9",0,31,.5226656,0,0,2
-"Ursula","9","Ursula 9",1,65,.6180481,0,0,1
-"Von","9","Von 9",0,36,.8873186,0,1,0
-"Wendy","9","Wendy 9",1,26,.553891,1,1,0
-"Xavier","9","Xavier 9",0,24,.5240102,0,0,0
-"Yolonda","9","Yolonda 9",1,39,.2430363,0,0,0
-"Zebluon","10","Zebluon 10",0,27,.5364734,0,0,1
-"April","10","April 10",1,42,.0775252,1,1,1
-"Bob","10","Bob 10",0,66,.8833188,0,1,0
-"Cathy","10","Cathy 10",1,48,.6343335,0,0,1
-"Doug","10","Doug 10",0,34,.7575526,0,1,1
-"Elise","10","Elise 10",1,51,.9083778,3,5,1
-"Fred","10","Fred 10",0,18,.9829506,0,2,2
-"Geraldine","10","Geraldine 10",1,49,.5069293,0,0,1
-"Hidalgo","10","Hidalgo 10",0,55,.8045968,0,1,1
-"Ismarelda","10","Ismarelda 10",1,39,.379929,0,0,2
-"Joe","10","Joe 10",0,34,.4717154,1,1,1
-"Katelyn","10","Katelyn 10",1,50,.4565215,1,1,1
-"Lance","10","Lance 10",0,41,.889106,1,2,0
-"Ming","10","Ming 10",1,25,.7970387,0,1,2
-"Nate","10","Nate 10",0,26,.8376307,0,1,1
-"Octavia","10","Octavia 10",1,44,.5883529,0,0,1
-"Prince","10","Prince 10",0,58,.3604439,0,0,1
-"Quinn","10","Quinn 10",1,49,.7277045,0,0,1
-"Rob","10","Rob 10",0,46,.3692192,0,0,0
-"Suzy","10","Suzy 10",1,20,.5134571,0,0,2
-"Trayvon","10","Trayvon 10",0,59,.7827484,1,2,1
-"Ursula","10","Ursula 10",1,63,.7779073,0,1,2
-"Von","10","Von 10",0,28,.5394697,0,0,0
-"Wendy","10","Wendy 10",1,48,.0965047,0,0,0
-"Xavier","10","Xavier 10",0,39,.4360794,0,0,0
-"Yolonda","10","Yolonda 10",1,64,.7914674,1,2,0
-"Zebluon","11","Zebluon 11",0,62,.914494,0,2,1
+﻿First_Name,Last_Name,gender,Age,City,State,Country,Previous_Finishes,Volunteer_Shifts,Extra_Trailwork
+Dave,Scheibel,M,43,Seattle,WA,USA,1,1,0
+Andrew,Nichols,M,47,park city,UT,USA,0,0,0
+Zachary,King,M,33,Boulder,CO,USA,0,5,0
+Lori,Foringer,F,46,Centerville,OH,USA,0,1,0
+Chris,Grove,F,44,Colorado Springs,CO,USA,0,0,0
+Philip,Snyder,M,50,Denver,CO,USA,0,0,0
+Will,Jorgensen,M,60,Maryville,TN,USA,0,0,0
+Alden,Short,M,43,Golden,CO,USA,0,2,0
+David,Braun,M,41,Denver,CO,USA,0,1,0
+Scott,Muggleton,M,44,Los Alamos,NM,USA,0,0,0
+Natalie,Nicholson,F,37,salida,CO,USA,0,1,0
+Joseph,D'Alessio,M,42,Cambridge,MA,USA,0,0,0
+Andrew,Rivers,M,33,Helena,MT,USA,0,0,0
+Jesse,Peragine,M,30,Lakewood,CO,USA,0,2,0
+Courtney,Foley,F,43,Salt Lake City,UT,USA,0,0,0
+Ron,Braselton,M,38,Durango,CO,USA,0,0,0
+Adam,Chapman,M,32,Boulder,CO,USA,1,5,0
+Jim,Skelding,M,48,Austin,TX,USA,1,0,1
+Silke,Koester,F,36,Boulder,CO,USA,0,0,0
+Kevin,Cannaday,M,40,Oconomowoc,WI,USA,2,0,0
+Doug,Oatis,M,38,Denver,CO,USA,0,1,0
+Jacob,Wyatt,M,50,Flagstaff,AZ,USA,0,0,0
+Matt,Ozanic,M,44,Grand Junction,CO,USA,1,0,0
+Ivan,Schwendt,M,48,Colorado Springs,CO,USA,0,0,0
+JT,Archie,M,36,Denver,CO,USA,0,1,0
+Patrick,Olson,M,49,Superior,CO,USA,0,0,0
+David,Ponak,M,39,Longmont,CO,USA,0,0,0
+Matthew,Shaw,M,37,Louisville,CO,USA,0,0,0
+Ryan,King,M,37,Piqua,OH,USA,1,2,0
+Tommy,Stockton,M,59,Los Alamos,NM,USA,0,0,0
+Daniel,Harris,M,37,Boulder,CO,USA,0,0,0
+Nate,Swanberg,M,39,Lafayette,CO,USA,0,0,0
+Patrick,Garcia,M,34,Lakewood,CO,USA,0,0,0
+Kylie,Collins,F,30,Almont,CO,USA,0,0,0
+Sean,Strauss,M,40,Silverthorne,CO,USA,0,0,0
+Sonja,Hinish,F,33,Golden,CO,USA,0,1,0
+Matt,Meckenstock,M,33,Clifton Hill,AUS,AUS,0,0,0
+John,Delcalzo,M,31,Oberlin,OH,USA,0,0,0
+Kenneth,Letterle,M,36,Houston,TX,USA,0,0,0
+Chris,Erickson,M,37,North Salt Lake,UT,USA,0,0,0
+Meghan,Cogswell,F,40,Colorado Springs,CO,USA,0,0,0
+Lauren,Groth,F,36,Boulder,CO,USA,0,0,0
+Vale,Hirt,F,35,Ouray,CO,USA,0,0,0
+Doug,Holt,M,36,Boulder,CO,USA,0,0,0
+Garth,Reader,M,57,Los Alamos,NM,USA,1,0,0
+Matt,Anderson,M,33,Aurora,CO,USA,0,0,0
+Brett,Harkey,M,48,Fort Collins,CO,USA,0,0,0
+Kerrie,Bruxvoort,F,42,Broomfield,CO,USA,1,1,0
+Jeremy,Harrison,M,41,Meeker,OK,USA,0,0,0
+Donnie,Haubert,M,41,Steamboat Springs,CO,USA,0,0,0
+Terry,Miller,M,47,Denver,CO,USA,0,0,0
+Grant,Muller,M,37,Marietta,GA,USA,2,0,0
+Jon,Davis,M,39,Frederick,CO,USA,2,0,0
+Brian,Crone,M,53,Santa Fe,NM,USA,0,0,0
+Eric,Truhe,M,44,Lafayette,CO,USA,0,0,0
+Jason,Harris,M,44,Sauk City,WI,USA,0,0,0
+Nathan,Wendel,M,24,Hurricane,WV,USA,0,0,0
+Corey,Barrett,M,48,waterbury center,VT,USA,0,0,0
+Aaron,Norman,M,38,Independence,MO,USA,0,0,0
+Michael,Hlavacek,M,47,Steamboat Springs,CO,USA,1,0,0
+Amanda,Morgenstern,F,31,Colorado Springs,CO,USA,0,0,0
+Matthew,Teague,M,25,Durango,CO,USA,0,0,0
+Bryan,Whitesel,M,30,Sioux Falls,SD,USA,0,0,0
+Scott,Pfahler,M,34,Aurora,CO,USA,0,0,0
+Margot,Watters,F,53,Victor,ID,USA,0,0,0
+Mark,Eury,M,42,Golden,CO,USA,0,0,0
+Stephen,Bartos,M,35,Denver,CO,USA,0,0,0
+Laura,Stamp,F,25,Boulder,CO,USA,0,0,0
+Rob,Hacker,M,58,Boulder,CO,USA,0,0,0
+Michael,Dicanio,M,38,Maplewood,NJ,USA,0,0,0
+Missy,Gosney,F,52,Durango,CO,USA,0,0,0
+David,Mentjes,M,50,Brookfield,WI,USA,0,0,0
+Jordan,Bierma,M,31,Silverton,CO,USA,0,0,0
+Mike,Smith,M,61,Santa Fe,NM,USA,1,0,0
+Sarah,Bunting Lamos,F,44,Thornton,CO,USA,0,0,0
+Konstantin,Walmsley,M,49,Glen Ridge,NJ,USA,0,0,0
+Chris,Swedenborg,M,46,Loveland,CO,USA,0,0,0
+Colin,Thornton,M,39,Isfjorden,NOR,NOR,0,0,0
+Bryan,Boots,M,43,Boulder,CO,USA,1,0,0
+Geoffrey,Cordner,M,59,Los Angeles,CA,USA,0,0,0
+Ernest,Lamaitis,M,42,Boulder,CO,USA,0,0,0
+Jeremy,Hedges,M,44,Larkspur,CO,USA,0,0,0
+Matt,Bartz,M,44,Milwaukee,WI,USA,0,0,0
+Jacob,Neumann,M,30,Denver,CO,USA,0,4,0
+Jonathan,Brinkley,M,43,Fond Du Lac,WI,USA,0,0,0
+Tiffany,Cap,F,40,Arvada,CO,USA,0,0,0
+Heather,Jossi,F,42,Lakewood,CO,USA,1,2,0
+Brandon,Petelin,M,37,Washington,DC,USA,0,0,0
+Patrick,Cole,M,38,Denver,CO,USA,0,0,0
+Erica,Rackley,F,29,Frisco,CO,USA,0,0,0
+Christopher,Whitestone,M,39,Denver,CO,USA,0,0,0
+Christopher,Miller,M,43,Blacksburg,VA,USA,0,0,0
+Timothy,Kojetin,M,29,Denver,CO,USA,0,2,0
+Lynn,Hall,F,36,LEADVILLE,CO,USA,0,0,0
+Ronald,Lapoint,M,38,Maize,KS,USA,0,0,0
+Suzanne,Ehler,F,36,Lakewood,CO,USA,0,0,0
+Charity,Larson,F,44,Fort Collins,CO,USA,0,1,0
+Tim,Nooney,M,25,Carbondale,CO,USA,0,0,0
+Axel,Yount,M,30,Bozeman,MT,USA,0,0,0
+Megan,Sweeney,F,38,Leadville,CO,USA,0,0,0
+Keira,McMahon,F,44,Nederland,CO,USA,0,0,0
+Kris,Tyson,M,37,Fort Collins,CO,USA,0,0,0
+Marianne,Osteen,F,59,Steamboat Springs,CO,USA,0,0,0
+Joseph,Devreese,M,52,Santa Barbara,CA,USA,0,0,0
+John,Ripsam,M,37,Loveland,CO,USA,0,0,0
+James,Nalley,M,50,Prescott,AZ,USA,0,0,0
+Michael,Fenzel,M,43,Norwich,VT,USA,0,0,0
+Brandon,Yonke,M,26,Morrison,CO,USA,0,1,0
+Sarah,Willis,F,39,Los Ranchos,NM,USA,0,0,0
+Jason,Veliquette,M,38,Fort Collins,CO,USA,0,0,0
+Maurizio,Calabrese,M,45,Colorado Springs,CO,USA,0,0,0
+Kyle,Konczal,M,31,Lakewood,CO,USA,0,0,0
+Jorge,Rasillo,M,38,Round Rock,TX,USA,0,0,0
+James,Brown,M,61,Port Washington,WI,USA,0,0,0
+Benjamin,Willis,M,43,Los Ranchos,NM,USA,0,0,0
+David,Boyd,M,31,Fort Collins,CO,USA,0,0,0
+Doug,Leary,M,55,Boulder,CO,USA,0,0,0
+Adam,McRoberts,M,44,boulder,CO,USA,0,0,0
+Ron,Robbins,M,51,Lake City,FL,USA,0,0,0
+Shaun,Smith,M,36,Hesperus,CO,USA,0,0,0
+John,Knowles,M,53,Lakewood,CO,USA,0,0,0
+Peter,Hajdo,M,19,Gunnison,CO,USA,0,0,0
+Tim,Steele,M,57,San Ramon,CA,USA,0,0,0
+Gilbert,Sandoval,M,46,Espanola,NM,USA,0,0,0
+Bradley,Peate,M,41,Aspen,CO,USA,0,0,0
+David,Coblentz,M,56,Los Alamos,NM,USA,1,0,0
+Ken,Gordon,M,54,Albuquerque,NM,USA,0,0,0
+Andrew,Poland,M,33,Lakewood,CO,USA,0,0,0
+Jason,Silver,M,40,Rapid City,SD,USA,0,0,0
+Jim,Zier,M,61,Parkman,WY,USA,0,0,0
+Dean,Mcmackin,M,49,Meridian,ID,USA,0,0,0
+Patrick,Stewart,M,33,Highlands Ranch,CO,USA,0,0,0
+JP,Lande,M,58,Black Hawk,CO,USA,0,0,0
+Will,Barnwell,M,42,Colorado Springs,CO,USA,0,0,0
+Ted,Kuether,M,38,Leawood,KS,USA,0,0,0
+Ben,Holmes,M,62,Lawrence,KS,USA,0,0,0
+Wanvipa,Ruangpradit,F,43,Buena Vista,CO,USA,0,0,0
+Gordon,Graham,M,46,Muscatine,IA,USA,0,0,0
+Brian,Wandzilak,M,38,Lincoln,NE,USA,0,0,0
+Sandra,Carpenter,F,46,Conifer,CO,USA,0,0,0
+Ghislain,Devouton,M,41,Bellevue,WA,USA,0,0,0
+Jake,Richter,M,39,Fort Worth,TX,USA,0,0,0
+Kunlong,Cousin,M,49,Boulder,CO,USA,1,0,0
+Daniel,Mickey,M,51,Toms River,NJ,USA,0,0,0
+Jonathan,Smolin,M,45,Norwich,VT,USA,0,0,0
+Jay,Donosky,M,49,Flagstaff,AZ,USA,0,0,0
+Jeffrey,Dodd,M,56,Tucson,AZ,USA,0,0,0
+Brett,Wyker,M,42,Longmont,CO,USA,0,0,0
+Luke,Jay,M,38,Littleton,CO,USA,0,0,0
+Pascal,Surprenant,M,45,L'Assomption,QC,CAN,0,0,0
+Craig,Lancaster,M,35,Boone,NC,USA,0,0,0
+Christina,Bauer,F,40,Flagstaff,AZ,USA,0,0,0
+Marshall,Burke,M,39,Menlo Park,CA,USA,0,0,0
+Anthony,Lee,M,25,Boulder,CO,USA,2,0,0
+Timothy,Bishop,M,43,Denver,CO,USA,0,0,0
+Kris,Clinard,M,44,Larkspur,CA,USA,0,0,0
+Travis,Burmaster,M,45,Broomfield,CO,USA,0,0,0
+Nicholas,Peterson,M,38,Arvada,CO,USA,0,0,0
+Josh,Grant,M,44,Morgan Hill,CA,USA,0,0,0
+Simon,Garneau,M,54,Coteau-du-lac,QC,CAN,0,0,0
+Meghan,Mulvaney,F,33,Denver,CO,USA,0,0,0
+David,Shavlik,M,57,Roxborough,CO,USA,0,0,0
+Keeton,Disser,F,42,Ouray,CO,USA,0,0,0
+Wes,Varda,M,42,Atlanta,GA,USA,0,0,0
+Andrew,Reed,M,29,Carbondale,CO,USA,0,0,0
+Matt,Ross,M,38,Atlanta,GA,USA,0,0,0
+Tyler,Keyworth,M,33,Denver,CO,USA,0,0,0
+Rick,Hoberg,M,30,Denver,CO,USA,0,2,0
+John,Knotts,M,43,Evergreen,CO,USA,0,0,0
+Garret,Christensen,M,39,Washington,DC,USA,0,0,0
+Salynda,Heinl,F,34,Aspen Park,CO,USA,0,0,0
+Mitchell,Flippin,M,35,Evergreen,CO,USA,0,0,0
+Trevor,Peterson,M,33,Ouray,CO,USA,0,0,0
+Jittilak,Chaivann,F,44,Aurora,CO,USA,0,0,0
+Stefanie,Flippin,F,30,Evergreen,CO,USA,0,0,0
+David,Fink,M,42,Smyrna,GA,USA,0,0,0
+Laura,Trimboli,F,33,Durango,CO,USA,0,0,0
+Andy,Hardy,M,38,Frisco,CO,USA,0,0,0
+Rhea,Loney,F,36,Ponchatoula,LA,USA,0,0,0
+Amanda,Simpson,F,48,Golden,CO,USA,0,0,0
+David,Burns,M,37,New Orleans,LA,USA,0,0,0
+Chris,McElveny,M,47,Albuquerque,NM,USA,0,0,0
+Brett,Overby,M,47,Denver,CO,USA,0,0,0
+Autumn,Isleib,F,34,Leadville,CO,USA,0,0,0
+Patty,Bryant,F,59,Santa Barbara,CA,USA,0,0,0
+Jim,Wei,M,46,Colorado Springs,CO,USA,0,0,0
+David,Bresnahan,M,34,Salt Lake City,UT,USA,0,0,0
+Petra,Pirc,F,47,Los Alamos,NM,USA,0,0,0
+John,Herrick,M,28,Boulder,CO,USA,0,0,0
+Josam,Mulinyawe,M,41,San Jose,CA,USA,0,0,0
+Bruce,Phillips,M,39,Wellsburg,WV,USA,0,0,0
+Lorenzo,Riano,M,38,San Francisco,CA,USA,0,0,0
+Krosby,Keller,M,35,O'Fallon,IL,USA,1,0,0
+Hannes,Gehring,M,33,Denver,CO,USA,1,0,0
+Tracey,Anderson,F,57,Colorado Springs,CO,USA,0,0,0
+Cory,Feign,M,42,Boulder,CO,USA,0,0,0
+Matthew,Watts,M,62,Broomfield,CO,USA,0,0,0
+Steve,Bremner,M,64,Manitou Springs,CO,USA,0,0,0
+Ryan,Brackley,M,52,Boulder,CO,USA,0,0,0
+Jenny,Fox,F,39,Steamboat Springs,CO,USA,0,0,0
+Nick,Pedatella,M,34,Boulder,CO,USA,0,0,0
+Kevin,Barrett,M,23,Chattanooga,TN,USA,0,0,0
+Kevin,Geisen,M,23,Gunnison,CO,USA,1,0,0
+Jeffrey,Urbanski,M,34,Broomfield,CO,USA,0,0,0
+Kevin,Smilor,M,36,Denver,CO,USA,0,0,0
+John,Higgs,M,54,Conifer,CO,USA,0,0,0
+Logan,Boon,F,31,Denver,CO,USA,0,0,0
+Sean,Cunniff,M,47,Santa Fe,NM,USA,0,0,0
+Joshua,Schmitt,M,30,Platte City,MO,USA,0,0,0
+Paul,Holubek,M,41,WVC,UT,USA,0,0,0
+Chris,Kumm,M,34,Broomfield,CO,USA,0,0,0
+Sarah,Lavender Smith,F,50,Telluride,CO,USA,0,0,0
+Guy,Love,M,28,Boulder,CO,USA,0,0,0
+Daniel,Findley,M,32,Gypsum,CO,USA,1,0,0
+Troy,Allen,M,34,Columbus,OH,USA,0,0,0
+Drew,Frehs,M,32,Sedona,AZ,USA,0,0,0
+Ken,Hughes,M,60,Santa Barbara,CA,USA,0,0,0
+Andrew,Darezzo,M,43,Tucson,AZ,USA,1,0,0
+Vincent,Snow,M,27,Holladay,UT,USA,0,0,0
+John,Becker,M,51,Roseville,CA,USA,0,0,0
+Courtney,Schwind,F,31,Glenwood Springs,CO,USA,0,0,0
+Daniel,Scarberry,M,35,Santa Monica,CA,USA,0,0,0
+Allison,Conover,F,40,Sandy,UT,USA,0,0,0
+Joseph,Chick,M,42,Ashland,OR,USA,0,0,0
+Brandon,Benefield,M,37,Spokane,WA,USA,1,0,0
+Katie,Katalin,F,49,Colorado Springs,CO,USA,0,0,0
+Daniel,Evans,M,41,Littleton,CO,USA,0,0,0
+Mark,Scherr,M,52,Marietta,GA,USA,0,0,0
+Carlos,Rodriguez,M,53,Wichita,KS,USA,0,0,0
+David,Santiago,M,33,Palmdale,CA,USA,0,0,0
+Nathan,Moody,M,43,Los Alamos,NM,USA,0,0,0
+Jenny,Bonner,F,31,Spartanburg,SC,USA,0,0,0
+Nicholas,Robertson,M,36,Las Vegas,NV,USA,0,0,0
+John,Horns,M,56,Edina,MN,USA,0,0,0
+Lawrence,Miller,M,51,Los Angeles,CA,USA,0,0,0
+Vincent,Tenret,M,31,Contamine-sur-Arve,FRA,FRA,0,0,0
+Phoebe,Erdman,F,30,Park City,UT,USA,0,0,0
+Matthew,Berdine,M,40,Centennial,CO,USA,0,0,0
+Judith,Williams,F,57,New Carlisle,OH,USA,0,0,0
+Skye,Thompson,M,42,Mill Valley,CA,USA,0,0,0
+Douglas,Donovan,M,49,Reno,NV,USA,0,0,0
+Marie,Donovan,F,41,Henderson,NV,USA,0,0,0
+Aaron,Hastings,M,50,Henderson,NV,USA,0,0,0
+Sean,Dasey,M,31,San Francisco,CA,USA,0,0,0
+Brian,Pfister,M,47,Wilmette,IL,USA,0,0,0
+Benno,Rawlinson,M,32,Westfield,NJ,USA,0,0,0
+Sunaad,Nataraju,M,33,San Mateo,CA,USA,0,0,0
+Randi,Schooley,F,36,Cypress,TX,USA,0,0,0
+Brittany,Lane,F,30,Boulder,CO,USA,0,0,0
+Doug,Beagle,M,69,Houston,TX,USA,0,0,0
+Whit,Rambach,M,52,Carmel,CA,USA,0,0,0
+Roger,Jensen,M,69,Pagosa Springs,CO,USA,0,0,0
+Suzanna,Bon,F,54,Sonoma,CA,USA,0,0,0
+Logan,Williams,M,24,Salt Lake City,UT,USA,0,0,0
+Rich,White,M,38,Ding Dang Doo,WA,USA,0,0,0
+Philip,Blechertas,M,32,Oceanside,CA,USA,0,0,0
+Deby,Kumasaka,F,55,Edmonds,WA,USA,0,0,0
+Maggie,Edmiston,F,26,Grants,NM,USA,0,0,0
+Donald,Buraglio,M,48,Carmel Valley,CA,USA,0,0,0
+Jose,Orillac,M,47,Panama,PAN,PAN,0,0,0
+David,Eitemiller,M,60,Monument,CO,USA,0,0,0
+Lori,Barekman,F,58,Sonoma,CA,USA,0,0,0
+Erin,Shaw,F,37,Louisville,CO,USA,0,0,0
+Jennifer,Hughes,F,40,Roslyn,WA,USA,0,0,0
+Travis,Shaver,M,41,Denver,CO,USA,0,0,0
+Timothy,Skafidas,M,49,Crested Butte,CO,USA,0,0,0
+Dustin,Simoens,M,31,Gunnison,CO,USA,0,0,0
+Alyssa,Gottshall,F,29,Aurora,CO,USA,0,0,0
+Patrick,Grengs,M,54,West Richland,WA,USA,0,0,0
+Spencer,Briggs,M,43,Albuquerque,NM,USA,0,0,0
+Matt,Elam,M,27,Austin,TX,USA,0,0,0
+Ben,Jackson,M,33,Denver,CO,USA,0,0,0
+Garrett,Smith,M,39,Tucson,AZ,USA,0,0,0
+Benjamin,Jensen,M,36,Murray,UT,USA,0,0,0
+Tom,Caughlan,M,40,Colorado Springs,CO,USA,0,0,0
+Ryan,Meulemans,M,42,Signal Mountain,TN,USA,0,0,0
+Trey,Clark,M,30,Prattville,AL,USA,0,0,0
+Bryan,Williams,M,44,Erie,CO,USA,0,0,0
+Rob,Wright,M,45,Evergreen,CO,USA,1,0,0
+Taylor,Rice,M,26,Boulder,CO,USA,0,0,0
+Jeff,Gerke,M,52,Sandy,UT,USA,0,0,0
+Max,Keith,M,30,Iquique,CHL,CHL,0,0,0
+Jared,Kern,M,43,Anchorage,AK,USA,0,0,0
+Nobuyori,Takeda,M,39,Old Tappan,NJ,USA,0,0,0
+Noelle,Whitestone,F,36,Denver,CO,USA,0,0,0
+Mike,Rahmer,M,46,Albuquerque,NM,USA,0,0,0
+Jeff,Perry,M,58,Bondurant,IA,USA,0,0,0
+Richard,Williams,M,50,Denver,CO,USA,0,0,0
+Joshua,Propfe,M,26,Leadville,CO,USA,0,0,0
+Sharon,Murillo,F,26,El paso,TX,USA,0,0,0
+Lee,Kemp,M,37,Sheffield,GBR,GBR,0,0,0
+Christina,Bauer,F,40,Flagstaff,AZ,USA,0,0,0
+Benjamin,Gadbaw,M,34,Denver,CO,USA,0,0,0
+Vito,Rubino,M,41,Pasadena,CA,USA,0,0,0
+Michael,Shoup,M,45,Menlo Park,CA,USA,0,0,0
+Rocky,Gingg,M,30,Durango,CO,USA,0,0,0
+Erin,Tripp,F,39,Jamestown,CO,USA,0,0,0
+Mike,Wolfe,M,41,Bozeman,MT,USA,1,0,0
+Daniel,Mahler,M,24,Huntersville,NC,USA,0,0,0
+Benjamin,Hauschulz,M,34,Palisade,CO,USA,0,0,0
+Jack,Anderson,M,36,Washington,DC,USA,0,0,0
+Joshua,Goldstein,M,35,Culver City,CA,USA,0,0,0
+Joseph,Csmereka,M,43,Munster,IN,USA,0,0,0
+Ivy,Lefebvre,F,41,Silverton,CO,USA,1,0,0
+Ilja,Herdt,M,36,Brooklyn,NY,USA,0,0,0
