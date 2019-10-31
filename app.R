@@ -14,9 +14,11 @@ n<-125 #SET THE TOTAL NUMBER TO PICK
 
 temp<-read.csv("./fakedata.csv", stringsAsFactors = FALSE) #LOAD THE DATA
 df<-as_tibble(temp)
-#WORK AROUND SOME SERIOUSLY ANNOYING NON-ASCII BULLSHIT
-names(df) <- iconv(names(df), to='ASCII', sub='')
-df$First_Name<-df$..First_Name
+#THERE IS SOME STUPID NON-ASCII CHARACTER BEGINNING-OF-FILE 
+#NONSENSE GOING ON HERE
+#CHEAP WORKAROUND IS JUST TO MAKE SURE FIRST_NAME IS NOT THE FIRST VARIABLE!
+#names(df) <- iconv(names(df), to='ASCII', sub='')
+#df$First_Name<-df$..First_Name
 
 df$fullname<-paste( df$First_Name, df$Last_Name, sep=" ", collapse = NULL)
 head(df)

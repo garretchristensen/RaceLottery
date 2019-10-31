@@ -1,306 +1,376 @@
-﻿First_Name,Last_Name,gender,Age,City,State,Country,Previous_Finishes,Volunteer_Shifts,Extra_Trailwork
-Dave,Scheibel,M,43,Seattle,WA,USA,1,1,0
-Andrew,Nichols,M,47,park city,UT,USA,0,0,0
-Zachary,King,M,33,Boulder,CO,USA,0,5,0
-Lori,Foringer,F,46,Centerville,OH,USA,0,1,0
-Chris,Grove,F,44,Colorado Springs,CO,USA,0,0,0
-Philip,Snyder,M,50,Denver,CO,USA,0,0,0
-Will,Jorgensen,M,60,Maryville,TN,USA,0,0,0
-Alden,Short,M,43,Golden,CO,USA,0,2,0
-David,Braun,M,41,Denver,CO,USA,0,1,0
-Scott,Muggleton,M,44,Los Alamos,NM,USA,0,0,0
-Natalie,Nicholson,F,37,salida,CO,USA,0,1,0
-Joseph,D'Alessio,M,42,Cambridge,MA,USA,0,0,0
-Andrew,Rivers,M,33,Helena,MT,USA,0,0,0
-Jesse,Peragine,M,30,Lakewood,CO,USA,0,2,0
-Courtney,Foley,F,43,Salt Lake City,UT,USA,0,0,0
-Ron,Braselton,M,38,Durango,CO,USA,0,0,0
-Adam,Chapman,M,32,Boulder,CO,USA,1,5,0
-Jim,Skelding,M,48,Austin,TX,USA,1,0,1
-Silke,Koester,F,36,Boulder,CO,USA,0,0,0
-Kevin,Cannaday,M,40,Oconomowoc,WI,USA,2,0,0
-Doug,Oatis,M,38,Denver,CO,USA,0,1,0
-Jacob,Wyatt,M,50,Flagstaff,AZ,USA,0,0,0
-Matt,Ozanic,M,44,Grand Junction,CO,USA,1,0,0
-Ivan,Schwendt,M,48,Colorado Springs,CO,USA,0,0,0
-JT,Archie,M,36,Denver,CO,USA,0,1,0
-Patrick,Olson,M,49,Superior,CO,USA,0,0,0
-David,Ponak,M,39,Longmont,CO,USA,0,0,0
-Matthew,Shaw,M,37,Louisville,CO,USA,0,0,0
-Ryan,King,M,37,Piqua,OH,USA,1,2,0
-Tommy,Stockton,M,59,Los Alamos,NM,USA,0,0,0
-Daniel,Harris,M,37,Boulder,CO,USA,0,0,0
-Nate,Swanberg,M,39,Lafayette,CO,USA,0,0,0
-Patrick,Garcia,M,34,Lakewood,CO,USA,0,0,0
-Kylie,Collins,F,30,Almont,CO,USA,0,0,0
-Sean,Strauss,M,40,Silverthorne,CO,USA,0,0,0
-Sonja,Hinish,F,33,Golden,CO,USA,0,1,0
-Matt,Meckenstock,M,33,Clifton Hill,AUS,AUS,0,0,0
-John,Delcalzo,M,31,Oberlin,OH,USA,0,0,0
-Kenneth,Letterle,M,36,Houston,TX,USA,0,0,0
-Chris,Erickson,M,37,North Salt Lake,UT,USA,0,0,0
-Meghan,Cogswell,F,40,Colorado Springs,CO,USA,0,0,0
-Lauren,Groth,F,36,Boulder,CO,USA,0,0,0
-Vale,Hirt,F,35,Ouray,CO,USA,0,0,0
-Doug,Holt,M,36,Boulder,CO,USA,0,0,0
-Garth,Reader,M,57,Los Alamos,NM,USA,1,0,0
-Matt,Anderson,M,33,Aurora,CO,USA,0,0,0
-Brett,Harkey,M,48,Fort Collins,CO,USA,0,0,0
-Kerrie,Bruxvoort,F,42,Broomfield,CO,USA,1,1,0
-Jeremy,Harrison,M,41,Meeker,OK,USA,0,0,0
-Donnie,Haubert,M,41,Steamboat Springs,CO,USA,0,0,0
-Terry,Miller,M,47,Denver,CO,USA,0,0,0
-Grant,Muller,M,37,Marietta,GA,USA,2,0,0
-Jon,Davis,M,39,Frederick,CO,USA,2,0,0
-Brian,Crone,M,53,Santa Fe,NM,USA,0,0,0
-Eric,Truhe,M,44,Lafayette,CO,USA,0,0,0
-Jason,Harris,M,44,Sauk City,WI,USA,0,0,0
-Nathan,Wendel,M,24,Hurricane,WV,USA,0,0,0
-Corey,Barrett,M,48,waterbury center,VT,USA,0,0,0
-Aaron,Norman,M,38,Independence,MO,USA,0,0,0
-Michael,Hlavacek,M,47,Steamboat Springs,CO,USA,1,0,0
-Amanda,Morgenstern,F,31,Colorado Springs,CO,USA,0,0,0
-Matthew,Teague,M,25,Durango,CO,USA,0,0,0
-Bryan,Whitesel,M,30,Sioux Falls,SD,USA,0,0,0
-Scott,Pfahler,M,34,Aurora,CO,USA,0,0,0
-Margot,Watters,F,53,Victor,ID,USA,0,0,0
-Mark,Eury,M,42,Golden,CO,USA,0,0,0
-Stephen,Bartos,M,35,Denver,CO,USA,0,0,0
-Laura,Stamp,F,25,Boulder,CO,USA,0,0,0
-Rob,Hacker,M,58,Boulder,CO,USA,0,0,0
-Michael,Dicanio,M,38,Maplewood,NJ,USA,0,0,0
-Missy,Gosney,F,52,Durango,CO,USA,0,0,0
-David,Mentjes,M,50,Brookfield,WI,USA,0,0,0
-Jordan,Bierma,M,31,Silverton,CO,USA,0,0,0
-Mike,Smith,M,61,Santa Fe,NM,USA,1,0,0
-Sarah,Bunting Lamos,F,44,Thornton,CO,USA,0,0,0
-Konstantin,Walmsley,M,49,Glen Ridge,NJ,USA,0,0,0
-Chris,Swedenborg,M,46,Loveland,CO,USA,0,0,0
-Colin,Thornton,M,39,Isfjorden,NOR,NOR,0,0,0
-Bryan,Boots,M,43,Boulder,CO,USA,1,0,0
-Geoffrey,Cordner,M,59,Los Angeles,CA,USA,0,0,0
-Ernest,Lamaitis,M,42,Boulder,CO,USA,0,0,0
-Jeremy,Hedges,M,44,Larkspur,CO,USA,0,0,0
-Matt,Bartz,M,44,Milwaukee,WI,USA,0,0,0
-Jacob,Neumann,M,30,Denver,CO,USA,0,4,0
-Jonathan,Brinkley,M,43,Fond Du Lac,WI,USA,0,0,0
-Tiffany,Cap,F,40,Arvada,CO,USA,0,0,0
-Heather,Jossi,F,42,Lakewood,CO,USA,1,2,0
-Brandon,Petelin,M,37,Washington,DC,USA,0,0,0
-Patrick,Cole,M,38,Denver,CO,USA,0,0,0
-Erica,Rackley,F,29,Frisco,CO,USA,0,0,0
-Christopher,Whitestone,M,39,Denver,CO,USA,0,0,0
-Christopher,Miller,M,43,Blacksburg,VA,USA,0,0,0
-Timothy,Kojetin,M,29,Denver,CO,USA,0,2,0
-Lynn,Hall,F,36,LEADVILLE,CO,USA,0,0,0
-Ronald,Lapoint,M,38,Maize,KS,USA,0,0,0
-Suzanne,Ehler,F,36,Lakewood,CO,USA,0,0,0
-Charity,Larson,F,44,Fort Collins,CO,USA,0,1,0
-Tim,Nooney,M,25,Carbondale,CO,USA,0,0,0
-Axel,Yount,M,30,Bozeman,MT,USA,0,0,0
-Megan,Sweeney,F,38,Leadville,CO,USA,0,0,0
-Keira,McMahon,F,44,Nederland,CO,USA,0,0,0
-Kris,Tyson,M,37,Fort Collins,CO,USA,0,0,0
-Marianne,Osteen,F,59,Steamboat Springs,CO,USA,0,0,0
-Joseph,Devreese,M,52,Santa Barbara,CA,USA,0,0,0
-John,Ripsam,M,37,Loveland,CO,USA,0,0,0
-James,Nalley,M,50,Prescott,AZ,USA,0,0,0
-Michael,Fenzel,M,43,Norwich,VT,USA,0,0,0
-Brandon,Yonke,M,26,Morrison,CO,USA,0,1,0
-Sarah,Willis,F,39,Los Ranchos,NM,USA,0,0,0
-Jason,Veliquette,M,38,Fort Collins,CO,USA,0,0,0
-Maurizio,Calabrese,M,45,Colorado Springs,CO,USA,0,0,0
-Kyle,Konczal,M,31,Lakewood,CO,USA,0,0,0
-Jorge,Rasillo,M,38,Round Rock,TX,USA,0,0,0
-James,Brown,M,61,Port Washington,WI,USA,0,0,0
-Benjamin,Willis,M,43,Los Ranchos,NM,USA,0,0,0
-David,Boyd,M,31,Fort Collins,CO,USA,0,0,0
-Doug,Leary,M,55,Boulder,CO,USA,0,0,0
-Adam,McRoberts,M,44,boulder,CO,USA,0,0,0
-Ron,Robbins,M,51,Lake City,FL,USA,0,0,0
-Shaun,Smith,M,36,Hesperus,CO,USA,0,0,0
-John,Knowles,M,53,Lakewood,CO,USA,0,0,0
-Peter,Hajdo,M,19,Gunnison,CO,USA,0,0,0
-Tim,Steele,M,57,San Ramon,CA,USA,0,0,0
-Gilbert,Sandoval,M,46,Espanola,NM,USA,0,0,0
-Bradley,Peate,M,41,Aspen,CO,USA,0,0,0
-David,Coblentz,M,56,Los Alamos,NM,USA,1,0,0
-Ken,Gordon,M,54,Albuquerque,NM,USA,0,0,0
-Andrew,Poland,M,33,Lakewood,CO,USA,0,0,0
-Jason,Silver,M,40,Rapid City,SD,USA,0,0,0
-Jim,Zier,M,61,Parkman,WY,USA,0,0,0
-Dean,Mcmackin,M,49,Meridian,ID,USA,0,0,0
-Patrick,Stewart,M,33,Highlands Ranch,CO,USA,0,0,0
-JP,Lande,M,58,Black Hawk,CO,USA,0,0,0
-Will,Barnwell,M,42,Colorado Springs,CO,USA,0,0,0
-Ted,Kuether,M,38,Leawood,KS,USA,0,0,0
-Ben,Holmes,M,62,Lawrence,KS,USA,0,0,0
-Wanvipa,Ruangpradit,F,43,Buena Vista,CO,USA,0,0,0
-Gordon,Graham,M,46,Muscatine,IA,USA,0,0,0
-Brian,Wandzilak,M,38,Lincoln,NE,USA,0,0,0
-Sandra,Carpenter,F,46,Conifer,CO,USA,0,0,0
-Ghislain,Devouton,M,41,Bellevue,WA,USA,0,0,0
-Jake,Richter,M,39,Fort Worth,TX,USA,0,0,0
-Kunlong,Cousin,M,49,Boulder,CO,USA,1,0,0
-Daniel,Mickey,M,51,Toms River,NJ,USA,0,0,0
-Jonathan,Smolin,M,45,Norwich,VT,USA,0,0,0
-Jay,Donosky,M,49,Flagstaff,AZ,USA,0,0,0
-Jeffrey,Dodd,M,56,Tucson,AZ,USA,0,0,0
-Brett,Wyker,M,42,Longmont,CO,USA,0,0,0
-Luke,Jay,M,38,Littleton,CO,USA,0,0,0
-Pascal,Surprenant,M,45,L'Assomption,QC,CAN,0,0,0
-Craig,Lancaster,M,35,Boone,NC,USA,0,0,0
-Christina,Bauer,F,40,Flagstaff,AZ,USA,0,0,0
-Marshall,Burke,M,39,Menlo Park,CA,USA,0,0,0
-Anthony,Lee,M,25,Boulder,CO,USA,2,0,0
-Timothy,Bishop,M,43,Denver,CO,USA,0,0,0
-Kris,Clinard,M,44,Larkspur,CA,USA,0,0,0
-Travis,Burmaster,M,45,Broomfield,CO,USA,0,0,0
-Nicholas,Peterson,M,38,Arvada,CO,USA,0,0,0
-Josh,Grant,M,44,Morgan Hill,CA,USA,0,0,0
-Simon,Garneau,M,54,Coteau-du-lac,QC,CAN,0,0,0
-Meghan,Mulvaney,F,33,Denver,CO,USA,0,0,0
-David,Shavlik,M,57,Roxborough,CO,USA,0,0,0
-Keeton,Disser,F,42,Ouray,CO,USA,0,0,0
-Wes,Varda,M,42,Atlanta,GA,USA,0,0,0
-Andrew,Reed,M,29,Carbondale,CO,USA,0,0,0
-Matt,Ross,M,38,Atlanta,GA,USA,0,0,0
-Tyler,Keyworth,M,33,Denver,CO,USA,0,0,0
-Rick,Hoberg,M,30,Denver,CO,USA,0,2,0
-John,Knotts,M,43,Evergreen,CO,USA,0,0,0
-Garret,Christensen,M,39,Washington,DC,USA,0,0,0
-Salynda,Heinl,F,34,Aspen Park,CO,USA,0,0,0
-Mitchell,Flippin,M,35,Evergreen,CO,USA,0,0,0
-Trevor,Peterson,M,33,Ouray,CO,USA,0,0,0
-Jittilak,Chaivann,F,44,Aurora,CO,USA,0,0,0
-Stefanie,Flippin,F,30,Evergreen,CO,USA,0,0,0
-David,Fink,M,42,Smyrna,GA,USA,0,0,0
-Laura,Trimboli,F,33,Durango,CO,USA,0,0,0
-Andy,Hardy,M,38,Frisco,CO,USA,0,0,0
-Rhea,Loney,F,36,Ponchatoula,LA,USA,0,0,0
-Amanda,Simpson,F,48,Golden,CO,USA,0,0,0
-David,Burns,M,37,New Orleans,LA,USA,0,0,0
-Chris,McElveny,M,47,Albuquerque,NM,USA,0,0,0
-Brett,Overby,M,47,Denver,CO,USA,0,0,0
-Autumn,Isleib,F,34,Leadville,CO,USA,0,0,0
-Patty,Bryant,F,59,Santa Barbara,CA,USA,0,0,0
-Jim,Wei,M,46,Colorado Springs,CO,USA,0,0,0
-David,Bresnahan,M,34,Salt Lake City,UT,USA,0,0,0
-Petra,Pirc,F,47,Los Alamos,NM,USA,0,0,0
-John,Herrick,M,28,Boulder,CO,USA,0,0,0
-Josam,Mulinyawe,M,41,San Jose,CA,USA,0,0,0
-Bruce,Phillips,M,39,Wellsburg,WV,USA,0,0,0
-Lorenzo,Riano,M,38,San Francisco,CA,USA,0,0,0
-Krosby,Keller,M,35,O'Fallon,IL,USA,1,0,0
-Hannes,Gehring,M,33,Denver,CO,USA,1,0,0
-Tracey,Anderson,F,57,Colorado Springs,CO,USA,0,0,0
-Cory,Feign,M,42,Boulder,CO,USA,0,0,0
-Matthew,Watts,M,62,Broomfield,CO,USA,0,0,0
-Steve,Bremner,M,64,Manitou Springs,CO,USA,0,0,0
-Ryan,Brackley,M,52,Boulder,CO,USA,0,0,0
-Jenny,Fox,F,39,Steamboat Springs,CO,USA,0,0,0
-Nick,Pedatella,M,34,Boulder,CO,USA,0,0,0
-Kevin,Barrett,M,23,Chattanooga,TN,USA,0,0,0
-Kevin,Geisen,M,23,Gunnison,CO,USA,1,0,0
-Jeffrey,Urbanski,M,34,Broomfield,CO,USA,0,0,0
-Kevin,Smilor,M,36,Denver,CO,USA,0,0,0
-John,Higgs,M,54,Conifer,CO,USA,0,0,0
-Logan,Boon,F,31,Denver,CO,USA,0,0,0
-Sean,Cunniff,M,47,Santa Fe,NM,USA,0,0,0
-Joshua,Schmitt,M,30,Platte City,MO,USA,0,0,0
-Paul,Holubek,M,41,WVC,UT,USA,0,0,0
-Chris,Kumm,M,34,Broomfield,CO,USA,0,0,0
-Sarah,Lavender Smith,F,50,Telluride,CO,USA,0,0,0
-Guy,Love,M,28,Boulder,CO,USA,0,0,0
-Daniel,Findley,M,32,Gypsum,CO,USA,1,0,0
-Troy,Allen,M,34,Columbus,OH,USA,0,0,0
-Drew,Frehs,M,32,Sedona,AZ,USA,0,0,0
-Ken,Hughes,M,60,Santa Barbara,CA,USA,0,0,0
-Andrew,Darezzo,M,43,Tucson,AZ,USA,1,0,0
-Vincent,Snow,M,27,Holladay,UT,USA,0,0,0
-John,Becker,M,51,Roseville,CA,USA,0,0,0
-Courtney,Schwind,F,31,Glenwood Springs,CO,USA,0,0,0
-Daniel,Scarberry,M,35,Santa Monica,CA,USA,0,0,0
-Allison,Conover,F,40,Sandy,UT,USA,0,0,0
-Joseph,Chick,M,42,Ashland,OR,USA,0,0,0
-Brandon,Benefield,M,37,Spokane,WA,USA,1,0,0
-Katie,Katalin,F,49,Colorado Springs,CO,USA,0,0,0
-Daniel,Evans,M,41,Littleton,CO,USA,0,0,0
-Mark,Scherr,M,52,Marietta,GA,USA,0,0,0
-Carlos,Rodriguez,M,53,Wichita,KS,USA,0,0,0
-David,Santiago,M,33,Palmdale,CA,USA,0,0,0
-Nathan,Moody,M,43,Los Alamos,NM,USA,0,0,0
-Jenny,Bonner,F,31,Spartanburg,SC,USA,0,0,0
-Nicholas,Robertson,M,36,Las Vegas,NV,USA,0,0,0
-John,Horns,M,56,Edina,MN,USA,0,0,0
-Lawrence,Miller,M,51,Los Angeles,CA,USA,0,0,0
-Vincent,Tenret,M,31,Contamine-sur-Arve,FRA,FRA,0,0,0
-Phoebe,Erdman,F,30,Park City,UT,USA,0,0,0
-Matthew,Berdine,M,40,Centennial,CO,USA,0,0,0
-Judith,Williams,F,57,New Carlisle,OH,USA,0,0,0
-Skye,Thompson,M,42,Mill Valley,CA,USA,0,0,0
-Douglas,Donovan,M,49,Reno,NV,USA,0,0,0
-Marie,Donovan,F,41,Henderson,NV,USA,0,0,0
-Aaron,Hastings,M,50,Henderson,NV,USA,0,0,0
-Sean,Dasey,M,31,San Francisco,CA,USA,0,0,0
-Brian,Pfister,M,47,Wilmette,IL,USA,0,0,0
-Benno,Rawlinson,M,32,Westfield,NJ,USA,0,0,0
-Sunaad,Nataraju,M,33,San Mateo,CA,USA,0,0,0
-Randi,Schooley,F,36,Cypress,TX,USA,0,0,0
-Brittany,Lane,F,30,Boulder,CO,USA,0,0,0
-Doug,Beagle,M,69,Houston,TX,USA,0,0,0
-Whit,Rambach,M,52,Carmel,CA,USA,0,0,0
-Roger,Jensen,M,69,Pagosa Springs,CO,USA,0,0,0
-Suzanna,Bon,F,54,Sonoma,CA,USA,0,0,0
-Logan,Williams,M,24,Salt Lake City,UT,USA,0,0,0
-Rich,White,M,38,Ding Dang Doo,WA,USA,0,0,0
-Philip,Blechertas,M,32,Oceanside,CA,USA,0,0,0
-Deby,Kumasaka,F,55,Edmonds,WA,USA,0,0,0
-Maggie,Edmiston,F,26,Grants,NM,USA,0,0,0
-Donald,Buraglio,M,48,Carmel Valley,CA,USA,0,0,0
-Jose,Orillac,M,47,Panama,PAN,PAN,0,0,0
-David,Eitemiller,M,60,Monument,CO,USA,0,0,0
-Lori,Barekman,F,58,Sonoma,CA,USA,0,0,0
-Erin,Shaw,F,37,Louisville,CO,USA,0,0,0
-Jennifer,Hughes,F,40,Roslyn,WA,USA,0,0,0
-Travis,Shaver,M,41,Denver,CO,USA,0,0,0
-Timothy,Skafidas,M,49,Crested Butte,CO,USA,0,0,0
-Dustin,Simoens,M,31,Gunnison,CO,USA,0,0,0
-Alyssa,Gottshall,F,29,Aurora,CO,USA,0,0,0
-Patrick,Grengs,M,54,West Richland,WA,USA,0,0,0
-Spencer,Briggs,M,43,Albuquerque,NM,USA,0,0,0
-Matt,Elam,M,27,Austin,TX,USA,0,0,0
-Ben,Jackson,M,33,Denver,CO,USA,0,0,0
-Garrett,Smith,M,39,Tucson,AZ,USA,0,0,0
-Benjamin,Jensen,M,36,Murray,UT,USA,0,0,0
-Tom,Caughlan,M,40,Colorado Springs,CO,USA,0,0,0
-Ryan,Meulemans,M,42,Signal Mountain,TN,USA,0,0,0
-Trey,Clark,M,30,Prattville,AL,USA,0,0,0
-Bryan,Williams,M,44,Erie,CO,USA,0,0,0
-Rob,Wright,M,45,Evergreen,CO,USA,1,0,0
-Taylor,Rice,M,26,Boulder,CO,USA,0,0,0
-Jeff,Gerke,M,52,Sandy,UT,USA,0,0,0
-Max,Keith,M,30,Iquique,CHL,CHL,0,0,0
-Jared,Kern,M,43,Anchorage,AK,USA,0,0,0
-Nobuyori,Takeda,M,39,Old Tappan,NJ,USA,0,0,0
-Noelle,Whitestone,F,36,Denver,CO,USA,0,0,0
-Mike,Rahmer,M,46,Albuquerque,NM,USA,0,0,0
-Jeff,Perry,M,58,Bondurant,IA,USA,0,0,0
-Richard,Williams,M,50,Denver,CO,USA,0,0,0
-Joshua,Propfe,M,26,Leadville,CO,USA,0,0,0
-Sharon,Murillo,F,26,El paso,TX,USA,0,0,0
-Lee,Kemp,M,37,Sheffield,GBR,GBR,0,0,0
-Christina,Bauer,F,40,Flagstaff,AZ,USA,0,0,0
-Benjamin,Gadbaw,M,34,Denver,CO,USA,0,0,0
-Vito,Rubino,M,41,Pasadena,CA,USA,0,0,0
-Michael,Shoup,M,45,Menlo Park,CA,USA,0,0,0
-Rocky,Gingg,M,30,Durango,CO,USA,0,0,0
-Erin,Tripp,F,39,Jamestown,CO,USA,0,0,0
-Mike,Wolfe,M,41,Bozeman,MT,USA,1,0,0
-Daniel,Mahler,M,24,Huntersville,NC,USA,0,0,0
-Benjamin,Hauschulz,M,34,Palisade,CO,USA,0,0,0
-Jack,Anderson,M,36,Washington,DC,USA,0,0,0
-Joshua,Goldstein,M,35,Culver City,CA,USA,0,0,0
-Joseph,Csmereka,M,43,Munster,IN,USA,0,0,0
-Ivy,Lefebvre,F,41,Silverton,CO,USA,1,0,0
-Ilja,Herdt,M,36,Brooklyn,NY,USA,0,0,0
+﻿Order ID,First_Name,Last_Name,gender,Age,City,State,Country,Previous_Finishes,Volunteer_Shifts,Extra_Trailwork
+1016350,Dave,Scheibel,M,43,Seattle,WA,USA,1,1,0
+1016720,Andrew,Nichols,M,47,park city,UT,USA,0,0,0
+1018612,Zachary,King,M,33,Boulder,CO,USA,0,5,0
+1018994,Lori,Foringer,F,46,Centerville,OH,USA,0,1,0
+1019320,Chris,Grove,F,44,Colorado Springs,CO,USA,0,0,0
+1019327,Philip,Snyder,M,50,Denver,CO,USA,0,0,0
+1019515,Will,Jorgensen,M,60,Maryville,TN,USA,0,0,0
+1019618,Alden,Short,M,43,Golden,CO,USA,0,2,0
+1020479,David,Braun,M,41,Denver,CO,USA,0,1,0
+1020692,Scott,Muggleton,M,44,Los Alamos,NM,USA,0,0,0
+1021376,Natalie,Nicholson,F,37,salida,CO,USA,0,1,0
+1022392,Joseph,D'Alessio,M,42,Cambridge,MA,USA,0,0,0
+1022546,Andrew,Rivers,M,33,Helena,MT,USA,0,0,0
+1022580,Jesse,Peragine,M,30,Lakewood,CO,USA,0,2,0
+1023366,Courtney,Foley,F,43,Salt Lake City,UT,USA,0,0,0
+1024285,Ron,Braselton,M,38,Durango,CO,USA,0,0,0
+1024783,Adam,Chapman,M,32,Boulder,CO,USA,1,5,0
+1025328,Jim,Skelding,M,48,Austin,TX,USA,1,0,1
+1025671,Silke,Koester,F,36,Boulder,CO,USA,0,0,0
+1026640,Kevin,Cannaday,M,40,Oconomowoc,WI,USA,2,0,0
+1027431,Doug,Oatis,M,38,Denver,CO,USA,0,1,0
+1030232,Jacob,Wyatt,M,50,Flagstaff,AZ,USA,0,0,0
+1032328,Matt,Ozanic,M,44,Grand Junction,CO,USA,1,0,0
+1033959,Ivan,Schwendt,M,48,Colorado Springs,CO,USA,0,0,0
+1034597,JT,Archie,M,36,Denver,CO,USA,0,1,0
+1035288,Patrick,Olson,M,49,Superior,CO,USA,0,0,0
+1035773,David,Ponak,M,39,Longmont,CO,USA,0,0,0
+1036213,Matthew,Shaw,M,37,Louisville,CO,USA,0,0,0
+1036256,Ryan,King,M,37,Piqua,OH,USA,1,2,0
+1037499,Tommy,Stockton,M,59,Los Alamos,NM,USA,0,0,0
+1039455,Daniel,Harris,M,37,Boulder,CO,USA,0,0,0
+1041231,Nate,Swanberg,M,39,Lafayette,CO,USA,0,0,0
+1042025,Patrick,Garcia,M,34,Lakewood,CO,USA,0,0,0
+1042975,Kylie,Collins,F,30,Almont,CO,USA,0,0,0
+1043727,Sean,Strauss,M,40,Silverthorne,CO,USA,0,0,0
+1043873,Sonja,Hinish,F,33,Golden,CO,USA,0,1,0
+1044094,Matt,Meckenstock,M,33,Clifton Hill,AUS,AUS,0,0,0
+1048818,John,Delcalzo,M,31,Oberlin,OH,USA,0,0,0
+1049236,Kenneth,Letterle,M,36,Houston,TX,USA,0,0,0
+1053562,Chris,Erickson,M,37,North Salt Lake,UT,USA,0,0,0
+1054513,Meghan,Cogswell,F,40,Colorado Springs,CO,USA,0,0,0
+1055280,Lauren,Groth,F,36,Boulder,CO,USA,0,0,0
+1055431,Vale,Hirt,F,35,Ouray,CO,USA,0,0,0
+1057104,Doug,Holt,M,36,Boulder,CO,USA,0,0,0
+1058331,Garth,Reader,M,57,Los Alamos,NM,USA,1,0,0
+1062032,Matt,Anderson,M,33,Aurora,CO,USA,0,0,0
+1062062,Brett,Harkey,M,48,Fort Collins,CO,USA,0,0,0
+1062350,Kerrie,Bruxvoort,F,42,Broomfield,CO,USA,1,1,0
+1062760,Jeremy,Harrison,M,41,Meeker,OK,USA,0,0,0
+1062956,Donnie,Haubert,M,41,Steamboat Springs,CO,USA,0,0,0
+1063142,Terry,Miller,M,47,Denver,CO,USA,0,0,0
+1063382,Grant,Muller,M,37,Marietta,GA,USA,2,0,0
+1063765,Jon,Davis,M,39,Frederick,CO,USA,2,0,0
+1064040,Brian,Crone,M,53,Santa Fe,NM,USA,0,0,0
+1064108,Eric,Truhe,M,44,Lafayette,CO,USA,0,0,0
+1064113,Jason,Harris,M,44,Sauk City,WI,USA,0,0,0
+1064210,Nathan,Wendel,M,24,Hurricane,WV,USA,0,0,0
+1064583,Corey,Barrett,M,48,waterbury center,VT,USA,0,0,0
+1064753,Aaron,Norman,M,38,Independence,MO,USA,0,0,0
+1064789,Michael,Hlavacek,M,47,Steamboat Springs,CO,USA,1,0,0
+1064897,Amanda,Morgenstern,F,31,Colorado Springs,CO,USA,0,0,0
+1065143,Matthew,Teague,M,25,Durango,CO,USA,0,0,0
+1065148,Bryan,Whitesel,M,30,Sioux Falls,SD,USA,0,0,0
+1065238,Scott,Pfahler,M,34,Aurora,CO,USA,0,0,0
+1066704,Margot,Watters,F,53,Victor,ID,USA,0,0,0
+1066961,Mark,Eury,M,42,Golden,CO,USA,0,0,0
+1066993,Stephen,Bartos,M,35,Denver,CO,USA,0,0,0
+1067128,Laura,Stamp,F,25,Boulder,CO,USA,0,0,0
+1067146,Rob,Hacker,M,58,Boulder,CO,USA,0,0,0
+1068246,Michael,Dicanio,M,38,Maplewood,NJ,USA,0,0,0
+1069647,Missy,Gosney,F,52,Durango,CO,USA,0,0,0
+1070432,David,Mentjes,M,50,Brookfield,WI,USA,0,0,0
+1070847,Jordan,Bierma,M,31,Silverton,CO,USA,0,0,0
+1071060,Mike,Smith,M,61,Santa Fe,NM,USA,1,0,0
+1071232,Sarah,Bunting Lamos,F,44,Thornton,CO,USA,0,0,0
+1071235,Konstantin,Walmsley,M,49,Glen Ridge,NJ,USA,0,0,0
+1071917,Chris,Swedenborg,M,46,Loveland,CO,USA,0,0,0
+1072027,Colin,Thornton,M,39,Isfjorden,NOR,NOR,0,0,0
+1072333,Bryan,Boots,M,43,Boulder,CO,USA,1,0,0
+1080645,Geoffrey,Cordner,M,59,Los Angeles,CA,USA,0,0,0
+1082196,Ernest,Lamaitis,M,42,Boulder,CO,USA,0,0,0
+1086043,Jeremy,Hedges,M,44,Larkspur,CO,USA,0,0,0
+1087340,Matt,Bartz,M,44,Milwaukee,WI,USA,0,0,0
+1113803,Jacob,Neumann,M,30,Denver,CO,USA,0,4,0
+1119535,Jonathan,Brinkley,M,43,Fond Du Lac,WI,USA,0,0,0
+1121796,Tiffany,Cap,F,40,Arvada,CO,USA,0,0,0
+1126376,Heather,Jossi,F,42,Lakewood,CO,USA,1,2,0
+1126927,Brandon,Petelin,M,37,Washington,DC,USA,0,0,0
+1128273,Patrick,Cole,M,38,Denver,CO,USA,0,0,0
+1143036,Erica,Rackley,F,29,Frisco,CO,USA,0,0,0
+1143638,Christopher,Whitestone,M,39,Denver,CO,USA,0,0,0
+1143822,Christopher,Miller,M,43,Blacksburg,VA,USA,0,0,0
+1146445,Timothy,Kojetin,M,29,Denver,CO,USA,0,2,0
+1234567,Lynn,Hall,F,36,LEADVILLE,CO,USA,0,0,0
+1016350,Ronald,Lapoint,M,38,Maize,KS,USA,0,0,0
+1016720,Suzanne,Ehler,F,36,Lakewood,CO,USA,0,0,0
+1018612,Charity,Larson,F,44,Fort Collins,CO,USA,0,1,0
+1018994,Tim,Nooney,M,25,Carbondale,CO,USA,0,0,0
+1019320,Axel,Yount,M,30,Bozeman,MT,USA,0,0,0
+1019327,Megan,Sweeney,F,38,Leadville,CO,USA,0,0,0
+1019515,Keira,McMahon,F,44,Nederland,CO,USA,0,0,0
+1019618,Kris,Tyson,M,37,Fort Collins,CO,USA,0,0,0
+1020479,Marianne,Osteen,F,59,Steamboat Springs,CO,USA,0,0,0
+1020692,Joseph,Devreese,M,52,Santa Barbara,CA,USA,0,0,0
+1021376,John,Ripsam,M,37,Loveland,CO,USA,0,0,0
+1022392,James,Nalley,M,50,Prescott,AZ,USA,0,0,0
+1022546,Michael,Fenzel,M,43,Norwich,VT,USA,0,0,0
+1022580,Brandon,Yonke,M,26,Morrison,CO,USA,0,1,0
+1023366,Sarah,Willis,F,39,Los Ranchos,NM,USA,0,0,0
+1024285,Jason,Veliquette,M,38,Fort Collins,CO,USA,0,0,0
+1024783,Maurizio,Calabrese,M,45,Colorado Springs,CO,USA,0,0,0
+1025328,Kyle,Konczal,M,31,Lakewood,CO,USA,0,0,0
+1025671,Jorge,Rasillo,M,38,Round Rock,TX,USA,0,0,0
+1026640,James,Brown,M,61,Port Washington,WI,USA,0,0,0
+1027431,Benjamin,Willis,M,43,Los Ranchos,NM,USA,0,0,0
+1030232,David,Boyd,M,31,Fort Collins,CO,USA,0,0,0
+1032328,Doug,Leary,M,55,Boulder,CO,USA,0,0,0
+1033959,Adam,McRoberts,M,44,boulder,CO,USA,0,0,0
+1034597,Ron,Robbins,M,51,Lake City,FL,USA,0,0,0
+1035288,Shaun,Smith,M,36,Hesperus,CO,USA,0,0,0
+1035773,John,Knowles,M,53,Lakewood,CO,USA,0,0,0
+1036213,Peter,Hajdo,M,19,Gunnison,CO,USA,0,0,0
+1036256,Tim,Steele,M,57,San Ramon,CA,USA,0,0,0
+1037499,Gilbert,Sandoval,M,46,Espanola,NM,USA,0,0,0
+1039455,Bradley,Peate,M,41,Aspen,CO,USA,0,0,0
+1041231,David,Coblentz,M,56,Los Alamos,NM,USA,1,0,0
+1042025,Ken,Gordon,M,54,Albuquerque,NM,USA,0,0,0
+1042975,Andrew,Poland,M,33,Lakewood,CO,USA,0,0,0
+1043727,Jason,Silver,M,40,Rapid City,SD,USA,0,0,0
+1043873,Jim,Zier,M,61,Parkman,WY,USA,0,0,0
+1044094,Dean,Mcmackin,M,49,Meridian,ID,USA,0,0,0
+1048818,Patrick,Stewart,M,33,Highlands Ranch,CO,USA,0,0,0
+1049236,JP,Lande,M,58,Black Hawk,CO,USA,0,0,0
+1053562,Will,Barnwell,M,42,Colorado Springs,CO,USA,0,0,0
+1054513,Ted,Kuether,M,38,Leawood,KS,USA,0,0,0
+1055280,Ben,Holmes,M,62,Lawrence,KS,USA,0,0,0
+1055431,Wanvipa,Ruangpradit,F,43,Buena Vista,CO,USA,0,0,0
+1057104,Gordon,Graham,M,46,Muscatine,IA,USA,0,0,0
+1058331,Brian,Wandzilak,M,38,Lincoln,NE,USA,0,0,0
+1062032,Sandra,Carpenter,F,46,Conifer,CO,USA,0,0,0
+1062062,Ghislain,Devouton,M,41,Bellevue,WA,USA,0,0,0
+1062350,Jake,Richter,M,39,Fort Worth,TX,USA,0,0,0
+1062760,Kunlong,Cousin,M,49,Boulder,CO,USA,1,0,0
+1062956,Daniel,Mickey,M,51,Toms River,NJ,USA,0,0,0
+1063142,Jonathan,Smolin,M,45,Norwich,VT,USA,0,0,0
+1063382,Jay,Donosky,M,49,Flagstaff,AZ,USA,0,0,0
+1063765,Jeffrey,Dodd,M,56,Tucson,AZ,USA,0,0,0
+1064040,Brett,Wyker,M,42,Longmont,CO,USA,0,0,0
+1064108,Luke,Jay,M,38,Littleton,CO,USA,0,0,0
+1064113,Pascal,Surprenant,M,45,L'Assomption,QC,CAN,0,0,0
+1064210,Craig,Lancaster,M,35,Boone,NC,USA,0,0,0
+1064583,Christina,Bauer,F,40,Flagstaff,AZ,USA,0,0,0
+1064753,Marshall,Burke,M,39,Menlo Park,CA,USA,0,0,0
+1064789,Anthony,Lee,M,25,Boulder,CO,USA,2,0,0
+1064897,Timothy,Bishop,M,43,Denver,CO,USA,0,0,0
+1065143,Kris,Clinard,M,44,Larkspur,CA,USA,0,0,0
+1065148,Travis,Burmaster,M,45,Broomfield,CO,USA,0,0,0
+1065238,Nicholas,Peterson,M,38,Arvada,CO,USA,0,0,0
+1066704,Josh,Grant,M,44,Morgan Hill,CA,USA,0,0,0
+1066961,Simon,Garneau,M,54,Coteau-du-lac,QC,CAN,0,0,0
+1066993,Meghan,Mulvaney,F,33,Denver,CO,USA,0,0,0
+1067128,David,Shavlik,M,57,Roxborough,CO,USA,0,0,0
+1067146,Keeton,Disser,F,42,Ouray,CO,USA,0,0,0
+1068246,Wes,Varda,M,42,Atlanta,GA,USA,0,0,0
+1069647,Andrew,Reed,M,29,Carbondale,CO,USA,0,0,0
+1070432,Matt,Ross,M,38,Atlanta,GA,USA,0,0,0
+1070847,Tyler,Keyworth,M,33,Denver,CO,USA,0,0,0
+1071060,Rick,Hoberg,M,30,Denver,CO,USA,0,2,0
+1071232,John,Knotts,M,43,Evergreen,CO,USA,0,0,0
+1071235,Garret,Christensen,M,39,Washington,DC,USA,0,0,0
+1071917,Salynda,Heinl,F,34,Aspen Park,CO,USA,0,0,0
+1072027,Mitchell,Flippin,M,35,Evergreen,CO,USA,0,0,0
+1072333,Trevor,Peterson,M,33,Ouray,CO,USA,0,0,0
+1080645,Jittilak,Chaivann,F,44,Aurora,CO,USA,0,0,0
+1082196,Stefanie,Flippin,F,30,Evergreen,CO,USA,0,0,0
+1086043,David,Fink,M,42,Smyrna,GA,USA,0,0,0
+1087340,Laura,Trimboli,F,33,Durango,CO,USA,0,0,0
+1113803,Andy,Hardy,M,38,Frisco,CO,USA,0,0,0
+1119535,Rhea,Loney,F,36,Ponchatoula,LA,USA,0,0,0
+1121796,Amanda,Simpson,F,48,Golden,CO,USA,0,0,0
+1126376,David,Burns,M,37,New Orleans,LA,USA,0,0,0
+1126927,Chris,McElveny,M,47,Albuquerque,NM,USA,0,0,0
+1128273,Brett,Overby,M,47,Denver,CO,USA,0,0,0
+1143036,Autumn,Isleib,F,34,Leadville,CO,USA,0,0,0
+1143638,Patty,Bryant,F,59,Santa Barbara,CA,USA,0,0,0
+1143822,Jim,Wei,M,46,Colorado Springs,CO,USA,0,0,0
+1146445,David,Bresnahan,M,34,Salt Lake City,UT,USA,0,0,0
+1234567,Petra,Pirc,F,47,Los Alamos,NM,USA,0,0,0
+1016350,John,Herrick,M,28,Boulder,CO,USA,0,0,0
+1016720,Josam,Mulinyawe,M,41,San Jose,CA,USA,0,0,0
+1018612,Bruce,Phillips,M,39,Wellsburg,WV,USA,0,0,0
+1018994,Lorenzo,Riano,M,38,San Francisco,CA,USA,0,0,0
+1019320,Krosby,Keller,M,35,O'Fallon,IL,USA,1,0,0
+1019327,Hannes,Gehring,M,33,Denver,CO,USA,1,0,0
+1019515,Tracey,Anderson,F,57,Colorado Springs,CO,USA,0,0,0
+1019618,Cory,Feign,M,42,Boulder,CO,USA,0,0,0
+1020479,Matthew,Watts,M,62,Broomfield,CO,USA,0,0,0
+1020692,Steve,Bremner,M,64,Manitou Springs,CO,USA,0,0,0
+1021376,Ryan,Brackley,M,52,Boulder,CO,USA,0,0,0
+1022392,Jenny,Fox,F,39,Steamboat Springs,CO,USA,0,0,0
+1022546,Nick,Pedatella,M,34,Boulder,CO,USA,0,0,0
+1022580,Kevin,Barrett,M,23,Chattanooga,TN,USA,0,0,0
+1023366,Kevin,Geisen,M,23,Gunnison,CO,USA,1,0,0
+1024285,Jeffrey,Urbanski,M,34,Broomfield,CO,USA,0,0,0
+1024783,Kevin,Smilor,M,36,Denver,CO,USA,0,0,0
+1025328,John,Higgs,M,54,Conifer,CO,USA,0,0,0
+1025671,Logan,Boon,F,31,Denver,CO,USA,0,0,0
+1026640,Sean,Cunniff,M,47,Santa Fe,NM,USA,0,0,0
+1027431,Joshua,Schmitt,M,30,Platte City,MO,USA,0,0,0
+1030232,Paul,Holubek,M,41,WVC,UT,USA,0,0,0
+1032328,Chris,Kumm,M,34,Broomfield,CO,USA,0,0,0
+1033959,Sarah,Lavender Smith,F,50,Telluride,CO,USA,0,0,0
+1034597,Guy,Love,M,28,Boulder,CO,USA,0,0,0
+1035288,Daniel,Findley,M,32,Gypsum,CO,USA,1,0,0
+1035773,Troy,Allen,M,34,Columbus,OH,USA,0,0,0
+1036213,Drew,Frehs,M,32,Sedona,AZ,USA,0,0,0
+1036256,Ken,Hughes,M,60,Santa Barbara,CA,USA,0,0,0
+1037499,Andrew,Darezzo,M,43,Tucson,AZ,USA,1,0,0
+1039455,Vincent,Snow,M,27,Holladay,UT,USA,0,0,0
+1041231,John,Becker,M,51,Roseville,CA,USA,0,0,0
+1042025,Courtney,Schwind,F,31,Glenwood Springs,CO,USA,0,0,0
+1042975,Daniel,Scarberry,M,35,Santa Monica,CA,USA,0,0,0
+1043727,Allison,Conover,F,40,Sandy,UT,USA,0,0,0
+1043873,Joseph,Chick,M,42,Ashland,OR,USA,0,0,0
+1044094,Brandon,Benefield,M,37,Spokane,WA,USA,1,0,0
+1048818,Katie,Katalin,F,49,Colorado Springs,CO,USA,0,0,0
+1049236,Daniel,Evans,M,41,Littleton,CO,USA,0,0,0
+1053562,Mark,Scherr,M,52,Marietta,GA,USA,0,0,0
+1054513,Carlos,Rodriguez,M,53,Wichita,KS,USA,0,0,0
+1055280,David,Santiago,M,33,Palmdale,CA,USA,0,0,0
+1055431,Nathan,Moody,M,43,Los Alamos,NM,USA,0,0,0
+1057104,Jenny,Bonner,F,31,Spartanburg,SC,USA,0,0,0
+1058331,Nicholas,Robertson,M,36,Las Vegas,NV,USA,0,0,0
+1062032,John,Horns,M,56,Edina,MN,USA,0,0,0
+1062062,Lawrence,Miller,M,51,Los Angeles,CA,USA,0,0,0
+1062350,Vincent,Tenret,M,31,Contamine-sur-Arve,FRA,FRA,0,0,0
+1062760,Phoebe,Erdman,F,30,Park City,UT,USA,0,0,0
+1062956,Matthew,Berdine,M,40,Centennial,CO,USA,0,0,0
+1063142,Judith,Williams,F,57,New Carlisle,OH,USA,0,0,0
+1063382,Skye,Thompson,M,42,Mill Valley,CA,USA,0,0,0
+1063765,Douglas,Donovan,M,49,Reno,NV,USA,0,0,0
+1064040,Marie,Donovan,F,41,Henderson,NV,USA,0,0,0
+1064108,Aaron,Hastings,M,50,Henderson,NV,USA,0,0,0
+1064113,Sean,Dasey,M,31,San Francisco,CA,USA,0,0,0
+1064210,Brian,Pfister,M,47,Wilmette,IL,USA,0,0,0
+1064583,Benno,Rawlinson,M,32,Westfield,NJ,USA,0,0,0
+1064753,Sunaad,Nataraju,M,33,San Mateo,CA,USA,0,0,0
+1064789,Randi,Schooley,F,36,Cypress,TX,USA,0,0,0
+1064897,Brittany,Lane,F,30,Boulder,CO,USA,0,0,0
+1065143,Doug,Beagle,M,69,Houston,TX,USA,0,0,0
+1065148,Whit,Rambach,M,52,Carmel,CA,USA,0,0,0
+1065238,Roger,Jensen,M,69,Pagosa Springs,CO,USA,0,0,0
+1066704,Suzanna,Bon,F,54,Sonoma,CA,USA,0,0,0
+1066961,Logan,Williams,M,24,Salt Lake City,UT,USA,0,0,0
+1066993,Rich,White,M,38,Ding Dang Doo,WA,USA,0,0,0
+1067128,Philip,Blechertas,M,32,Oceanside,CA,USA,0,0,0
+1067146,Deby,Kumasaka,F,55,Edmonds,WA,USA,0,0,0
+1068246,Maggie,Edmiston,F,26,Grants,NM,USA,0,0,0
+1069647,Donald,Buraglio,M,48,Carmel Valley,CA,USA,0,0,0
+1070432,Jose,Orillac,M,47,Panama,PAN,PAN,0,0,0
+1070847,David,Eitemiller,M,60,Monument,CO,USA,0,0,0
+1071060,Lori,Barekman,F,58,Sonoma,CA,USA,0,0,0
+1071232,Erin,Shaw,F,37,Louisville,CO,USA,0,0,0
+1071235,Jennifer,Hughes,F,40,Roslyn,WA,USA,0,0,0
+1071917,Travis,Shaver,M,41,Denver,CO,USA,0,0,0
+1072027,Timothy,Skafidas,M,49,Crested Butte,CO,USA,0,0,0
+1072333,Dustin,Simoens,M,31,Gunnison,CO,USA,0,0,0
+1080645,Alyssa,Gottshall,F,29,Aurora,CO,USA,0,0,0
+1082196,Patrick,Grengs,M,54,West Richland,WA,USA,0,0,0
+1086043,Spencer,Briggs,M,43,Albuquerque,NM,USA,0,0,0
+1087340,Matt,Elam,M,27,Austin,TX,USA,0,0,0
+1113803,Ben,Jackson,M,33,Denver,CO,USA,0,0,0
+1119535,Garrett,Smith,M,39,Tucson,AZ,USA,0,0,0
+1121796,Benjamin,Jensen,M,36,Murray,UT,USA,0,0,0
+1126376,Tom,Caughlan,M,40,Colorado Springs,CO,USA,0,0,0
+1126927,Ryan,Meulemans,M,42,Signal Mountain,TN,USA,0,0,0
+1128273,Trey,Clark,M,30,Prattville,AL,USA,0,0,0
+1143036,Bryan,Williams,M,44,Erie,CO,USA,0,0,0
+1143638,Rob,Wright,M,45,Evergreen,CO,USA,1,0,0
+1143822,Taylor,Rice,M,26,Boulder,CO,USA,0,0,0
+1146445,Jeff,Gerke,M,52,Sandy,UT,USA,0,0,0
+1234567,Max,Keith,M,30,Iquique,CHL,CHL,0,0,0
+1016350,Jared,Kern,M,43,Anchorage,AK,USA,0,0,0
+1016720,Nobuyori,Takeda,M,39,Old Tappan,NJ,USA,0,0,0
+1018612,Noelle,Whitestone,F,36,Denver,CO,USA,0,0,0
+1018994,Mike,Rahmer,M,46,Albuquerque,NM,USA,0,0,0
+1019320,Jeff,Perry,M,58,Bondurant,IA,USA,0,0,0
+1019327,Richard,Williams,M,50,Denver,CO,USA,0,0,0
+1019515,Joshua,Propfe,M,26,Leadville,CO,USA,0,0,0
+1019618,Sharon,Murillo,F,26,El paso,TX,USA,0,0,0
+1020479,Lee,Kemp,M,37,Sheffield,GBR,GBR,0,0,0
+1020692,Christina,Bauer,F,40,Flagstaff,AZ,USA,0,0,0
+1021376,Benjamin,Gadbaw,M,34,Denver,CO,USA,0,0,0
+1022392,Vito,Rubino,M,41,Pasadena,CA,USA,0,0,0
+1022546,Michael,Shoup,M,45,Menlo Park,CA,USA,0,0,0
+1022580,Rocky,Gingg,M,30,Durango,CO,USA,0,0,0
+1023366,Erin,Tripp,F,39,Jamestown,CO,USA,0,0,0
+1024285,Mike,Wolfe,M,41,Bozeman,MT,USA,1,0,0
+1024783,Daniel,Mahler,M,24,Huntersville,NC,USA,0,0,0
+1025328,Benjamin,Hauschulz,M,34,Palisade,CO,USA,0,0,0
+1025671,Jack,Anderson,M,36,Washington,DC,USA,0,0,0
+1026640,Joshua,Goldstein,M,35,Culver City,CA,USA,0,0,0
+1027431,Joseph,Csmereka,M,43,Munster,IN,USA,0,0,0
+1030232,Ivy,Lefebvre,F,41,Silverton,CO,USA,1,0,0
+1032328,Ilja,Herdt,M,36,Brooklyn,NY,USA,0,0,0
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
