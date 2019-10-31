@@ -9,7 +9,7 @@ library(readxl)
 #####################################################
 #SET EVERYTHING UP BEFORE DOING THE SHINY PART
 #######################################################
-n<-10 #SET THE TOTAL NUMBER TO PICK
+n<-125 #SET THE TOTAL NUMBER TO PICK
 #I COULD MAKE THIS AN INTERACTIVE PART TOO LATER
 
 temp<-read.csv("./fakedata.csv", stringsAsFactors = FALSE) #LOAD THE DATA
@@ -101,7 +101,7 @@ df$k <- ifelse(df$Previous_Finishes==0 , 0,
                       ifelse(df$Previous_Finishes==2, 1, 
                              ifelse(df$Previous_Finishes==3, 1.5,
                                     ifelse(df$Previous_Finishes>=4, 1, 0)))))
-
+#Tickets=2^(n+k+1)+2ln(v+t+1) where n, k, v, and t are defined as follows:
 df$tickets <-2^(df$k+df$Applications+1) + 2*log(df$Volunteer_Shifts+
                                                  df$Extra_Trailwork+1)
 
@@ -109,44 +109,45 @@ df$tickets <-2^(df$k+df$Applications+1) + 2*log(df$Volunteer_Shifts+
 men<-df[which(df$gender=="M"),]
 women<-df[which(df$gender=="F"),]
 
-#dplyr function sample_n will work with weights, normalize automatically
-#syntax:sample_n(tbl, size, replace = FALSE, weight = NULL, .env = NULL, ...)
-#Run the separate lotteries
-women_winners<-sample_n(women, n_women_pick, replace = FALSE, weight=women$tickets)
-men_winners<-sample_n(men, n_men_pick, replace = FALSE, weight=men$tickets)
-
-women_winners_names<-women_winners$fullname
-women_winners_names<-women_winners$fullname
-
-
-
 
 ##############################################################
 #THE SHINY PART
 ui<-fluidPage(
   includeMarkdown("include.md"),  
   # Copy the line below to make a number input box into the UI.
-  numericInput("num", label = h3("Enter the seed"), value = 1),
+  numericInput("num", label = h3("Enter the seed"), value = NULL),
   
   hr(),
   fluidRow(verbatimTextOutput("value")),
-  fluidRow(dataTableOutput('women')),
-  fluidRow(dataTableOutput('men'))
+  #what do I have to do to get this printed above the data tables?
+  mainPanel(paste("2020 High Lonesome Lottery Winners")),
+  fluidRow(dataTableOutput("women")),
+  #and something inbetween them would be nice.
+  fluidRow(dataTableOutput("men"))
   
 )
 
 server<- function(input, output) {
     # You can access the value of the widget with input$num, e.g.
-    output$value <- renderPrint({ input$num })
-    #set.seed(input$num) #SET THE SEED WITH DICE!
-    #Tickets=2^(n+k+1)+2ln(v+t+1) where n, k, v, and t are defined as follows:
-  
-    #Print the winners' names
-    output$women <- renderDataTable(women_winners$fullname)
-    output$men <- renderDataTable(men_winners$fullname) 
-  
+    output$value <- renderPrint({ input$num 
+      set.seed(input$num) #SET THE SEED WITH DICE!
+    
+      #dplyr function sample_n will work with weights, normalize automatically
+      #syntax:sample_n(tbl, size, replace = FALSE, weight = NULL, .env = NULL, ...)
+      #Run the separate lotteries
+      women_winners<-sample_n(women, n_women_pick, replace = FALSE, weight=women$tickets)
+      men_winners<-sample_n(men, n_men_pick, replace = FALSE, weight=men$tickets)
+      
+      women_winners_names<-women_winners$fullname
+      men_winners_names<-men_winners$fullname
+      write.csv(women_winners_names)
+      write.csv(men_winners_names)
+      #Print the winners' names
+      output$women <- renderDataTable(women_winners_names)
+      output$men <- renderDataTable(men_winners$fullname) 
+      
+    })
 }
-  
 
 shinyApp(ui = ui, server = server)
 
