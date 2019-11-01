@@ -5,8 +5,8 @@ The lottery is implemented via R Shiny apps [here](https://garretchristensen.shi
 
 The code for it is all in this repository that you're looking at.
 
-* app.R implements the lottery
+* Lottery.Rmd implements the lottery
 * fakedata.csv is data for testing, and will be replaced with the real data as soon as it becomes available
-* include.md is the text that explains our motivation and the weighting formula, you can read it here or on the Shiny app page.
+
 
 Questions, comments, pull requests welcome.
