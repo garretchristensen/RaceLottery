@@ -38,15 +38,15 @@ Tickets=2^(n+k+1)+2ln(v+t+1) where n, k, v, and t are defined as follows:
 * Previous finishes: How many times have you finished High Lonesome 100?
 We will award previous finishers a boost until they have finished High Lonesome three times; then the boost decreases. (We love returning runners, but after a while, it's cool to give others a chance.)
 k is defined according to the following rule:
-k=0 if finishes==0
-k=0.5 if finishes==1
-k=1 if finishes==2
-k=1.5 if finishes==3
-k=1 if finishes>=4
+* k=0 if finishes==0
+* k=0.5 if finishes==1
+* k=1 if finishes==2
+* k=1.5 if finishes==3
+* k=0.5 if finishes>=4
 
-* Volunteer shifts: How many 8-hour shifts did you volunteer at the previous (current calendar year at the time of the lottery) running of High Lonesome? v is  the number of 8-hour shifts.
+* Volunteer shifts: How many 8-hour shifts did you volunteer at the previous (current calendar year at the time of the lottery) running of High Lonesome? v is  the number of 8-hour shifts. Maximum of 10. 
 
-* Trailwork: How many solid 8-hour shifts of physical volunteer trail work have you completed since November 15 of last year? Volunteering or pacing at a race doesn't count. These trailwork hours must be over and above the 8-hours required for High Lonesome itself, they must be done with an approved land management agency or partner organization, and they must not be used in order to qualify for any other race or ultra--or court-mandated community service requirement ;). We obviously don't have a great way to verify this, so you're on your honor. Please don't abuse this. t is the number of 8-hour shifts.
+* Trailwork: How many solid 8-hour shifts of physical volunteer trail work have you completed since November 15 of last year? Volunteering or pacing at a race doesn't count. These trailwork hours must be over and above the 8-hours required for High Lonesome itself, they must be done with an approved land management agency or partner organization, and they must not be used in order to qualify for any other race or ultra--or court-mandated community service requirement ;). We obviously don't have a great way to verify this, so you're on your honor. Please don't abuse this. t is the number of 8-hour shifts. Maximum of 10.
 
 # Implementing the Lottery
 To run the lottery, all you have to do is enter the seed below. (It will show an error until you enter a number.) The actual seed will be determined by a live roll of nine 10-sided dice at Laws Whiskey House in Colorado on Friday November 15, each single die roll becoming a digit of the integer, in order. The seed primes R's pseudo-random number generator reproducibly. Before the seed is set, applicants can enter any integer they want to simulate the lottery. Well, almost. For computer-y reasons it can be any integer with absolute value less than or equal to 2,147,483,647.
@@ -155,10 +155,15 @@ df$k <- ifelse(df$Previous_Finishes==0 , 0,
                ifelse(df$Previous_Finishes==1,  0.5,
                       ifelse(df$Previous_Finishes==2, 1, 
                              ifelse(df$Previous_Finishes==3, 1.5,
-                                    ifelse(df$Previous_Finishes>=4, 1, 0)))))
+                                    ifelse(df$Previous_Finishes>=4, 0.5, 0)))))
+
+
+#Shifts max out at 10
+df$n<-pmin(df$Volunteer_Shifts, 10)
+df$t<-pmin(df$Extra_Trailwork, 10)
+
 #Tickets=2^(n+k+1)+2ln(v+t+1) where n, k, v, and t are defined as follows:
-df$tickets <-2^(df$k+df$Applications+1) + 2*log(df$Volunteer_Shifts+
-                                                 df$Extra_Trailwork+1)
+df$tickets <-2^(df$k+df$Applications+1) + 2*log(df$n+df$t+1)
 
 #SPLIT THE DATA INTO MENS AND WOMENS
 men<-df[which(df$gender=="M"),]
@@ -216,7 +221,11 @@ server<- function(input, output) {
 ### 2020 Lottery Winner Characteristics
 
 Average characteristics of the lottery winners are as follows:
+
+THIS SECTION FORTHCOMING
 <Still need to finish this>
 
-### 2020 Waitlist 
+### 2020 Waitlist
+
+THIS SECTION FORTHCOMING--DRAWN BY SAME ALGORITHM AS ABOVE
 <Need to finish this>
