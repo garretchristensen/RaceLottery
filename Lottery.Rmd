@@ -49,13 +49,11 @@ k is defined according to the following rule:
 * Trailwork: How many solid 8-hour shifts of physical volunteer trail work have you completed since November 15 of last year? Volunteering or pacing at a race doesn't count. These trailwork hours must be over and above the 8-hours required for High Lonesome itself, they must be done with an approved land management agency or partner organization, and they must not be used in order to qualify for any other race or ultra--or court-mandated community service requirement ;). We obviously don't have a great way to verify this, so you're on your honor. Please don't abuse this. t is the number of 8-hour shifts. Maximum of 10.
 
 # Implementing the Lottery
-To run the lottery, all you have to do is enter the seed below. (It will show an error until you enter a number.) The actual seed will be determined by a live roll of nine 10-sided dice at Laws Whiskey House in Colorado on Friday November 15, each single die roll becoming a digit of the integer, in order. The seed primes R's pseudo-random number generator reproducibly. Before the seed is set, applicants can enter any integer they want to simulate the lottery. Well, almost. For computer-y reasons it can be any integer with absolute value less than or equal to 2,147,483,647.
+To run the lottery, all you have to do is enter the seed below. (It will show an error until you enter a number.) The actual seed will be determined by a live roll of nine 10-sided dice at Laws Whiskey House in Colorado on Friday November 15, each single die roll becoming a digit of the integer, in order, plus one coin toss determining whether the entire number is positive or negative. The seed primes R's pseudo-random number generator so the code can run reproducibly. Before the seed is set, applicants can enter any integer they want to simulate the lottery. Well, almost. For computer-y reasons it can be any integer with absolute value less than or equal to 2,147,483,647.
 
-```{r prep, echo=FALSE, results=FALSE, warning=FALSE}
-library(tidyverse)
+```{r prep, echo=FALSE, results=FALSE, warning=FALSE, message=FALSE}
 library(dplyr)
 library(tibble)
-library(ggplot2)
 library(readxl)
 
 
@@ -186,9 +184,9 @@ ui<-fluidPage(
   hr(),
   fluidRow(verbatimTextOutput("value")),
   #what do I have to do to get this printed above the data tables?
-  fluidRow(tableOutput("women")),
+  fluidRow("These are the women selected in the lottery:", tableOutput("women")),
   #and something inbetween them would be nice.
-  fluidRow(tableOutput("men"))
+  fluidRow("These are the men selected in the lottery:", tableOutput("men"))
  ),
 
 server<- function(input, output) {
