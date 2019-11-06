@@ -177,7 +177,7 @@ women<-df[which(df$gender=="F"),]
 
 
 
-```{r runlottery, echo=FALSE}
+```{r runlottery, echo=FALSE, warning=FALSE}
 shinyApp(
 ui<-fluidPage(
   # Copy the line below to make a number input box into the UI.
@@ -186,9 +186,9 @@ ui<-fluidPage(
   hr(),
   fluidRow(verbatimTextOutput("value")),
   #what do I have to do to get this printed above the data tables?
-  fluidRow(dataTableOutput("women")),
+  fluidRow(tableOutput("women")),
   #and something inbetween them would be nice.
-  fluidRow(dataTableOutput("men"))
+  fluidRow(tableOutput("men"))
  ),
 
 server<- function(input, output) {
@@ -202,13 +202,24 @@ server<- function(input, output) {
       women_winners<-sample_n(women, n_women_pick, replace = FALSE, weight=women$tickets)
       men_winners<-sample_n(men, n_men_pick, replace = FALSE, weight=men$tickets)
       
-      women_winners_names<-women_winners$fullname
-      men_winners_names<-men_winners$fullname
-      write.csv(women_winners_names)
-      write.csv(men_winners_names)
-      #Print the winners' names
-      output$women <- renderDataTable(women_winners_names)
-      output$men <- renderDataTable(men_winners$fullname)
+      #I can't figure out how to label tables, so just make the table itself
+      #look sort of well-labeled
+      #subset
+      #dfnew5 <- subset(diamonds, select=c("color", "carat", "price"))
+      w_output<-subset(women_winners, select=c("fullname", "gender", "Age"))
+      m_output<-subset(men_winners, select=c("fullname", "gender", "Age"))
+      #Add ID column data$ID <- seq.int(nrow(data))
+      w_output$Num<-seq.int(nrow(w_output))
+      m_output$Num<-seq.int(nrow(m_output))
+      #rearrange columns df2[,c(1,3,2,4)]
+      w_output<-w_output[,c(4,1,2,3)]
+      m_output<-m_output[,c(4,1,2,3)]
+      #rename: names(data)[3]<-"new_name"
+      names(w_output)[2]<-"Selected_Women"
+      names(m_output)[2]<-"Selected_Men"
+      #Send the winners' names to be output
+      output$women <- renderTable(w_output)
+      output$men <- renderTable(m_output)
    
     })
     },
