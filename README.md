@@ -6,7 +6,7 @@ The lottery is implemented via R Shiny apps [here](https://garretchristensen.shi
 The code for it is all in this repository that you're looking at.
 
 * Lottery.Rmd implements the lottery
-* fakedata.csv is data for testing, and will be replaced with the real data as soon as it becomes available
+* fakedata.csv, fakedata_lotsofwomen.csv, and fakedata_notenoughwomen.csv are data for testing, and will be replaced with the real data as soon as it becomes available
 
 
 Questions, comments, pull requests welcome.
