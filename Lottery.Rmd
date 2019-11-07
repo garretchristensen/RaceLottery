@@ -48,8 +48,7 @@ k is defined according to the following rule:
 
 * Trailwork: How many solid 8-hour shifts of physical volunteer trail work have you completed since November 15 of last year? Volunteering or pacing at a race doesn't count. These trailwork hours must be over and above the 8-hours required for High Lonesome itself, they must be done with an approved land management agency or partner organization, and they must not be used in order to qualify for any other race or ultra--or court-mandated community service requirement ;). We obviously don't have a great way to verify this, so you're on your honor. Please don't abuse this. t is the number of 8-hour shifts. Maximum of 10.
 
-# Implementing the Lottery
-To run the lottery, all you have to do is enter the seed below. (It will show an error until you enter a number.) The actual seed will be determined by a live roll of nine 10-sided dice at Laws Whiskey House in Colorado on Friday November 15, each single die roll becoming a digit of the integer, in order, plus one coin toss determining whether the entire number is positive or negative. The seed primes R's pseudo-random number generator so the code can run reproducibly. Before the seed is set, applicants can enter any integer they want to simulate the lottery. Well, almost. For computer-y reasons it can be any integer with absolute value less than or equal to 2,147,483,647.
+
 
 ```{r prep, echo=FALSE, results=FALSE, warning=FALSE, message=FALSE}
 library(dplyr)
@@ -74,10 +73,27 @@ df<-as_tibble(temp)
 df$fullname<-paste( df$First_Name, df$Last_Name, sep=" ", collapse = NULL)
 head(df)
 
+df$USA<-ifelse(df$Country=="USA",1,0)
+
 #NUMBER OF MEN AND WOMEN APPLICANTS
 n_men_app=nrow(men<-df[which(df$gender=="M"),])
 n_women_app=nrow(women<-df[which(df$gender=="F"),])
 
+```
+
+# Who Entered the Lottery?
+`r n_men_app` men entered the lottery. `r n_women_app` women entered the lottery.
+
+Male entrant characteristics: average age `r round(mean(men$Age, na.rm=TRUE), digits=1)`, previous finishes `r round(mean(men$Previous_Finishes, na.rm=TRUE), digits=1)`, `r round(mean(men$USA)*100, digits=0)`% USA, volunteer shifts `r round(mean(men$Volunteer_Shifts, na.rm=TRUE), digits=1)`, extra trailwork `r round(mean(men$Extra_Trailwork, na.rm=TRUE), digits=1)`    
+
+Female entrant characteristics: average age `r round(mean(women$Age, na.rm=TRUE), digits=1)`, previous finishes `r round(mean(women$Previous_Finishes, na.rm=TRUE), digits=1)`, `r round(mean(women$USA)*100, digits=0)`% USA, volunteer shifts `r round(mean(women$Volunteer_Shifts, na.rm=TRUE), digits=1)`, extra trailwork `r round(mean(women$Extra_Trailwork, na.rm=TRUE), digits=1)` 
+
+
+# Implementing the Lottery
+To run the lottery, all you have to do is enter the seed below. (It will show an error until you enter a number.) The actual seed will be determined by a live roll of nine 10-sided dice at Laws Whiskey House in Colorado on Friday November 15, each single die roll becoming a digit of the integer, in order, plus one coin toss determining whether the entire number is positive or negative. The seed primes R's pseudo-random number generator so the code can run reproducibly. Before the seed is set, applicants can enter any integer they want to simulate the lottery. Well, almost. For computer-y reasons it can be any integer with absolute value less than or equal to 2,147,483,647.
+
+
+```{r prep2, echo=FALSE}
 #WHO HAS MORE APPLICANTS AND WOULD GET THE ODD SLOT, IF APPLICABLE?
 if (n_men_app > n_women_app) {
   largest<-"men"
@@ -167,16 +183,6 @@ df$tickets <-2^(df$k+df$Applications+1) + 2*log(df$n+df$t+1)
 men<-df[which(df$gender=="M"),]
 women<-df[which(df$gender=="F"),]
 
-
-
-
-#########################
-#WAITLIST SIZE
-###########################
-
-
-
-
 ##############################################################
 
 ```
@@ -217,8 +223,8 @@ server<- function(input, output) {
       #look sort of well-labeled
       #subset
       #dfnew5 <- subset(diamonds, select=c("color", "carat", "price"))
-      w_output<-subset(women_winners, select=c("fullname", "gender", "Age"))
-      m_output<-subset(men_winners, select=c("fullname", "gender", "Age"))
+      w_output<-subset(women_winners, select=c("fullname", "State", "Age"))
+      m_output<-subset(men_winners, select=c("fullname", "State", "Age"))
       #Add ID column data$ID <- seq.int(nrow(data))
       w_output$Num<-seq.int(nrow(w_output))
       m_output$Num<-seq.int(nrow(m_output))
@@ -236,13 +242,18 @@ server<- function(input, output) {
       #########################################################
       #waitlist
       #########################################################
-      women_waitlist_pool<-anti_join(women, women_winners)
+      if (n_women_app>n_women_pick){
+        women_waitlist_pool<-anti_join(women, women_winners)
+        n_women_waitlist_pool<-nrow(women_waitlist_pool)
+      } else {
+        n_women_waitlist_pool<-0
+      }
+      
       men_waitlist_pool<-anti_join(men, men_winners)
-      n_women_waitlist_pool<-nrow(women_waitlist_pool)
       n_men_waitlist_pool<-nrow(men_waitlist_pool)
       
       #DO THE WOMEN EVEN NEED A WAITLIST? 
-      if (nrow(women_waitlist_pool>0)){
+      if (n_women_waitlist_pool>0){
       #DECIDE GENDER SPLIT OF WAITLIST
         if (n %% 2==1) {
         #IT'S ODD, THE SPLIT IS WEIRD
@@ -291,26 +302,36 @@ server<- function(input, output) {
       }
       
       #PICK THE WAITLISTERS
-      women_waiters <- sample_n(women_waitlist_pool, n_women_wait_pick, replace = FALSE, weight=women_waitlist_pool$tickets)
+      #WOMEN MIGHT NOT HAVE ANY
+      if (n_women_wait_pick>0) {
+        women_waiters <- sample_n(women_waitlist_pool, n_women_wait_pick, replace = FALSE, weight=women_waitlist_pool$tickets)
+        w_output_wait<-subset(women_waiters, select=c("fullname", "State", "Age"))
+        w_output_wait$Num<-seq.int(nrow(w_output_wait))
+        w_output_wait<-w_output_wait[,c(4,1,2,3)]
+        names(w_output_wait)[2]<-"Waitlisted_Women"
+        output$women_wait <- renderTable(w_output_wait)
+      } else {
+        #EMPTY DATASET WITH THE SAME COLUMNS
+        women_waiters<-women_winners[FALSE,]
+        w_output_wait<-subset(women_waiters, select=c("fullname", "State", "Age"))
+        output$women_wait <- renderTable(w_output_wait)
+      }
+      #ASSUME MEN WILL HAVE ENOUGH FOR A FULL WAITLIST
       men_waiters <- sample_n(men_waitlist_pool, n_men_wait_pick, replace = FALSE, weight=men_waitlist_pool$tickets)
       
    #I can't figure out how to label tables, so just make the table itself
       #look sort of well-labeled
       #subset
       #dfnew5 <- subset(diamonds, select=c("color", "carat", "price"))
-      w_output_wait<-subset(women_waiters, select=c("fullname", "gender", "Age"))
-      m_output_wait<-subset(men_waiters, select=c("fullname", "gender", "Age"))
+      m_output_wait<-subset(men_waiters, select=c("fullname", "State", "Age"))
       #Add ID column data$ID <- seq.int(nrow(data))
-      w_output_wait$Num<-seq.int(nrow(w_output_wait))
       m_output_wait$Num<-seq.int(nrow(m_output_wait))
-      #rearrange columns df2[,c(1,3,2,4)]
-      w_output_wait<-w_output_wait[,c(4,1,2,3)]
+      #rearrange columns df2[,c(1,3,2,4)
       m_output_wait<-m_output_wait[,c(4,1,2,3)]
       #rename: names(data)[3]<-"new_name"
-      names(w_output_wait)[2]<-"Waitlisted_Women"
       names(m_output_wait)[2]<-"Waitlisted_Men"
       #Send the winners' names to be output
-      output$women_wait <- renderTable(w_output_wait)
+
       output$men_wait <- renderTable(m_output_wait)   
       
       
