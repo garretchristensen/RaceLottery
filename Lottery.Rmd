@@ -28,7 +28,7 @@ So here are the activities for which we will award points:
 
 ### Chosen Model
 
-We've chosen the following weighting method:
+Statistically, getting equal numbers of men and women is easy---just divide the race cap in half and draw separately. The rest is a bit more complicated, but we've chosen the following weighting method:
 
 Tickets=2^(n+k+1)+2ln(v+t+1) where n, k, v, and t are defined as follows:
 
@@ -59,7 +59,7 @@ library(readxl)
 #####################################################
 #SET EVERYTHING UP BEFORE DOING THE SHINY PART
 #######################################################
-n<-125 #SET THE TOTAL NUMBER TO PICK
+
 #I COULD MAKE THIS AN INTERACTIVE PART TOO LATER
 
 temp<-read.csv("./HL2020data_prelim.csv", stringsAsFactors = FALSE) #LOAD THE DATA
@@ -88,12 +88,51 @@ Male entrant characteristics: average age `r round(mean(men$Age, na.rm=TRUE), di
 
 Female entrant characteristics: average age `r round(mean(women$Age, na.rm=TRUE), digits=1)`, previous finishes `r round(mean(women$Previous_Finishes, na.rm=TRUE), digits=1)`, `r round(mean(women$USA)*100, digits=0)`% USA, volunteer shifts `r round(mean(women$Volunteer_Shifts, na.rm=TRUE), digits=1)`, extra trailwork `r round(mean(women$Extra_Trailwork, na.rm=TRUE), digits=1)` 
 
+Note that runners are allowed deferred entry from previous years due to pregnancy or new children or getting into Western States or Hardrock. We take these slots from their respective gender lotteries.
+
 
 # Implementing the Lottery
 To run the lottery, all you have to do is enter the seed below. (It will show an error until you enter a number.) The actual seed will be determined by a live roll of nine 10-sided dice at Laws Whiskey House in Colorado on Friday November 15, each single die roll becoming a digit of the integer, in order, plus one coin toss determining whether the entire number is positive or negative. The seed primes R's pseudo-random number generator so the code can run reproducibly. Before the seed is set, applicants can enter any integer they want to simulate the lottery. Well, almost. For computer-y reasons it can be any integer with absolute value less than or equal to 2,147,483,647.
 
 
-```{r prep2, echo=FALSE}
+
+
+
+```{r runlottery, echo=FALSE, warning=FALSE}
+shinyApp(
+  
+#######################################################################
+# WHAT THE UI LOOKS LIKE
+#######################################################################
+ui<-fluidPage(
+  # Copy the line below to make a number input box into the UI.
+  fluidRow(
+  column(6, numericInput("num", label = h1("Enter the seed"), value = NULL)),
+  column(6, numericInput("N", label = h1("Enter the race size"), value = 125))
+  ),
+  
+  fluidRow(
+  column(6, numericInput("w_defer", label = h1("Enter number of female deferrals"), value = 0)),
+  column(6, numericInput("m_defer", label = h1("Enter number of male deferrals"), value = 5)) 
+  ),             
+  
+  fluidRow(verbatimTextOutput("value")),
+  #what do I have to do to get this printed above the data tables?
+  fluidRow("These are the women selected in the lottery:", tableOutput("women")),
+  #and something inbetween them would be nice.
+  fluidRow("These are the men selected in the lottery:", tableOutput("men")),
+  
+  fluidRow("This is the waitlist:", tableOutput("combo"))
+ ),
+
+#############################################################################
+server<- function(input, output) {
+
+output$value <- renderPrint({
+set.seed(input$num) #SET THE SEED WITH DICE!
+n<-input$N #SET THE TOTAL NUMBER TO PICK
+
+#DETERMINE NUMBER OF SLOTS PER GENDER
 #WHO HAS MORE APPLICANTS AND WOULD GET THE ODD SLOT, IF APPLICABLE?
 if (n_men_app > n_women_app) {
   largest<-"men"
@@ -153,9 +192,14 @@ if (n_men_app+n_women_app<n) {
       n_men_pick=n-n_women_pick
     }  
   }
-  
 } # END OVERALL NEED TO RUN LOTTERY
-
+######################################################################
+#AFTER ALL THAT, TAKE OUT THE DEFERRALS
+n_women_pick <- n_women_pick - input$w_defer
+n_men_pick <- n_men_pick - input$m_defer
+      
+######################################################################
+#DETERMINE TICKETS FROM THE DATA
 #For 2020 nobody has unsuccessful applications, this is the first lottery
 df$Applications<-0 
 
@@ -184,176 +228,150 @@ men<-df[which(df$gender=="M"),]
 women<-df[which(df$gender=="F"),]
 
 ##############################################################
+#DRAW THE LOTTERY
 
-```
-
-
-
-
-```{r runlottery, echo=FALSE, warning=FALSE}
-shinyApp(
-ui<-fluidPage(
-  # Copy the line below to make a number input box into the UI.
-  numericInput("num", label = h3("Enter the seed"), value = NULL),
-  
-  hr(),
-  fluidRow(verbatimTextOutput("value")),
-  #what do I have to do to get this printed above the data tables?
-  fluidRow("These are the women selected in the lottery:", tableOutput("women")),
-  #and something inbetween them would be nice.
-  fluidRow("These are the men selected in the lottery:", tableOutput("men")),
-  
-  fluidRow("This is the waitlist:", tableOutput("combo"))
- ),
-
-server<- function(input, output) {
-    # You can access the value of the widget with input$num, e.g.
-    output$value <- renderPrint({ input$num 
-      set.seed(input$num) #SET THE SEED WITH DICE!
+    #dplyr function sample_n will work with weights, normalize automatically
+    #syntax:sample_n(tbl, size, replace = FALSE, weight = NULL, .env = NULL, ...)
+    #Run the separate lotteries
+    women_winners<-sample_n(women, n_women_pick, replace = FALSE, weight=women$tickets)
+    men_winners<-sample_n(men, n_men_pick, replace = FALSE, weight=men$tickets)
     
-      #dplyr function sample_n will work with weights, normalize automatically
-      #syntax:sample_n(tbl, size, replace = FALSE, weight = NULL, .env = NULL, ...)
-      #Run the separate lotteries
-      women_winners<-sample_n(women, n_women_pick, replace = FALSE, weight=women$tickets)
-      men_winners<-sample_n(men, n_men_pick, replace = FALSE, weight=men$tickets)
-      
-      #I can't figure out how to label tables, so just make the table itself
-      #look sort of well-labeled
-      #subset
-      #dfnew5 <- subset(diamonds, select=c("color", "carat", "price"))
-      w_output<-subset(women_winners, select=c("fullname", "State", "Age"))
-      m_output<-subset(men_winners, select=c("fullname", "State", "Age"))
-      #Add ID column data$ID <- seq.int(nrow(data))
-      w_output$Num<-seq.int(nrow(w_output))
-      m_output$Num<-seq.int(nrow(m_output))
-      #rearrange columns df2[,c(1,3,2,4)]
-      w_output<-w_output[,c(4,1,2,3)]
-      m_output<-m_output[,c(4,1,2,3)]
-      #rename: names(data)[3]<-"new_name"
-      names(w_output)[2]<-"Selected_Women"
-      names(m_output)[2]<-"Selected_Men"
-      #Send the winners' names to be output
-      output$women <- renderTable(w_output)
-      output$men <- renderTable(m_output)
+    #I can't figure out how to label tables, so just make the table itself
+    #look sort of well-labeled
+    #subset
+    #dfnew5 <- subset(diamonds, select=c("color", "carat", "price"))
+    w_output<-subset(women_winners, select=c("fullname", "State", "Age"))
+    m_output<-subset(men_winners, select=c("fullname", "State", "Age"))
+    #Add ID column data$ID <- seq.int(nrow(data))
+    w_output$Num<-seq.int(nrow(w_output))
+    m_output$Num<-seq.int(nrow(m_output))
+    #rearrange columns df2[,c(1,3,2,4)]
+    w_output<-w_output[,c(4,1,2,3)]
+    m_output<-m_output[,c(4,1,2,3)]
+    #rename: names(data)[3]<-"new_name"
+    names(w_output)[2]<-"Selected_Women"
+    names(m_output)[2]<-"Selected_Men"
+    #Send the winners' names to be output
+    output$women <- renderTable(w_output)
+    output$men <- renderTable(m_output)
       
       
-      #########################################################
-      #waitlist
-      #########################################################
-      if (n_women_app>n_women_pick){
-        women_waitlist_pool<-anti_join(women, women_winners)
-        n_women_waitlist_pool<-nrow(women_waitlist_pool)
-      } else {
-        n_women_waitlist_pool<-0
-      }
+  #########################################################
+  #waitlist
+  #########################################################
+  if (n_women_app>n_women_pick){
+    women_waitlist_pool<-anti_join(women, women_winners)
+    n_women_waitlist_pool<-nrow(women_waitlist_pool)
+  } else {
+    n_women_waitlist_pool<-0
+  }
+  
+  men_waitlist_pool<-anti_join(men, men_winners)
+  n_men_waitlist_pool<-nrow(men_waitlist_pool)
       
-      men_waitlist_pool<-anti_join(men, men_winners)
-      n_men_waitlist_pool<-nrow(men_waitlist_pool)
-      
-      #DO THE WOMEN EVEN NEED A WAITLIST? 
-      if (n_women_waitlist_pool>0){
-      #DECIDE GENDER SPLIT OF WAITLIST
-        if (n %% 2==1) {
-        #IT'S ODD, THE SPLIT IS WEIRD
-         if (largest=="men") {
-            #ODD CAP, AND MEN HAD MORE APPS, WOMEN GET MORE OF WAITLIST
-            n_women_wait_pick<-min(n_women_waitlist_pool, round((n/2+.00001), digits = 0))
-            #OK, SO WOMEN NEED A WAITLIST, BUT THEY MIGHT NOT NEED A FULL WAITLIST
-            if (n_women_wait_pick<round((n/2+.00001), digits=0)) {
-              #THEY DON'T NEED A FULL WAITLIST
-              #GIVE MEN LEFTOVERS
-              n_men_wait_pick<-(n-n_women_wait_pick)
-            } else {
-              #WOMEN NEED A FULL WAITLIST AND WOMEN GOT ON FIRST
-              n_men_wait_pick<-min(round((n/2)-1, digits = 0), n_men_waitlist_pool)
-            }
-          } else {
-            #ODD CAP, AND WOMEN HAD MORE APPS, MEN GET MORE OF THE WAITLIST SPOTS
-            n_women_wait_pick<-min(n_women_waitlist_pool, round((n/2-1), digits = 0))
-            #OK, SO WOMEN NEED A WAITLIST, BUT THEY MIGHT NOT NEED A FULL WAITLIST
-            if (n_women_wait_pick<round((n/2-1), digits=0)) {
-              #THEY DON'T NEED A FULL WAITLIST
-              #GIVE MEN LEFTOVERS
-              n_men_wait_pick<-(n-n_women_wait_pick)
-            } else {
-              #WOMEN NEED A FULL WAITLIST AND MEN GET MORE OF WAITLIST
-              n_men_wait_pick<-min(round((n/2+.00001), digits = 0), n_men_waitlist_pool)
-            }
-          }
-        }
-        if (n %% 2==0) {
-          #CAP IS EVEN JUST SPLIT THEM
-          n_women_wait_pick<-min(n_women_waitlist_pool, n/2)
-          if (n_women_wait_pick<(n/2)) {
-              #THEY DON'T NEED A FULL WAITLIST
-              #GIVE MEN LEFTOVERS
-              n_men_wait_pick<-(n-n_women_wait_pick)
-            } else {
-              #WOMEN NEED A FULL WAITLIST AND IT'S EVENLY SPLIT
-              n_men_wait_pick<-min(n_men_waitlist_pool, n/2)
-            }
+  #DO THE WOMEN EVEN NEED A WAITLIST? 
+  if (n_women_waitlist_pool>0){
+  #DECIDE GENDER SPLIT OF WAITLIST
+    if (n %% 2==1) {
+    #IT'S ODD, THE SPLIT IS WEIRD
+     if (largest=="men") {
+        #ODD CAP, AND MEN HAD MORE APPS, WOMEN GET MORE OF WAITLIST
+        n_women_wait_pick<-min(n_women_waitlist_pool, round((n/2+.00001), digits = 0))
+        #OK, SO WOMEN NEED A WAITLIST, BUT THEY MIGHT NOT NEED A FULL WAITLIST
+        if (n_women_wait_pick<round((n/2+.00001), digits=0)) {
+          #THEY DON'T NEED A FULL WAITLIST
+          #GIVE MEN LEFTOVERS
+          n_men_wait_pick<-(n-n_women_wait_pick)
+        } else {
+          #WOMEN NEED A FULL WAITLIST AND WOMEN GOT ON FIRST
+          n_men_wait_pick<-min(round((n/2)-1, digits = 0), n_men_waitlist_pool)
         }
       } else {
-        #THERE ARE NO WOMEN ON WAITLIST, JUST GIVE IT TO MEN
-        n_women_wait_pick<-0
-        n_men_wait_pick<-n
+        #ODD CAP, AND WOMEN HAD MORE APPS, MEN GET MORE OF THE WAITLIST SPOTS
+        n_women_wait_pick<-min(n_women_waitlist_pool, round((n/2-1), digits = 0))
+        #OK, SO WOMEN NEED A WAITLIST, BUT THEY MIGHT NOT NEED A FULL WAITLIST
+        if (n_women_wait_pick<round((n/2-1), digits=0)) {
+          #THEY DON'T NEED A FULL WAITLIST
+          #GIVE MEN LEFTOVERS
+          n_men_wait_pick<-(n-n_women_wait_pick)
+        } else {
+          #WOMEN NEED A FULL WAITLIST AND MEN GET MORE OF WAITLIST
+          n_men_wait_pick<-min(round((n/2+.00001), digits = 0), n_men_waitlist_pool)
+        }
       }
+    }
+    if (n %% 2==0) {
+      #CAP IS EVEN JUST SPLIT THEM
+      n_women_wait_pick<-min(n_women_waitlist_pool, n/2)
+      if (n_women_wait_pick<(n/2)) {
+          #THEY DON'T NEED A FULL WAITLIST
+          #GIVE MEN LEFTOVERS
+          n_men_wait_pick<-(n-n_women_wait_pick)
+        } else {
+          #WOMEN NEED A FULL WAITLIST AND IT'S EVENLY SPLIT
+          n_men_wait_pick<-min(n_men_waitlist_pool, n/2)
+        }
+    }
+  } else {
+    #THERE ARE NO WOMEN ON WAITLIST, JUST GIVE IT TO MEN
+    n_women_wait_pick<-0
+    n_men_wait_pick<-n
+  }
+  
+  #PICK THE WAITLISTERS
+  #WOMEN MIGHT NOT HAVE ANY
+  if (n_women_wait_pick>0) {
+    women_waiters <- sample_n(women_waitlist_pool, n_women_wait_pick, replace = FALSE, weight=women_waitlist_pool$tickets)
+    w_output_wait<-subset(women_waiters, select=c("fullname", "State", "Age"))
+    w_output_wait$Num<-seq.int(nrow(w_output_wait))
+    w_output_wait<-w_output_wait[,c(4,1,2,3)]
+    names(w_output_wait)[2]<-"Waitlisted_Women"
+    output$women_wait <- renderTable(w_output_wait)
+  } else {
+    #EMPTY DATASET WITH THE SAME COLUMNS
+    women_waiters<-women_winners[FALSE,]
+    w_output_wait<-subset(women_waiters, select=c("fullname", "State", "Age"))
+    output$women_wait <- renderTable(w_output_wait)
+  }
+  #ASSUME MEN WILL HAVE ENOUGH FOR A FULL WAITLIST
+  men_waiters <- sample_n(men_waitlist_pool, n_men_wait_pick, replace = FALSE, weight=men_waitlist_pool$tickets)
       
-      #PICK THE WAITLISTERS
-      #WOMEN MIGHT NOT HAVE ANY
-      if (n_women_wait_pick>0) {
-        women_waiters <- sample_n(women_waitlist_pool, n_women_wait_pick, replace = FALSE, weight=women_waitlist_pool$tickets)
-        w_output_wait<-subset(women_waiters, select=c("fullname", "State", "Age"))
-        w_output_wait$Num<-seq.int(nrow(w_output_wait))
-        w_output_wait<-w_output_wait[,c(4,1,2,3)]
-        names(w_output_wait)[2]<-"Waitlisted_Women"
-        output$women_wait <- renderTable(w_output_wait)
-      } else {
-        #EMPTY DATASET WITH THE SAME COLUMNS
-        women_waiters<-women_winners[FALSE,]
-        w_output_wait<-subset(women_waiters, select=c("fullname", "State", "Age"))
-        output$women_wait <- renderTable(w_output_wait)
-      }
-      #ASSUME MEN WILL HAVE ENOUGH FOR A FULL WAITLIST
-      men_waiters <- sample_n(men_waitlist_pool, n_men_wait_pick, replace = FALSE, weight=men_waitlist_pool$tickets)
+#I can't figure out how to label tables, so just make the table itself
+  #look sort of well-labeled
+  #subset
+  #dfnew5 <- subset(diamonds, select=c("color", "carat", "price"))
+  m_output_wait<-subset(men_waiters, select=c("fullname", "State", "Age"))
+  #Add ID column data$ID <- seq.int(nrow(data))
+  m_output_wait$Num<-seq.int(nrow(m_output_wait))
+  #rearrange columns df2[,c(1,3,2,4)
+  m_output_wait<-m_output_wait[,c(4,1,2,3)]
+  #rename: names(data)[3]<-"new_name"
+  names(m_output_wait)[2]<-"Waitlisted_Men"
+  #Send the winners' names to be output
+    output$men_wait <- renderTable(m_output_wait)   
+  
       
-   #I can't figure out how to label tables, so just make the table itself
-      #look sort of well-labeled
-      #subset
-      #dfnew5 <- subset(diamonds, select=c("color", "carat", "price"))
-      m_output_wait<-subset(men_waiters, select=c("fullname", "State", "Age"))
-      #Add ID column data$ID <- seq.int(nrow(data))
-      m_output_wait$Num<-seq.int(nrow(m_output_wait))
-      #rearrange columns df2[,c(1,3,2,4)
-      m_output_wait<-m_output_wait[,c(4,1,2,3)]
-      #rename: names(data)[3]<-"new_name"
-      names(m_output_wait)[2]<-"Waitlisted_Men"
-      #Send the winners' names to be output
-
-      output$men_wait <- renderTable(m_output_wait)   
-      
-      
-      ##########################################
-      #Zipper the waitlists
-      ########################################
-      #make names identical so columns line up
-      names(m_output_wait)[2]<-"Waitlisted_Name"
-      names(w_output_wait)[2]<-"Waitlisted_Name"
-      #bind women first if more men applied and vice versa
-      if (largest=="men") {
-        temp <- bind_rows(w_output_wait, m_output_wait)
-      } else {
-        temp <- bind_rows(m_output_wait, w_output_wait) 
-      }
-      #sort and relabel
-      temp <- arrange(temp, Num)
-      temp$GenderNum <-temp$Num
-      temp$Num <-seq.int(nrow(temp))
-      
-      output$combo<-renderTable(temp)
+  ##########################################
+  #Zipper the waitlists
+  ########################################
+  #make names identical so columns line up
+  names(m_output_wait)[2]<-"Waitlisted_Name"
+  names(w_output_wait)[2]<-"Waitlisted_Name"
+  #bind women first if more men applied and vice versa
+  if (largest=="men") {
+    temp <- bind_rows(w_output_wait, m_output_wait)
+  } else {
+    temp <- bind_rows(m_output_wait, w_output_wait) 
+  }
+  #sort and relabel
+  temp <- arrange(temp, Num)
+  temp$GenderNum <-temp$Num
+  temp$Num <-seq.int(nrow(temp))
+  
+  output$combo<-renderTable(temp)
    
-    })
-    },
+})
+},
  options = list(height = 900)
 )
 
@@ -368,4 +386,4 @@ Average characteristics of the lottery winners are as follows:
 
 
 ### 2020 Waitlist
-Note that the waitlist, as printed above, has the same total number of selections as the cap: `r n`.  The waitlist was made such that people will be offered slots off the waitlist alternating by gender, starting with the gender that did not get the extra odd slot from an odd race cap. (Based on past experience, we are likely to have more male applicants, meaning men get `r n_men_pick` slots and women `r n_women_pick` and that women get the first waitlist slot). Of course, if either gender does not have enough slots for their portion of the waitlist, the slots will be filled by the other gender. Note also that no waitlist slots will become available until after a handful of those picked in the original lottery cancel---with sponsor and volunteer slots, the race is slightly overbooked by design.
+Note that the waitlist, as printed above, has the same total number of selections as the cap.  The waitlist was made such that people will be offered slots off the waitlist alternating by gender, starting with the gender that did not get the extra odd slot from an odd race cap.  and that women get the first waitlist slot). Of course, if either gender does not have enough slots for their portion of the waitlist, the slots will be filled by the other gender. Note also that no waitlist slots will become available until after a handful of those picked in the original lottery cancel---with sponsor and volunteer slots, the race is slightly overbooked by design.
