@@ -1,13 +1,13 @@
 ---
 title: "High Lonesome 2020 Lottery"
 author: "Garret Christensen"
-date: "October 31, 2019"
+date: "November 12, 2019"
 output: html_document
 runtime: shiny
 ---
 ## Background
 
-Welcome to the High Lonesome 2020 Lottery. This lottery is run with code written by Garret Christensen. The code is available on GitHub [here](http://www.github.com/garretchristensen/RaceLottery). The intent with using Github is to make the entire process transparent and reproducible.
+Welcome to the High Lonesome 2020 Lottery. This lottery is run with code written by Garret Christensen. The code is available on GitHub [here](http://www.github.com/garretchristensen/RaceLottery). The intent with using Github is to make the entire process transparent and reproducible. If you speak R, please check it out!
 
 ## Lottery Design Choices
 There's no perfect design, but we have a few values we'd like to try and implement.
@@ -62,7 +62,7 @@ library(readxl)
 n<-125 #SET THE TOTAL NUMBER TO PICK
 #I COULD MAKE THIS AN INTERACTIVE PART TOO LATER
 
-temp<-read.csv("./fakedata.csv", stringsAsFactors = FALSE) #LOAD THE DATA
+temp<-read.csv("./HL2020data_prelim.csv", stringsAsFactors = FALSE) #LOAD THE DATA
 df<-as_tibble(temp)
 #THERE IS SOME STUPID NON-ASCII CHARACTER BEGINNING-OF-FILE 
 #NONSENSE GOING ON HERE
@@ -203,9 +203,7 @@ ui<-fluidPage(
   #and something inbetween them would be nice.
   fluidRow("These are the men selected in the lottery:", tableOutput("men")),
   
-  fluidRow("These are the waitlisted women:", tableOutput("women_wait")),
-  #and something inbetween them would be nice.
-  fluidRow("These are the waitlisted men:", tableOutput("men_wait"))
+  fluidRow("This is the waitlist:", tableOutput("combo"))
  ),
 
 server<- function(input, output) {
@@ -335,8 +333,24 @@ server<- function(input, output) {
       output$men_wait <- renderTable(m_output_wait)   
       
       
+      ##########################################
+      #Zipper the waitlists
+      ########################################
+      #make names identical so columns line up
+      names(m_output_wait)[2]<-"Waitlisted_Name"
+      names(w_output_wait)[2]<-"Waitlisted_Name"
+      #bind women first if more men applied and vice versa
+      if (largest=="men") {
+        temp <- bind_rows(w_output_wait, m_output_wait)
+      } else {
+        temp <- bind_rows(m_output_wait, w_output_wait) 
+      }
+      #sort and relabel
+      temp <- arrange(temp, Num)
+      temp$GenderNum <-temp$Num
+      temp$Num <-seq.int(nrow(temp))
       
-      
+      output$combo<-renderTable(temp)
    
     })
     },
@@ -350,8 +364,8 @@ server<- function(input, output) {
 
 Average characteristics of the lottery winners are as follows:
 
-THIS SECTION FORTHCOMING
-<Still need to finish this>
+*This section forthcoming for the 2021 lottery, along with a simulation to determine your odds. Code contributions welcome!*
+
 
 ### 2020 Waitlist
-Note that the waitlist, as printed above, has the same total number of selections as the cap: `r n`. For now, we have just printed these separately by gender. In reality, people will be offered slots off the waitlist alternating by gender, starting with the gender that did not get the extra odd slot from an odd race cap. (Based on past experience, we are likely to have more male applicants, meaning men get `r n_men_pick` slots and women `r n_women_pick` and that women get the first waitlist slot). Of course, if either gender does not have enough slots for their portion of the waitlist, the slots will be filled by the other gender. Note also that no waitlist slots will become available until after a handful of those picked in the original lottery cancel---with sponsor and volunteer slots, the race is slightly overbooked by design.
+Note that the waitlist, as printed above, has the same total number of selections as the cap: `r n`.  The waitlist was made such that people will be offered slots off the waitlist alternating by gender, starting with the gender that did not get the extra odd slot from an odd race cap. (Based on past experience, we are likely to have more male applicants, meaning men get `r n_men_pick` slots and women `r n_women_pick` and that women get the first waitlist slot). Of course, if either gender does not have enough slots for their portion of the waitlist, the slots will be filled by the other gender. Note also that no waitlist slots will become available until after a handful of those picked in the original lottery cancel---with sponsor and volunteer slots, the race is slightly overbooked by design.
