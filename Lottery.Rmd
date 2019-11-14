@@ -77,8 +77,8 @@ head(df)
 df$USA<-ifelse(df$Country=="USA",1,0)
 
 #NUMBER OF MEN AND WOMEN APPLICANTS
-n_men_app=nrow(men<-df[which(df$gender=="M"),])
-n_women_app=nrow(women<-df[which(df$gender=="F"),])
+n_men_app=nrow(men<-df[which(df$Gender=="M"),])
+n_women_app=nrow(women<-df[which(df$Gender=="F"),])
 
 ```
 
@@ -223,8 +223,8 @@ df$t<-pmin(df$Extra_Trailwork, 10)
 df$tickets <-2^(df$k+df$Applications+1) + 2*log(df$n+df$t+1)
 
 #SPLIT THE DATA INTO MENS AND WOMENS
-men<-df[which(df$gender=="M"),]
-women<-df[which(df$gender=="F"),]
+men<-df[which(df$Gender=="M"),]
+women<-df[which(df$Gender=="F"),]
 
 ##############################################################
 #DRAW THE LOTTERY
@@ -358,9 +358,21 @@ women<-df[which(df$gender=="F"),]
   names(w_output_wait)[2]<-"Waitlisted_Name"
   #bind women first if more men applied and vice versa
   if (largest=="men") {
-    temp <- bind_rows(w_output_wait, m_output_wait)
+    if (n %% 2==1) {
+      #more men, odd so women get first waitlist
+      temp <- bind_rows(w_output_wait, m_output_wait)
+    } else {
+       #more men, even so men get first waitlist
+      temp <- bind_rows(m_output_wait, w_output_wait)
+    }
   } else {
-    temp <- bind_rows(m_output_wait, w_output_wait) 
+     if (n %% 2==1) {
+       #more women, odd so men get first waitlist
+       temp <- bind_rows(m_output_wait, w_output_wait)
+     } else {
+       #more women, even so women get first waitlist
+       temp <- bind_rows(w_output_wait, m_output_wait)
+     }   
   }
   #sort and relabel
   temp <- arrange(temp, Num)
