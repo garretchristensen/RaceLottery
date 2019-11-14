@@ -32,7 +32,7 @@ Statistically, getting equal numbers of men and women is easy---just divide the 
 
 Tickets=2^(n+k+1)+2ln(v+t+1) where n, k, v, and t are defined as follows:
 
-* Previous unsuccessful applications: Since you were last *picked* in the lottery, offered entry off the waitlist, or offered entry via the volunteer raffle, how many times have you entered the High Lonesome lottery, not including this year? Note that previous lottery entries need not be in successive years, but they reset to zero after you are picked in the lottery or are offered a slot via other means such as the waitlist or the volunteer raffle. n is equal to your previous unsuccessful applications, as defined above, with no maximum.
+* Previous unsuccessful applications: Since you were last *picked* in the lottery, offered entry off the waitlist, or offered entry via the volunteer raffle, how many times have you entered the High Lonesome lottery, not including this year? Note that previous lottery entries need not be in successive years, but they reset to zero after you are picked in the lottery or are offered a slot via other means such as the waitlist or the volunteer raffle. n is equal to your previous unsuccessful applications, as defined above, with no maximum. For 2020 this is 0 for everyone because we've never had a lottery before!
 
 
 * Previous finishes: How many times have you finished High Lonesome 100?
@@ -44,10 +44,11 @@ k is defined according to the following rule:
 * k=1.5 if finishes==3
 * k=0.5 if finishes>=4
 
-* Volunteer shifts: How many 8-hour shifts did you volunteer at the previous (current calendar year at the time of the lottery) running of High Lonesome? v is  the number of 8-hour shifts. Maximum of 10. 
+* Volunteer shifts: How many official shifts did you volunteer at the previous (current calendar year at the time of the lottery) running of High Lonesome? v is  the number of official shifts. Maximum of 10. 
 
-* Trailwork: How many solid 8-hour shifts of physical volunteer trail work have you completed since November 15 of last year? Volunteering or pacing at a race doesn't count. These trailwork hours must be over and above the 8-hours required for High Lonesome itself, they must be done with an approved land management agency or partner organization, and they must not be used in order to qualify for any other race or ultra--or court-mandated community service requirement ;). We obviously don't have a great way to verify this, so you're on your honor. Please don't abuse this. t is the number of 8-hour shifts. Maximum of 10.
+* Trailwork: Not including the trailwork *required* for High Lonesome, how many solid 8-hour shifts of physical volunteer trail work have you completed since November 15 of last year? Volunteering or pacing at a race doesn't count. These trailwork hours must be *over and above* the 8-hours required for High Lonesome itself, they must be done with an approved land management agency or partner organization, and they must not be used in order to qualify for any other race or ultra--or court-mandated community service requirement ;). We obviously don't have a great way to verify this, so you're on your honor. Please don't abuse this. t is the number of 8-hour shifts. Maximum of 10.
 
+Note that runners are allowed deferred entry from previous years due to pregnancy or new children or getting into Western States or Hardrock. There are also a small number of legacy spots. We take these slots from their respective gender lotteries. All these policies are described on the High Lonesome webpage [here](https://www.highlonesome100.com/general-registration-info).
 
 
 ```{r prep, echo=FALSE, results=FALSE, warning=FALSE, message=FALSE}
@@ -88,8 +89,6 @@ Male entrant characteristics: average age `r round(mean(men$Age, na.rm=TRUE), di
 
 Female entrant characteristics: average age `r round(mean(women$Age, na.rm=TRUE), digits=1)`, previous finishes `r round(mean(women$Previous_Finishes, na.rm=TRUE), digits=1)`, `r round(mean(women$USA)*100, digits=0)`% USA, volunteer shifts `r round(mean(women$Volunteer_Shifts, na.rm=TRUE), digits=1)`, extra trailwork `r round(mean(women$Extra_Trailwork, na.rm=TRUE), digits=1)` 
 
-Note that runners are allowed deferred entry from previous years due to pregnancy or new children or getting into Western States or Hardrock. We take these slots from their respective gender lotteries.
-
 
 # Implementing the Lottery
 To run the lottery, all you have to do is enter the seed below. (It will show an error until you enter a number.) The actual seed will be determined by a live roll of nine 10-sided dice at Laws Whiskey House in Colorado on Friday November 15, each single die roll becoming a digit of the integer, in order, plus one coin toss determining whether the entire number is positive or negative. The seed primes R's pseudo-random number generator so the code can run reproducibly. Before the seed is set, applicants can enter any integer they want to simulate the lottery. Well, almost. For computer-y reasons it can be any integer with absolute value less than or equal to 2,147,483,647.
@@ -112,8 +111,8 @@ ui<-fluidPage(
   ),
   
   fluidRow(
-  column(6, numericInput("w_defer", label = h1("Enter number of female deferrals"), value = 0)),
-  column(6, numericInput("m_defer", label = h1("Enter number of male deferrals"), value = 5)) 
+  column(6, numericInput("w_defer", label = h1("Number of female deferrals/legacy runners"), value = 0)),
+  column(6, numericInput("m_defer", label = h1("Number of male deferrals/legacy runners"), value = 5)) 
   ),             
   
   fluidRow(verbatimTextOutput("value")),
@@ -240,14 +239,14 @@ women<-df[which(df$gender=="F"),]
     #look sort of well-labeled
     #subset
     #dfnew5 <- subset(diamonds, select=c("color", "carat", "price"))
-    w_output<-subset(women_winners, select=c("fullname", "State", "Age"))
-    m_output<-subset(men_winners, select=c("fullname", "State", "Age"))
+    w_output<-subset(women_winners, select=c("fullname", "State", "Age", "Order_ID"))
+    m_output<-subset(men_winners, select=c("fullname", "State", "Age", "Order_ID"))
     #Add ID column data$ID <- seq.int(nrow(data))
     w_output$Num<-seq.int(nrow(w_output))
     m_output$Num<-seq.int(nrow(m_output))
     #rearrange columns df2[,c(1,3,2,4)]
-    w_output<-w_output[,c(4,1,2,3)]
-    m_output<-m_output[,c(4,1,2,3)]
+    w_output<-w_output[,c(5,1,2,3,4)]
+    m_output<-m_output[,c(5,1,2,3,4)]
     #rename: names(data)[3]<-"new_name"
     names(w_output)[2]<-"Selected_Women"
     names(m_output)[2]<-"Selected_Men"
@@ -322,9 +321,9 @@ women<-df[which(df$gender=="F"),]
   #WOMEN MIGHT NOT HAVE ANY
   if (n_women_wait_pick>0) {
     women_waiters <- sample_n(women_waitlist_pool, n_women_wait_pick, replace = FALSE, weight=women_waitlist_pool$tickets)
-    w_output_wait<-subset(women_waiters, select=c("fullname", "State", "Age"))
+    w_output_wait<-subset(women_waiters, select=c("fullname", "State", "Age", "Order_ID"))
     w_output_wait$Num<-seq.int(nrow(w_output_wait))
-    w_output_wait<-w_output_wait[,c(4,1,2,3)]
+    w_output_wait<-w_output_wait[,c(5,1,2,3,4)]
     names(w_output_wait)[2]<-"Waitlisted_Women"
     output$women_wait <- renderTable(w_output_wait)
   } else {
@@ -340,11 +339,11 @@ women<-df[which(df$gender=="F"),]
   #look sort of well-labeled
   #subset
   #dfnew5 <- subset(diamonds, select=c("color", "carat", "price"))
-  m_output_wait<-subset(men_waiters, select=c("fullname", "State", "Age"))
+  m_output_wait<-subset(men_waiters, select=c("fullname", "State", "Age", "Order_ID"))
   #Add ID column data$ID <- seq.int(nrow(data))
   m_output_wait$Num<-seq.int(nrow(m_output_wait))
   #rearrange columns df2[,c(1,3,2,4)
-  m_output_wait<-m_output_wait[,c(4,1,2,3)]
+  m_output_wait<-m_output_wait[,c(5,1,2,3,4)]
   #rename: names(data)[3]<-"new_name"
   names(m_output_wait)[2]<-"Waitlisted_Men"
   #Send the winners' names to be output
