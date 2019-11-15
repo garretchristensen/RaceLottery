@@ -1,7 +1,7 @@
 ---
 title: "High Lonesome 2020 Lottery"
 author: "Garret Christensen"
-date: "November 12, 2019"
+date: "November 15, 2019"
 output: html_document
 runtime: shiny
 ---
@@ -63,7 +63,7 @@ library(readxl)
 
 #I COULD MAKE THIS AN INTERACTIVE PART TOO LATER
 
-temp<-read.csv("./HL2020data_prelim.csv", stringsAsFactors = FALSE) #LOAD THE DATA
+temp<-read.csv("./HL2020data.csv", stringsAsFactors = FALSE) #LOAD THE DATA
 df<-as_tibble(temp)
 #THERE IS SOME STUPID NON-ASCII CHARACTER BEGINNING-OF-FILE 
 #NONSENSE GOING ON HERE
@@ -397,4 +397,4 @@ Average characteristics of the lottery winners are as follows:
 
 
 ### 2020 Waitlist
-Note that the waitlist, as printed above, has the same total number of selections as the cap.  The waitlist was made such that people will be offered slots off the waitlist alternating by gender, starting with the gender that did not get the extra odd slot from an odd race cap.  and that women get the first waitlist slot). Of course, if either gender does not have enough slots for their portion of the waitlist, the slots will be filled by the other gender. Note also that no waitlist slots will become available until after a handful of those picked in the original lottery cancel---with sponsor and volunteer slots, the race is slightly overbooked by design.
+Note that the waitlist, as printed above, has the same total number of selections as the cap.  The waitlist was made such that people will be offered slots off the waitlist alternating by gender, starting with the gender that did not get the extra odd slot from an odd race cap.  For 2020 we had more male applicants so women get the first waitlist slot. Of course, if either gender does not have enough slots for their portion of the waitlist, the slots will be filled by the other gender. Note also that no waitlist slots will become available until after a handful of those picked in the original lottery cancel---with sponsor and volunteer slots, the race is slightly overbooked by design.
