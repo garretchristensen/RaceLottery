@@ -94,7 +94,7 @@ Female entrant characteristics: average age `r round(mean(women$Age, na.rm=TRUE)
 To run the lottery, all you have to do is enter the seed below. (It will show an error until you enter a number.) The actual seed will be determined by a live roll of nine 10-sided dice at Laws Whiskey House in Colorado on Friday November 15, each single die roll becoming a digit of the integer, in order, plus one coin toss determining whether the entire number is positive or negative. The seed primes R's pseudo-random number generator so the code can run reproducibly. Before the seed is set, applicants can enter any integer they want to simulate the lottery. Well, almost. For computer-y reasons it can be any integer with absolute value less than or equal to 2,147,483,647.
 
 
-
+**UPDATE:** On Friday November 15, the seed was set at -555108594. I made that the default value below, and the names shown below using the default values are those officially selected for the race.
 
 
 ```{r runlottery, echo=FALSE, warning=FALSE}
@@ -106,7 +106,7 @@ shinyApp(
 ui<-fluidPage(
   # Copy the line below to make a number input box into the UI.
   fluidRow(
-  column(6, numericInput("num", label = h1("Enter the seed"), value = NULL)),
+  column(6, numericInput("num", label = h1("Enter the seed"), value = -555108594)),
   column(6, numericInput("N", label = h1("Enter the race size"), value = 125))
   ),
   
